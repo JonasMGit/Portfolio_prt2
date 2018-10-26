@@ -10,7 +10,7 @@ namespace DataLayer.Model
         public string DisplayName { get; set; }
         public DateTime CreationDate { get; set; }
         public string Location { get; set; }
-        public int Age { get; set; }
+        public int ?Age { get; set; }
 
         public List<Post> Posts { get; set; }
         

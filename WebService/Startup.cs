@@ -6,6 +6,10 @@ using DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Scaffolding.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WebService
@@ -19,7 +23,7 @@ namespace WebService
             services.AddMvc();
             services.AddSingleton(new DataService());
         }
-
+       
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -34,5 +38,7 @@ namespace WebService
                 await context.Response.WriteAsync("Hello World!");
             });*/
         }
-    }
+
+            
+        }
 }

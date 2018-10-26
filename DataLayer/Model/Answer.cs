@@ -8,9 +8,10 @@ namespace DataLayer.Model
     
     public class Answer
     {  
-        public int AnswerId { get; set; }
+       /* public int AnswerId { get; set; }
         public int Parent { get; set; }
 
         public Post Post { get; set; }
+        */
     }
 }
