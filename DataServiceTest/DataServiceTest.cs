@@ -47,8 +47,8 @@ namespace DataServiceTest
         {
             var service = new DataService();
             var questions = service.GetQuestionsByString("eg");
-            Assert.Equal(224, questions.count);
-            Assert.NotNull(questions.first().authorid);
+            Assert.Equal(224, questions.Count);
+            Assert.NotNull(questions.First().AuthorId);
             Assert.Equal("How can a bot get the contents of subsequent pages in a category listing in WordPress?", questions.First().Title);
         }
         

@@ -37,6 +37,17 @@ namespace DataLayer
                 return question;
             }
         }
+        public List<Post> GetQuestionsByString(string title)
+        {
+            using (var db = new SOVAContext())
+            {
+                
+                var question = db.Posts.Where(x => x.ParentId == null &&
+                (x.Body.ToLower().Contains(title.ToLower()) || x.Title.ToLower().Contains(title.ToLower())));
+                return question.ToList();
+
+            }
+        }
         public List<Post> GetAnswers()
         {
             using (var db = new SOVAContext())

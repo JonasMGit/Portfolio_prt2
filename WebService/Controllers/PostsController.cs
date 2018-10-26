@@ -40,6 +40,14 @@ namespace WebService.Controllers
             return Ok(question);
         }
 
+        [HttpGet("questions/name/{name}")]
+        public IActionResult GetQuestionByName(string name)
+        {
+            var question = _dataService.GetQuestionsByString(name);
+            if (question == null) return NotFound();
+            return Ok(question);
+        }
+
         [HttpGet("answers")]
         public IActionResult GetAnswers()
         {
