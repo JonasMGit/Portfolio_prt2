@@ -25,12 +25,26 @@ namespace WebService.Controllers
             return Ok(data);
         }
 
-       /* [Route("api/questions")]
-        [HttpGet]
+        [HttpGet("questions")]
         public IActionResult GetQuestions()
         {
-            var question = _dataService.GetQuestions();
-            return Ok(question);
-        }*/
+            var questions = _dataService.GetQuestions();
+            return Ok(questions);
+        }
+
+        [HttpGet("answers")]
+        public IActionResult GetAnswers()
+        {
+            var answers = _dataService.GetAnswers();
+            return Ok(answers);
+        }
+
+        /* [Route("api/questions")]
+         [HttpGet]
+         public IActionResult GetQuestions()
+         {
+             var question = _dataService.GetQuestions();
+             return Ok(question);
+         }*/
     }
 }
