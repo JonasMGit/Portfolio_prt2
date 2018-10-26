@@ -19,7 +19,7 @@ namespace DataLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
            
         }
 
