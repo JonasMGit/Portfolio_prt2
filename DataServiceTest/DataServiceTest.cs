@@ -41,7 +41,18 @@ namespace DataServiceTest
             Assert.Null(posts.ParentId);
             Assert.Equal(myDate,posts.CreationDate);
         }
-
+        //GetQuestion_ByString
+        [Fact]
+        public void GetQuestions_ByString_ReturnsList()
+        {
+            var service = new DataService();
+            var questions = service.GetQuestionsByString("eg");
+            Assert.Equal(224, questions.count);
+            Assert.NotNull(questions.first().authorid);
+            Assert.Equal("How can a bot get the contents of subsequent pages in a category listing in WordPress?", questions.First().Title);
+        }
+        
+     
         //Answers
         [Fact]
         public void GetAnswers()
