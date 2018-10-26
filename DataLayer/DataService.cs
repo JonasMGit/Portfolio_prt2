@@ -26,6 +26,17 @@ namespace DataLayer
                 return questions.ToList();
             }
         }
+
+        public Post GetQuestion(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var question = db.Posts
+                    .Where(x => x.ParentId == null)
+                    .FirstOrDefault(x => x.PostId == id);
+                return question;
+            }
+        }
         public List<Post> GetAnswers()
         {
             using (var db = new SOVAContext())
@@ -33,6 +44,18 @@ namespace DataLayer
                 var answers = db.Posts
                     .Where(x => x.ParentId != null);
                 return answers.ToList();
+            }
+        }
+
+        public Post GetAnswer(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var answer = db.Posts
+                    .Where(x => x.ParentId != null)
+                    .FirstOrDefault(x => x.PostId == id);
+
+                return answer;
             }
         }
             

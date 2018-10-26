@@ -32,6 +32,14 @@ namespace WebService.Controllers
             return Ok(questions);
         }
 
+        [HttpGet("questions/{id}")]
+        public IActionResult GetQuestion(int id)
+        {
+            var question = _dataService.GetQuestion(id);
+                if (question == null) return NotFound();
+            return Ok(question);
+        }
+
         [HttpGet("answers")]
         public IActionResult GetAnswers()
         {
@@ -39,12 +47,13 @@ namespace WebService.Controllers
             return Ok(answers);
         }
 
-        /* [Route("api/questions")]
-         [HttpGet]
-         public IActionResult GetQuestions()
-         {
-             var question = _dataService.GetQuestions();
-             return Ok(question);
-         }*/
+       [HttpGet("answers/{id}")]
+       public IActionResult GetAnswer(int id)
+        {
+            var answer = _dataService.GetAnswer(id);
+            if (answer == null) return NotFound();
+            return Ok(answer);
+
+        }
     }
 }
