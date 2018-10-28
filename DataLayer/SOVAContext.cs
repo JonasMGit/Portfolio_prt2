@@ -19,7 +19,7 @@ namespace DataLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=RucRuc13");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
            
         }
 
@@ -29,8 +29,8 @@ namespace DataLayer
 
             //Map Class property: Post. Principal entity. Still has relation to comment
             modelBuilder.Entity<Post>().ToTable("posts");
-            modelBuilder.Entity<Post>().HasKey(x => x.PostId);
-            modelBuilder.Entity<Post>().Property(x => x.PostId).HasColumnName("id");
+            modelBuilder.Entity<Post>().HasKey(x => x.Id);
+            modelBuilder.Entity<Post>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
             modelBuilder.Entity<Post>().Property(x => x.AcceptedAnswerId).HasColumnName("acceptedanswerid");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
@@ -47,43 +47,9 @@ namespace DataLayer
 
 
 
-           /* //Map Class Propert: Question dependent entity
-            modelBuilder.Entity<Question>().ToTable("questions");
-            modelBuilder.Entity<Question>().HasKey(x => x.PostId);
-            modelBuilder.Entity<Question>().Property(x => x.PostId).HasColumnName("id");
-            modelBuilder.Entity<Question>().Property(x => x.ClosedDate).HasColumnName("closeddate");
-            modelBuilder.Entity<Question>().Property(x => x.AcceptedAnswer).HasColumnName("acceptedanswer");
-            modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
-            //configure relationship to post. Question has accepted answer, post has one answer. Should be done
-            //Need to ask about foreign key mapping from question.id to post.id. If t even is a foreign key
-             /*modelBuilder.Entity<Question>()
-                 .HasOne(q => q.Post)
-                 .WithMany(p => p.Questions)
-                 .HasForeignKey(q => q.AcceptedAnswer);
-
-            modelBuilder.Entity<Question>(entity =>
-            {
-                entity.HasOne(q => q.Post)
-               .WithOne(p => p.Question)
-               .HasForeignKey<Question>(b => b.PostId)
-               .HasPrincipalKey<Post>(b => b.PostId);
-            });*/
-               
-
-
-          /*  //Map Class Propert: Answer dependent entity. Foreign key parent
-            modelBuilder.Entity<Answer>().ToTable("answers");
-            modelBuilder.Entity<Answer>().HasKey(x => x.AnswerId);
-            modelBuilder.Entity<Answer>().Property(x => x.AnswerId).HasColumnName("id");
-            modelBuilder.Entity<Answer>().Property(x => x.Parent).HasColumnName("parent");
-            modelBuilder.Entity<Answer>()
-                .HasOne(a => a.Post)
-                .WithMany(p => p.Answers)
-                .HasForeignKey(q => q.Parent);*/
-
             //Map Class Propert: Author
             modelBuilder.Entity<Author>().ToTable("authors");
-            modelBuilder.Entity<Author>().Property(x => x.AuthorId).HasColumnName("id");
+            modelBuilder.Entity<Author>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Author>().Property(x => x.DisplayName).HasColumnName("displayname");
             modelBuilder.Entity<Author>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Author>().Property(x => x.Location).HasColumnName("location");
@@ -91,7 +57,7 @@ namespace DataLayer
 
             //Map Class Propert: Comment 
             modelBuilder.Entity<Comment>().ToTable("comments");
-            modelBuilder.Entity<Comment>().Property(x => x.CommentId).HasColumnName("id");
+            modelBuilder.Entity<Comment>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Comment>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Comment>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Comment>().Property(x => x.Body).HasColumnName("body");
@@ -112,9 +78,14 @@ namespace DataLayer
             //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 
             //tag does not need to be foreign key to tag. Can just use distinct keyword
             modelBuilder.Entity<PostTag>().ToTable("posttags");
-            modelBuilder.Entity<PostTag>().Property(x => x.PostTagId).HasColumnName("id");
+            modelBuilder.Entity<PostTag>().HasKey(x => new { x.Id, x.Tag });
+            modelBuilder.Entity<PostTag>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<PostTag>().Property(x => x.Tag).HasColumnName("tag");
 
+            modelBuilder.Entity<User>().ToTable("users");
+            modelBuilder.Entity<User>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<User>().Property(x => x.CreationDate).HasColumnName("creationdate");
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
         }
 
     }

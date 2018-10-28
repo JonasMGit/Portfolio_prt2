@@ -46,10 +46,9 @@ namespace DataServiceTest
         public void GetQuestions_ByString_ReturnsList()
         {
             var service = new DataService();
-            var questions = service.GetQuestionsByString("eg");
-            Assert.Equal(224, questions.Count);
-            Assert.NotNull(questions.First().AuthorId);
-            Assert.Equal("How can a bot get the contents of subsequent pages in a category listing in WordPress?", questions.First().Title);
+            var questions = service.GetQuestionsByString("Hide");
+            Assert.Equal(30, questions.Count);
+            Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
         }
         
      

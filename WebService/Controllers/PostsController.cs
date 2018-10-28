@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using Microsoft.AspNetCore.Http;
 
 namespace WebService.Controllers
 {
@@ -16,13 +17,20 @@ namespace WebService.Controllers
         {
             _dataService = dataService;
         }
-
+        //-----------------------------Questions and Answers ----------------------//
         [HttpGet]
         public IActionResult GetPosts()
         {
             var data = _dataService.GetPosts();
 
             return Ok(data);
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetPost(int id)
+        {
+            var post = _dataService.GetPost(id);
+                if (post == null) return NotFound();
+            return Ok(post);
         }
 
         [HttpGet("questions")]
@@ -44,8 +52,10 @@ namespace WebService.Controllers
         public IActionResult GetQuestionByName(string name)
         {
             var question = _dataService.GetQuestionsByString(name);
-            if (question == null) return NotFound();
-            return Ok(question);
+            if (question.Count == 0) return NotFound();
+             return Ok(question);
+            
+
         }
 
         [HttpGet("answers")]
