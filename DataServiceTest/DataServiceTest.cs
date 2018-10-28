@@ -72,6 +72,18 @@ namespace DataServiceTest
             Assert.Equal(2180354, posts.ParentId);
             Assert.Equal(1, posts.Score);
         }
+
+        //comments
+
+        [Fact]
+        public void GetCommentsToAQuestion()
+        {
+            var service = new DataService();
+            var comments = service.GetQuestionComments(13649012);
+            DateTime myDate = DateTime.ParseExact("2012-11-30 16:53:35", "yyyy-MM-dd HH:mm:ss",
+    System.Globalization.CultureInfo.InvariantCulture);
+            Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
+        }
         
     }
           

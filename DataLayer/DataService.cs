@@ -37,6 +37,28 @@ namespace DataLayer
                 return question;
             }
         }
+
+        public List<Comment> GetQuestionComments(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+               
+                var commentsToQuestion = db.Comments
+                      .Where(x => x.Parent == id)
+                      .ToList();
+                return commentsToQuestion;
+            }
+        }
+        /*
+        public Post MasterFunction (int id)
+        {
+            using (var db = new SOVAContext())
+            {
+
+                
+            }
+        }*/
+
         public List<Post> GetQuestionsByString(string title)
         {
             using (var db = new SOVAContext())
