@@ -41,6 +41,7 @@ namespace DataServiceTest
                 System.Globalization.CultureInfo.InvariantCulture);
             Assert.Null(posts.ParentId);
             Assert.Equal(myDate,posts.CreationDate);
+            Assert.Equal(1365365, posts.AuthorId);
         }
         //GetQuestion_ByString
         [Fact]
@@ -84,7 +85,18 @@ namespace DataServiceTest
     System.Globalization.CultureInfo.InvariantCulture);
             Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
         }
-        
+        /*
+        [Fact]
+        public void testGetOnlyOneTag()
+        {
+            var service = new DataService();
+            var posttags = service.GetlistPostWithOnlyOneTag("c#");
+            Assert.Equal(311, posttags.Count);
+            //Assert.Equal()
+        }*/
+
+
     }
-          
+
+
 }

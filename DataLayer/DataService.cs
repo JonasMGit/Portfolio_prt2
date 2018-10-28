@@ -49,15 +49,6 @@ namespace DataLayer
                 return commentsToQuestion;
             }
         }
-        /*
-        public Post MasterFunction (int id)
-        {
-            using (var db = new SOVAContext())
-            {
-
-                
-            }
-        }*/
 
         public List<Post> GetQuestionsByString(string title)
         {
@@ -91,6 +82,19 @@ namespace DataLayer
                 return answer;
             }
         }
-            
+
+        /*
+        public List<PostTag> GetlistPostWithOnlyOneTag(string tagg)
+        {
+            using(var db = new SOVAContext())
+            {
+                var tag = db.PostTags
+                    .Where(x => x.Tag == tagg)
+                    .ToList();
+
+                    return tag;
+            }
+        }*/
+
     }
 }
