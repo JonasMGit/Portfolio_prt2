@@ -42,7 +42,7 @@ namespace DataLayer
         {
             using (var db = new SOVAContext())
             {
-               
+
                 var commentsToQuestion = db.Comments
                       .Where(x => x.Parent == id)
                       .ToList();
@@ -63,7 +63,7 @@ namespace DataLayer
         {
             using (var db = new SOVAContext())
             {
-                
+
                 var question = db.Posts.Where(x => x.ParentId == null &&
                 (x.Body.ToLower().Contains(title.ToLower()) || x.Title.ToLower().Contains(title.ToLower())));
                 return question.ToList();
@@ -91,6 +91,65 @@ namespace DataLayer
                 return answer;
             }
         }
+
+        public List<User> getUsers()
+        {
+            using (var db = new SOVAContext())
+            {
+                var userss = db.Users
+                    .ToList();
+                return userss;
+            }
             
+
+        }
+
+        public User createUser(String name, string password)
+        {
+            using (var db = new SOVAContext())
+            {
+              
+               
+                var creationdate = DateTime.Now;
+                var newUser = new User()
+                {
+                    
+                    UserName = name,
+                    Password = password,
+                    CreationDate = creationdate
+                };
+                db.Users.Add(newUser);
+                db.SaveChanges();
+                return newUser;
+             
+           
+            }
+        }
+        public bool DeleteUser(int id)
+        {
+
+           try
+            {
+                using (var db = new SOVAContext())
+                {
+                    var deluser = new User()
+                    {
+                        Id = id
+                    };
+                    db.Users.Remove(deluser);
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+        }
+           
     }
+
+
+    
 }

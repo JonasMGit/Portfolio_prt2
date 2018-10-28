@@ -15,11 +15,12 @@ namespace DataLayer
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<User> Users{ get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=RucRuc13");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
            
         }
 
@@ -114,6 +115,16 @@ namespace DataLayer
             modelBuilder.Entity<PostTag>().ToTable("posttags");
             modelBuilder.Entity<PostTag>().Property(x => x.PostTagId).HasColumnName("id");
             modelBuilder.Entity<PostTag>().Property(x => x.Tag).HasColumnName("tag");
+
+
+
+            //Map class property for users
+
+            modelBuilder.Entity<User>().ToTable("users");
+            modelBuilder.Entity<User>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<User>().Property(x => x.UserName).HasColumnName("username");
+            modelBuilder.Entity<User>().Property(x => x.CreationDate).HasColumnName("creationdate");
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
 
         }
 

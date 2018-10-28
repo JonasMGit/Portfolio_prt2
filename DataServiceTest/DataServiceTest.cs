@@ -84,7 +84,30 @@ namespace DataServiceTest
     System.Globalization.CultureInfo.InvariantCulture);
             Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
         }
-        
+
+        [Fact]
+        public void CreateNewUserTest()
+        {
+            var service = new DataService();
+            var userNew = service.createUser("Henning", "Flemming");
+           
+        }
+
+        [Fact]
+        public void DeleteUser()
+        {
+            var service = new DataService();
+            //var users = service.getUsers().ToList();
+            var users = service.createUser("Mother", "facker").Id;
+            
+            //var user = users.LastOrDefault().Id;
+                //FirstOrDefault().Id;
+
+            var deluser = service.DeleteUser(users);
+            Assert.True(deluser);
+
+        }
+ 
     }
           
 }
