@@ -17,6 +17,7 @@ namespace DataLayer
                 return db.Posts.ToList();
         }
 
+        //Questions
         public List<Post> GetQuestions()
         {
             using (var db = new SOVAContext())
@@ -61,6 +62,8 @@ namespace DataLayer
 
             }
         }
+
+        //Answers
         public List<Post> GetAnswers()
         {
             using (var db = new SOVAContext())
@@ -82,7 +85,9 @@ namespace DataLayer
                 return answer;
             }
         }
-        public List<User> getUsers()
+
+        //users
+        public List<User> GetUsers()
         {
             using (var db = new SOVAContext())
             {
@@ -92,6 +97,20 @@ namespace DataLayer
             }
 
 
+        }
+
+        public User GetUser(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var user = db.Users
+                    .Where(x => x.Id == id)
+                    .FirstOrDefault();
+                    
+
+                return user;
+                    
+            }
         }
 
         public User createUser(String name, string password)
@@ -137,6 +156,24 @@ namespace DataLayer
             }
 
         }
+        // when update is run the createtionDate is updated to. Need to be fixed. 
+        public bool UpdateUser (int userId, string newName, string newPassword)
+        {
+            using (var db = new SOVAContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.Id == userId);
+                if(user != null)
+                {
+                    user.UserName = newName;
+                    user.Password = newPassword;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
+    
+
 
     }
 }

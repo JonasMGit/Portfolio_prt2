@@ -107,7 +107,53 @@ namespace DataServiceTest
             Assert.True(deluser);
 
         }
- 
+
+        [Fact]
+        public void UpdateUser_userName_Password_WithValidId()
+        {
+            var service = new DataService();
+            var newUser = service.createUser("userUpdateTest", "testertest");
+            
+
+            var user = service.UpdateUser(newUser.Id,"updatedusername","updatedpassword");
+            Assert.True(user);
+
+            newUser= service.GetUser(newUser.Id);
+            Assert.Equal("updatedusername", newUser.UserName);
+            Assert.Equal("updatedpassword", newUser.Password);
+
+        }
+        [Fact]
+        public void UpdateUser_InvalidId_ReturnsFalse()
+        {
+            var service = new DataService();
+            var userr = service.UpdateUser(-10,"updatedusername","updatedpassword");
+            Assert.False(userr);
+        }
+
+
+
+
+        /*
+           [Fact]
+        public void UpdateCategory_NewNameAndDescription_UpdateWithNewValues()
+        {
+            var service = new DataService();
+            var category = service.CreateCategory("TestingUpdate", "UpdateCategory_NewNameAndDescription_UpdateWithNewValues");
+
+            var result = service.UpdateCategory(category.Id, "UpdatedName", "UpdatedDescription");
+            Assert.True(result);
+
+            category = service.GetCategory(category.Id);
+
+            Assert.Equal("UpdatedName", category.Name);
+            Assert.Equal("UpdatedDescription", category.Description);
+
+            // cleanup
+            service.DeleteCategory(category.Id);
+        }
+        */
+
     }
-          
+
 }
