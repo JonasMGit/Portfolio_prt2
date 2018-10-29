@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DataLayer.Model
 {
-    public class PostTag
+    public class PostLink
     {
         public int Id { get; set; }
-        public string Tag { get; set; }
-        [ForeignKey("Id")]
+        public int PostLinkId { get; set; }
+        
         public Post Post { get; set; }
     }
 }

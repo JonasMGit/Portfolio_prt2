@@ -6,7 +6,7 @@ namespace DataLayer.Model
 {
     public class Author
     {
-        public int AuthorId { get; set; }
+        public int Id { get; set; }
         public string DisplayName { get; set; }
         public DateTime CreationDate { get; set; }
         public string Location { get; set; }
