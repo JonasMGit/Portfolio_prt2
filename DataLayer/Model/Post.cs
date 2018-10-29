@@ -37,6 +37,8 @@ namespace DataLayer.Model
         //henrik said this should go to question
         public List<Comment> Comments { get; set; }
 
+        public PostLink PostLink { get; set; }
+
 
 
         
