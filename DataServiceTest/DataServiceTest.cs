@@ -97,11 +97,8 @@ namespace DataServiceTest
         public void DeleteUser()
         {
             var service = new DataService();
-            //var users = service.getUsers().ToList();
-            var users = service.createUser("Mother", "facker").Id;
-            
-            //var user = users.LastOrDefault().Id;
-                //FirstOrDefault().Id;
+        
+            var users = service.createUser("MOther", "father").Id;
 
             var deluser = service.DeleteUser(users);
             Assert.True(deluser);
@@ -133,26 +130,6 @@ namespace DataServiceTest
 
 
 
-
-        /*
-           [Fact]
-        public void UpdateCategory_NewNameAndDescription_UpdateWithNewValues()
-        {
-            var service = new DataService();
-            var category = service.CreateCategory("TestingUpdate", "UpdateCategory_NewNameAndDescription_UpdateWithNewValues");
-
-            var result = service.UpdateCategory(category.Id, "UpdatedName", "UpdatedDescription");
-            Assert.True(result);
-
-            category = service.GetCategory(category.Id);
-
-            Assert.Equal("UpdatedName", category.Name);
-            Assert.Equal("UpdatedDescription", category.Description);
-
-            // cleanup
-            service.DeleteCategory(category.Id);
-        }
-        */
 
     }
 
