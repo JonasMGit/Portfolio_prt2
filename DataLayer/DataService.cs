@@ -43,7 +43,6 @@ namespace DataLayer
             }
         }*/
 
-        //question functions
         public List<Post> GetQuestions()
         {
             using (var db = new SOVAContext())
@@ -64,18 +63,30 @@ namespace DataLayer
                 return question;
             }
         }
+
+        public List<Comment> GetQuestionComments(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+
+                var commentsToQuestion = db.Comments
+                      .Where(x => x.Parent == id)
+                      .ToList();
+                return commentsToQuestion;
+            }
+        }
+
         public List<Post> GetQuestionsByString(string title)
         {
             using (var db = new SOVAContext())
             {
-                
+
                 var question = db.Posts.Where(x => x.ParentId == null &&
                 (x.Body.ToLower().Contains(title.ToLower()) || x.Title.ToLower().Contains(title.ToLower())));
                 return question.ToList();
 
             }
         }
-        //Answer functions
         public List<Post> GetAnswers()
         {
             using (var db = new SOVAContext())
@@ -98,9 +109,6 @@ namespace DataLayer
                 return answer;
             }
         }
-
-       
-
             
     }
 }

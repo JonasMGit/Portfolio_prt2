@@ -8,6 +8,7 @@ namespace DataServiceTest
 {
     public class DataServiceTest
     {
+        
 
         //post
         [Fact]
@@ -46,9 +47,10 @@ namespace DataServiceTest
         public void GetQuestions_ByString_ReturnsList()
         {
             var service = new DataService();
-            var questions = service.GetQuestionsByString("Hide");
-            Assert.Equal(30, questions.Count);
-            Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
+            var questions = service.GetQuestionsByString("eg");
+            Assert.Equal(224, questions.Count);
+            Assert.NotNull(questions.First().AuthorId);
+            Assert.Equal("How can a bot get the contents of subsequent pages in a category listing in WordPress?", questions.First().Title);
         }
         
      
@@ -70,7 +72,65 @@ namespace DataServiceTest
             Assert.Equal(2180354, posts.ParentId);
             Assert.Equal(1, posts.Score);
         }
+
+        //comments
+
+        [Fact]
+        public void GetCommentsToAQuestion()
+        {
+            var service = new DataService();
+            var comments = service.GetQuestionComments(13649012);
+            DateTime myDate = DateTime.ParseExact("2012-11-30 16:53:35", "yyyy-MM-dd HH:mm:ss",
+    System.Globalization.CultureInfo.InvariantCulture);
+            Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
+        }
+
+        [Fact]
+        public void CreateNewUserTest()
+        {
+            var service = new DataService();
+            var userNew = service.createUser("Henning", "Flemming");
+           
+        }
+
+        [Fact]
+        public void DeleteUser()
+        {
+            var service = new DataService();
         
+            var users = service.createUser("MOther", "father").Id;
+
+            var deluser = service.DeleteUser(users);
+            Assert.True(deluser);
+
+        }
+
+        [Fact]
+        public void UpdateUser_userName_Password_WithValidId()
+        {
+            var service = new DataService();
+            var newUser = service.createUser("userUpdateTest", "testertest");
+            
+
+            var user = service.UpdateUser(newUser.Id,"updatedusername","updatedpassword");
+            Assert.True(user);
+
+            newUser= service.GetUser(newUser.Id);
+            Assert.Equal("updatedusername", newUser.UserName);
+            Assert.Equal("updatedpassword", newUser.Password);
+
+        }
+        [Fact]
+        public void UpdateUser_InvalidId_ReturnsFalse()
+        {
+            var service = new DataService();
+            var userr = service.UpdateUser(-10,"updatedusername","updatedpassword");
+            Assert.False(userr);
+        }
+
+
+
+
     }
-          
+
 }

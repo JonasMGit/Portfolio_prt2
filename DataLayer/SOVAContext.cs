@@ -15,6 +15,7 @@ namespace DataLayer
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<User> Users{ get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -82,10 +83,6 @@ namespace DataLayer
             modelBuilder.Entity<PostTag>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<PostTag>().Property(x => x.Tag).HasColumnName("tag");
 
-            modelBuilder.Entity<User>().ToTable("users");
-            modelBuilder.Entity<User>().Property(x => x.Id).HasColumnName("id");
-            modelBuilder.Entity<User>().Property(x => x.CreationDate).HasColumnName("creationdate");
-            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
         }
 
     }
