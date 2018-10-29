@@ -109,6 +109,92 @@ namespace DataLayer
                 return answer;
             }
         }
-            
+        //users
+        public List<User> GetUsers()
+        {
+            using (var db = new SOVAContext())
+            {
+                var userss = db.Users
+                    .ToList();
+                return userss;
+            }
+
+
+        }
+
+        public User GetUser(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var user = db.Users
+                    .Where(x => x.Id == id)
+                    .FirstOrDefault();
+
+
+                return user;
+
+            }
+        }
+
+        public User createUser(String name, string password)
+        {
+            using (var db = new SOVAContext())
+            {
+
+
+                var creationdate = DateTime.Now;
+                var newUser = new User()
+                {
+
+                    UserName = name,
+                    Password = password,
+                    CreationDate = creationdate
+                };
+                db.Users.Add(newUser);
+                db.SaveChanges();
+                return newUser;
+
+
+            }
+        }
+        public bool DeleteUser(int id)
+        {
+
+            try
+            {
+                using (var db = new SOVAContext())
+                {
+                    var deluser = new User()
+                    {
+                        Id = id
+                    };
+                    db.Users.Remove(deluser);
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        // when update is run the createtionDate is updated to. Need to be fixed. 
+        public bool UpdateUser(int userId, string newName, string newPassword)
+        {
+            using (var db = new SOVAContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.Id == userId);
+                if (user != null)
+                {
+                    user.UserName = newName;
+                    user.Password = newPassword;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
+
     }
 }
