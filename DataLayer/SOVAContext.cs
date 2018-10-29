@@ -15,7 +15,8 @@ namespace DataLayer
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
-        public DbSet<User> Users{ get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<SearchHistories> SearchHistory{ get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -40,48 +41,7 @@ namespace DataLayer
             modelBuilder.Entity<Post>().Property(x => x.ClosedDate).HasColumnName("closeddate");
             modelBuilder.Entity<Post>().Property(x => x.Title).HasColumnName("title");
             modelBuilder.Entity<Post>().Property(x => x.AuthorId).HasColumnName("authorid");
-            //foreign key to author. One post can have one author, but one author can have many posts
-           /* modelBuilder.Entity<Post>()
-                .HasOne(p => p.Author)
-                .WithMany(a => a.Posts)
-                .HasForeignKey(b => b.AuthorId);*/
-
-
-
-           /* //Map Class Propert: Question dependent entity
-            modelBuilder.Entity<Question>().ToTable("questions");
-            modelBuilder.Entity<Question>().HasKey(x => x.PostId);
-            modelBuilder.Entity<Question>().Property(x => x.PostId).HasColumnName("id");
-            modelBuilder.Entity<Question>().Property(x => x.ClosedDate).HasColumnName("closeddate");
-            modelBuilder.Entity<Question>().Property(x => x.AcceptedAnswer).HasColumnName("acceptedanswer");
-            modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
-            //configure relationship to post. Question has accepted answer, post has one answer. Should be done
-            //Need to ask about foreign key mapping from question.id to post.id. If t even is a foreign key
-             /*modelBuilder.Entity<Question>()
-                 .HasOne(q => q.Post)
-                 .WithMany(p => p.Questions)
-                 .HasForeignKey(q => q.AcceptedAnswer);
-
-            modelBuilder.Entity<Question>(entity =>
-            {
-                entity.HasOne(q => q.Post)
-               .WithOne(p => p.Question)
-               .HasForeignKey<Question>(b => b.PostId)
-               .HasPrincipalKey<Post>(b => b.PostId);
-            });*/
-               
-
-
-          /*  //Map Class Propert: Answer dependent entity. Foreign key parent
-            modelBuilder.Entity<Answer>().ToTable("answers");
-            modelBuilder.Entity<Answer>().HasKey(x => x.AnswerId);
-            modelBuilder.Entity<Answer>().Property(x => x.AnswerId).HasColumnName("id");
-            modelBuilder.Entity<Answer>().Property(x => x.Parent).HasColumnName("parent");
-            modelBuilder.Entity<Answer>()
-                .HasOne(a => a.Post)
-                .WithMany(p => p.Answers)
-                .HasForeignKey(q => q.Parent);*/
-
+       
             //Map Class Propert: Author
             modelBuilder.Entity<Author>().ToTable("authors");
             modelBuilder.Entity<Author>().Property(x => x.AuthorId).HasColumnName("id");
@@ -125,6 +85,14 @@ namespace DataLayer
             modelBuilder.Entity<User>().Property(x => x.UserName).HasColumnName("username");
             modelBuilder.Entity<User>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
+
+
+            //Map SearchHistory
+            modelBuilder.Entity<SearchHistories>().ToTable("searchhistory");
+            modelBuilder.Entity<SearchHistories>().HasKey(x => x.Search);
+            modelBuilder.Entity<SearchHistories>().Property(x => x.Search).HasColumnName("search");
+            modelBuilder.Entity<SearchHistories>().Property(x => x.UserId).HasColumnName("userid");
+            modelBuilder.Entity<SearchHistories>().Property(x => x.Date).HasColumnName("date");
 
         }
 

@@ -10,7 +10,7 @@ namespace DataLayer.Model
         public string UserName{ get; set; }
         public DateTime CreationDate { get; set; }
         public string Password { get; set; }
-      
+        public List<SearchHistories> SearchHistory{ get; set; }
 
     }
 }

@@ -55,11 +55,10 @@ namespace DataLayer
         {
             using (var db = new SOVAContext())
             {
-
                 var question = db.Posts.Where(x => x.ParentId == null &&
                 (x.Body.ToLower().Contains(title.ToLower()) || x.Title.ToLower().Contains(title.ToLower())));
                 return question.ToList();
-
+                
             }
         }
 
@@ -95,8 +94,6 @@ namespace DataLayer
                     .ToList();
                 return userss;
             }
-
-
         }
 
         public User GetUser(int id)
@@ -106,14 +103,12 @@ namespace DataLayer
                 var user = db.Users
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
-                    
-
                 return user;
-                    
             }
         }
 
-        public User createUser(String name, string password)
+
+        public User createUser(string name, string password)
         {
             using (var db = new SOVAContext())
             {
@@ -134,6 +129,7 @@ namespace DataLayer
 
             }
         }
+
         public bool DeleteUser(int id)
         {
 
@@ -173,7 +169,24 @@ namespace DataLayer
             }
         }
     
-
-
+        //SaveSearchs
+        public SearchHistories SaveSearch (string newSearch, int newUserId)
+        {
+            using (var db = new SOVAContext())
+            {
+                var currentDate = DateTime.Now;
+                var newSearchHistory = new SearchHistories()
+                {
+                    Search = newSearch,
+                    UserId = newUserId,
+                    Date = currentDate
+                };
+                db.SearchHistory.Add(newSearchHistory);
+                db.SaveChanges();
+                return newSearchHistory;                
+            }
+        }
+        public 
+      
     }
 }
