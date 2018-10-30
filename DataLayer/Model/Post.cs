@@ -6,12 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DataLayer.Model
 {
     
-   public  class Post
+   public abstract class Post
     {
        
         public int PostId { get; set; }
+
+        public int PostType { get; set; }
         
-        public int ?ParentId { get; set; }
+       // public int ?ParentId { get; set; }
         
         public int ?AcceptedAnswerId { get; set; }
 
@@ -23,7 +25,7 @@ namespace DataLayer.Model
 
         public DateTime ?ClosedDate { get; set; }
 
-        public string Title { get; set; }
+        //public string Title { get; set; }
 
         //this is foriegn key to author 
         [ForeignKey("Author")]

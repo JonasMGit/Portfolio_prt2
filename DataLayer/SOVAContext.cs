@@ -10,8 +10,8 @@ namespace DataLayer
     public class SOVAContext : DbContext
     {
         public DbSet<Post> Posts { get; set; }
-        //public DbSet<Question> Questions { get; set; }
-        //public DbSet<Answer> Answers { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
@@ -21,7 +21,7 @@ namespace DataLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=RucRuc13");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
            
         }
 
@@ -33,15 +33,24 @@ namespace DataLayer
             modelBuilder.Entity<Post>().ToTable("posts");
             modelBuilder.Entity<Post>().HasKey(x => x.PostId);
             modelBuilder.Entity<Post>().Property(x => x.PostId).HasColumnName("id");
-            modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
+            modelBuilder.Entity<Post>().Property(x => x.PostType).HasColumnName("posttype");
+           // modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
             modelBuilder.Entity<Post>().Property(x => x.AcceptedAnswerId).HasColumnName("acceptedanswerid");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Post>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Post>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Post>().Property(x => x.ClosedDate).HasColumnName("closeddate");
-            modelBuilder.Entity<Post>().Property(x => x.Title).HasColumnName("title");
+           // modelBuilder.Entity<Post>().Property(x => x.Title).HasColumnName("title");
             modelBuilder.Entity<Post>().Property(x => x.AuthorId).HasColumnName("authorid");
-       
+            modelBuilder.Entity<Post>().HasDiscriminator(x => x.PostType)
+                .HasValue<Question>(1)
+                .HasValue<Answer>(2);
+
+            //do we need to make this in database?
+            modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
+
+            modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
+
             //Map Class Propert: Author
             modelBuilder.Entity<Author>().ToTable("authors");
             modelBuilder.Entity<Author>().Property(x => x.AuthorId).HasColumnName("id");
@@ -58,17 +67,7 @@ namespace DataLayer
             modelBuilder.Entity<Comment>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Comment>().Property(x => x.PostId).HasColumnName("parent");
             modelBuilder.Entity<Comment>().Property(x => x.AuthorId).HasColumnName("authorid");
-            //may need feedback on all of ths foreign key stuff. 
-            //author id needs to be configured as a foreign key as well??
-           /* modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Posts)
-                .WithMany(p => p.Comments)
-                .HasForeignKey(c => c.Parent);*/
-
-            //Map class propery: Tag. May not need this actually 
-          /*  modelBuilder.Entity<tag>().ToTable("tags");
-            modelBuilder.Entity<tag>().HasKey(x => x.Tag);
-            modelBuilder.Entity<tag>().Property(x => x.Tag).HasColumnName("tag");*/
+        
 
             //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 
             //tag does not need to be foreign key to tag. Can just use distinct keyword
@@ -87,7 +86,7 @@ namespace DataLayer
             modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
 
 
-            //Map SearchHistory
+            //Map SearchHistory Should have composite primary key of search userid and date
             modelBuilder.Entity<SearchHistories>().ToTable("searchhistory");
             modelBuilder.Entity<SearchHistories>().HasKey(x => x.Search);
             modelBuilder.Entity<SearchHistories>().Property(x => x.Search).HasColumnName("search");

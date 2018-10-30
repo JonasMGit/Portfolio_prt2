@@ -11,7 +11,7 @@ namespace DataLayer.Model
         public int Score { get; set; }
         public DateTime CreationDate { get; set; }
         public string Body { get; set; }
-        [ForeignKey("AuthorId")]
+        [ForeignKey("Author")]
         public int AuthorId { get; set; }
        
         public Author Author { get; set; }

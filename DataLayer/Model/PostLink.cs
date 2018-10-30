@@ -10,5 +10,6 @@ namespace DataLayer.Model
         public int PostLinkId { get; set; }
         
         public Post Post { get; set; }
-    }
+    }*/
 }
+
