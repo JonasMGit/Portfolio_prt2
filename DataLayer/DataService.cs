@@ -9,13 +9,13 @@ namespace DataLayer
 {
     public class DataService
     {
-        public List<Post> GetPosts()
+        /*public List<Post> GetPosts()
         {
             using (var db = new SOVAContext())
 
 
                 return db.Posts.ToList();
-        }
+        }*/
         //Full post including comments and tags
         //Get post by comment parentid. Only way we can find that gets question 
         //with comment and posttags
@@ -102,14 +102,13 @@ namespace DataLayer
                 return answers;
             }
         }
-        //need to edit
-        public Post GetAnswer(int id)
+        //Edited
+        public Answer GetAnswer(int id)
         {
             using (var db = new SOVAContext())
             {
-                var answer = db.Posts
+                var answer = db.Answers
                     .Include(x => x.Comments)
-                    .Where(x => x.ParentId != null)
                     .FirstOrDefault(x => x.PostId == id);
 
                 return answer;

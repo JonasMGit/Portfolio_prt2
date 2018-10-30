@@ -18,20 +18,20 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
         //-----------------------------Questions and Answers ----------------------//
-        [HttpGet]
+        /*[HttpGet]
         public IActionResult GetPosts()
         {
             var data = _dataService.GetPosts();
 
             return Ok(data);
-        }
-        [HttpGet("{id}")]
+        }*/
+       /* [HttpGet("{id}")]
         public IActionResult GetPost(int id)
         {
             var post = _dataService.GetPost(id);
                 if (post == null) return NotFound();
             return Ok(post);
-        }
+        }*/
 
         [HttpGet("questions")]
         public IActionResult GetQuestions()
