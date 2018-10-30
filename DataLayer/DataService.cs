@@ -215,5 +215,37 @@ namespace DataLayer
                 return newSearchHistory;
             }
         }
+
+        public Annotations CreateAnnotation(string body, int userid, int postid)
+        {
+            using (var db=new SOVAContext())
+            {   
+                
+                var newannotation = new Annotations()
+                {
+                    UserId = userid,
+                    PostId = postid,
+                    Body = body
+                };
+                db.Annotations.Add(newannotation);
+                db.SaveChanges();
+                return newannotation;
+            }
+        }
+
+        public Mark CreateMarking(int postid, int userid)
+        {
+            using (var db=new SOVAContext())
+            {
+                var newmark = new Mark()
+                {
+                    PostId=postid,
+                    UserId=userid
+                };
+                db.Marked.Add(newmark);
+                db.SaveChanges();
+                return newmark;
+            }
+        }
     }
 }

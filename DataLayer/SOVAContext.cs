@@ -23,7 +23,7 @@ namespace DataLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=RucRuc13");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
            
         }
 
@@ -63,9 +63,9 @@ namespace DataLayer
 
             //Map Class Propert: Annotations
             modelBuilder.Entity<Annotations>().ToTable("annotations");
-            modelBuilder.Entity<Annotations>().HasKey(x => new { x.UserId, x.ParentId });
+            modelBuilder.Entity<Annotations>().HasKey(x => new { x.UserId, x.PostId });
             modelBuilder.Entity<Annotations>().Property(x => x.Body).HasColumnName("body");
-            modelBuilder.Entity<Annotations>().Property(x => x.ParentId).HasColumnName("parrentid");
+            modelBuilder.Entity<Annotations>().Property(x => x.PostId).HasColumnName("postid");
             modelBuilder.Entity<Annotations>().Property(x => x.UserId).HasColumnName("userid");
 
             //Map Class Propert: Mark

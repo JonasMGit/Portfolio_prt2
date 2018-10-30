@@ -123,7 +123,33 @@ namespace DataServiceTest
             Assert.Equal("Hide", newSearch.Search);
         }
 
+        [Fact]
+        public void CreateAnnotation()
+        {
+            var service = new DataService();
+            var newUser = service.createUser("Annotationtor","Annobreaker").Id;
+            var parentIdentfire = service.GetQuestion(13649012).PostId;
+            var newAnnotation = service.CreateAnnotation("Annotation_created",newUser,parentIdentfire);
+            Assert.Equal("Annotation_created", newAnnotation.Body);
 
+            //Clean up
+            //deleteuser
+           
+
+
+         }
+
+        [Fact]
+        public void CreateMark()
+        {
+            var service = new DataService();
+            var newuser = service.createUser("marker","mark123").Id;
+            var parentpostt = service.GetQuestion(13649012).PostId;
+            var newMarking = service.CreateMarking(parentpostt,newuser);
+            Assert.Equal(13649012, newMarking.PostId);
+
+            //delete user
+        }
     } //closening the DataService class
 
 } //closing the namespace DataServiceTest
