@@ -30,8 +30,8 @@ namespace DataLayer
 
             //Map Class property: Post. Principal entity. Still has relation to comment
             modelBuilder.Entity<Post>().ToTable("posts");
-            modelBuilder.Entity<Post>().HasKey(x => x.Id);
-            modelBuilder.Entity<Post>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<Post>().HasKey(x => x.PostId);
+            modelBuilder.Entity<Post>().Property(x => x.PostId).HasColumnName("id");
             modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
             modelBuilder.Entity<Post>().Property(x => x.AcceptedAnswerId).HasColumnName("acceptedanswerid");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
@@ -58,23 +58,23 @@ namespace DataLayer
 
             //Map Class Propert: Comment 
             modelBuilder.Entity<Comment>().ToTable("comments");
-            modelBuilder.Entity<Comment>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<Comment>().Property(x => x.CommentId).HasColumnName("id");
             modelBuilder.Entity<Comment>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Comment>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Comment>().Property(x => x.Body).HasColumnName("body");
-            modelBuilder.Entity<Comment>().Property(x => x.Parent).HasColumnName("parent");
+            modelBuilder.Entity<Comment>().Property(x => x.PostId).HasColumnName("parent");
             modelBuilder.Entity<Comment>().Property(x => x.AuthorId).HasColumnName("authorid");
             //may need feedback on all of ths foreign key stuff. 
             //author id needs to be configured as a foreign key as well??
-            modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Post)
+           /* modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Posts)
                 .WithMany(p => p.Comments)
-                .HasForeignKey(c => c.Parent);
+                .HasForeignKey(c => c.Parent);*/
 
             //Map class propery: Tag. May not need this actually 
-            modelBuilder.Entity<tag>().ToTable("tags");
+          /*  modelBuilder.Entity<tag>().ToTable("tags");
             modelBuilder.Entity<tag>().HasKey(x => x.Tag);
-            modelBuilder.Entity<tag>().Property(x => x.Tag).HasColumnName("tag");
+            modelBuilder.Entity<tag>().Property(x => x.Tag).HasColumnName("tag");*/
 
             //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 
             //tag does not need to be foreign key to tag. Can just use distinct keyword

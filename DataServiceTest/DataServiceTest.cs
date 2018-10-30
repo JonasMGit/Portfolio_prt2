@@ -52,7 +52,14 @@ namespace DataServiceTest
             Assert.NotNull(questions.First().AuthorId);
             Assert.Equal("How can a bot get the contents of subsequent pages in a category listing in WordPress?", questions.First().Title);
         }
-        
+
+        [Fact]
+        public void GetTags_ByPosts()
+        {
+            var service = new DataService();
+            var tag = service.GetPost(19329707);
+            Assert.Equal(5, tag.PostTags.Count());
+        }        
      
         //Answers
         [Fact]
@@ -65,13 +72,21 @@ namespace DataServiceTest
         }
 
         [Fact]
+        public void GetAnswer_WithComments()
+        {
+            var service = new DataService();
+            var answers = service.GetAnswer(408396);
+            Assert.Equal(25, answers.Comments.Count());
+        }
+
+      /*  [Fact]
         public void GetAnswers_ByValidId()
         {
             var service = new DataService();
             var posts = service.GetAnswer(3126560);
             Assert.Equal(2180354, posts.ParentId);
             Assert.Equal(1, posts.Score);
-        }
+        }*/
 
         //comments
 

@@ -9,6 +9,6 @@ namespace DataLayer.Model
         public int Id { get; set; }
         public int PostLinkId { get; set; }
         
-        public Post Post { get; set; }
+        //public Post Post { get; set; }
     }
 }

@@ -21,13 +21,17 @@ namespace DataLayer
         //Full post including comments and tags
         //Get post by comment parentid. Only way we can find that gets question 
         //with comment and posttags
-        public Comment GetPost(int id)
+        public Post GetPost(int id)
         {
             using (var db = new SOVAContext())
             {
-                var fullPost = db.Comments.Include(x => x.Post)
-                    .ThenInclude(x => x.PostTags)
-                    .FirstOrDefault(x => x.Parent == id);
+                var fullPost = db.Posts
+                    .Where(x => x.PostId == id)
+                    .Include(x => x.PostTags)
+                    .FirstOrDefault();
+                    
+                    
+                    //.FirstOrDefault(x => x.PostId == id);
                 return fullPost;
             }
         }
@@ -59,7 +63,7 @@ namespace DataLayer
             {
                 var question = db.Posts
                     .Where(x => x.ParentId == null)
-                    .FirstOrDefault(x => x.Id == id);
+                    .FirstOrDefault(x => x.PostId == id);
                 return question;
             }
         }
@@ -70,7 +74,7 @@ namespace DataLayer
             {
 
                 var commentsToQuestion = db.Comments
-                      .Where(x => x.Parent == id)
+                      .Where(x => x.PostId == id)
                       .ToList();
                 return commentsToQuestion;
             }
@@ -103,13 +107,13 @@ namespace DataLayer
             {
                 var answer = db.Posts
                     .Include(x => x.Comments)
-                    .Where(x => x.ParentId != null)// && x.Id == id);
-                    .FirstOrDefault(x => x.Id == id);
+                    .Where(x => x.ParentId != null)
+                    .FirstOrDefault(x => x.PostId == id);
 
                 return answer;
             }
         }
-        //users
+        //-------------------------------users----------------
         public List<User> GetUsers()
         {
             using (var db = new SOVAContext())

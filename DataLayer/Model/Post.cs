@@ -9,7 +9,7 @@ namespace DataLayer.Model
    public  class Post
     {
        
-        public int Id { get; set; }
+        public int PostId { get; set; }
         
         public int ?ParentId { get; set; }
         
@@ -26,18 +26,17 @@ namespace DataLayer.Model
         public string Title { get; set; }
 
         //this is foriegn key to author 
-        
+        [ForeignKey("Author")]
         public int AuthorId { get; set; }
         //I removed the posttype column as it is not needed
 
         public List<PostTag> PostTags { get; set; }
 
-        [ForeignKey("AuthorId")]
+       // [ForeignKey("AuthorId")]
         public Author Author { get; set; }
         //henrik said this should go to question
         public List<Comment> Comments { get; set; }
 
-        public PostLink PostLink { get; set; }
 
 
 
