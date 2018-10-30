@@ -9,8 +9,6 @@ namespace DataLayer
 {
     public class DataService
     {
-
-        //------------------------Questions and answers----------------------------
         public List<Post> GetPosts()
         {
             using (var db = new SOVAContext())
@@ -18,31 +16,8 @@ namespace DataLayer
 
                 return db.Posts.ToList();
         }
-        //Full post including comments and tags
-        //Get post by comment parentid. Only way we can find that gets question 
-        //with comment and posttags
-        public Comment GetPost(int id)
-        {
-            using (var db = new SOVAContext())
-            {
-                var fullPost = db.Comments.Include(x => x.Post)
-                    .ThenInclude(x => x.PostTags)
-                    .FirstOrDefault(x => x.Parent == id);
-                return fullPost;
-            }
-        }
-        /*public List<Comment> GetPost(int id)
-        {
-            using (var db = new SOVAContext())
-            {
-                var fullPost = db.Comments.Include(x => x.Post)
-                    .ThenInclude(x => x.PostTags)
-                    .Where(x => x.Parent == id);
-                    //.FirstOrDefault(x => x.Parent == id);
-                return fullPost.ToList();
-            }
-        }*/
 
+        //Questions
         public List<Post> GetQuestions()
         {
             using (var db = new SOVAContext())
@@ -59,7 +34,7 @@ namespace DataLayer
             {
                 var question = db.Posts
                     .Where(x => x.ParentId == null)
-                    .FirstOrDefault(x => x.Id == id);
+                    .FirstOrDefault(x => x.PostId == id);
                 return question;
             }
         }
@@ -83,9 +58,11 @@ namespace DataLayer
                 var question = db.Posts.Where(x => x.ParentId == null &&
                 (x.Body.ToLower().Contains(title.ToLower()) || x.Title.ToLower().Contains(title.ToLower())));
                 return question.ToList();
-                
+
             }
         }
+
+        //Answers
         public List<Post> GetAnswers()
         {
             using (var db = new SOVAContext())
@@ -101,13 +78,13 @@ namespace DataLayer
             using (var db = new SOVAContext())
             {
                 var answer = db.Posts
-                    .Include(x => x.Comments)
-                    .Where(x => x.ParentId != null)// && x.Id == id);
-                    .FirstOrDefault(x => x.Id == id);
+                    .Where(x => x.ParentId != null)
+                    .FirstOrDefault(x => x.PostId == id);
 
                 return answer;
             }
         }
+
         //users
         public List<User> GetUsers()
         {
@@ -126,10 +103,7 @@ namespace DataLayer
                 var user = db.Users
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
-                    
-
                 return user;
-                    
             }
         }
 
@@ -194,8 +168,23 @@ namespace DataLayer
                 return false;
             }
         }
-    
 
-
+        //SaveSearchs
+        public SearchHistories SaveSearch(string newSearch, int newUserId)
+        {
+            using (var db = new SOVAContext())
+            {
+                var currentDate = DateTime.Now;
+                var newSearchHistory = new SearchHistories()
+                {
+                    Search = newSearch,
+                    UserId = newUserId,
+                    Date = currentDate
+                };
+                db.SearchHistory.Add(newSearchHistory);
+                db.SaveChanges();
+                return newSearchHistory;
+            }
+        }
     }
 }

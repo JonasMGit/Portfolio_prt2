@@ -7,7 +7,7 @@ namespace DataLayer.Model
 {
     public class Comment
     {
-        public int Id { get; set; }
+        public int CommentId { get; set; }
         public int Score { get; set; }
         public DateTime CreationDate { get; set; }
         public string Body { get; set; }

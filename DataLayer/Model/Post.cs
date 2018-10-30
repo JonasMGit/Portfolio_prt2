@@ -9,7 +9,7 @@ namespace DataLayer.Model
    public  class Post
     {
        
-        public int Id { get; set; }
+        public int PostId { get; set; }
         
         public int ?ParentId { get; set; }
         
@@ -37,7 +37,7 @@ namespace DataLayer.Model
         //henrik said this should go to question
         public List<Comment> Comments { get; set; }
 
-        public PostLink PostLink { get; set; }
+      //  public PostLink PostLink { get; set; }
 
 
 

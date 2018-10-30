@@ -25,13 +25,13 @@ namespace WebService.Controllers
 
             return Ok(data);
         }
-        [HttpGet("{id}")]
+       /* [HttpGet("{id}")]
         public IActionResult GetPost(int id)
         {
             var post = _dataService.GetPost(id);
                 if (post == null) return NotFound();
             return Ok(post);
-        }
+        }*/
 
         [HttpGet("questions")]
         public IActionResult GetQuestions()

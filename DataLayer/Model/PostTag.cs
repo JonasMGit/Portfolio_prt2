@@ -7,7 +7,7 @@ namespace DataLayer.Model
 {
     public class PostTag
     {
-        public int Id { get; set; }
+        public int PostTagId { get; set; }
         public string Tag { get; set; }
         [ForeignKey("Id")]
         public Post Post { get; set; }
