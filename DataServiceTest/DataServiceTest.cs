@@ -97,7 +97,7 @@ namespace DataServiceTest
             var comments = service.GetQuestionComments(13649012);
             DateTime myDate = DateTime.ParseExact("2012-11-30 16:53:35", "yyyy-MM-dd HH:mm:ss",
     System.Globalization.CultureInfo.InvariantCulture);
-            Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
+            Assert.Equal(myDate,comments.First().CreationDate);
         }
 
         [Fact]

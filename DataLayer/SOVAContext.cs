@@ -65,7 +65,7 @@ namespace DataLayer
             modelBuilder.Entity<Comment>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Comment>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Comment>().Property(x => x.Body).HasColumnName("body");
-            modelBuilder.Entity<Comment>().Property(x => x.PostId).HasColumnName("parent");
+            modelBuilder.Entity<Comment>().Property(x => x.Parent).HasColumnName("parent");
             modelBuilder.Entity<Comment>().Property(x => x.AuthorId).HasColumnName("authorid");
         
 

@@ -37,7 +37,7 @@ namespace DataLayer.Model
        // [ForeignKey("AuthorId")]
         public Author Author { get; set; }
         //henrik said this should go to question
-        public List<Comment> Comments { get; set; }
+        //public List<Comment> Comments { get; set; }
 
 
 

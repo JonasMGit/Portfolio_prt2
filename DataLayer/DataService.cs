@@ -63,12 +63,13 @@ namespace DataLayer
             using (var db = new SOVAContext())
             {
                 var question = db.Questions
+                    .Include(x => x.Comments).ToList()
                     .FirstOrDefault(x => x.PostId == id);
                 return question;
             }
         }
         //needs to be edited
-        public List<Comment> GetQuestionComments(int id)
+      /*  public List<Comment> GetQuestionComments(int id)
         {
             using (var db = new SOVAContext())
             {
@@ -78,15 +79,29 @@ namespace DataLayer
                       .ToList();
                 return commentsToQuestion;
             }
+        }*/
+
+        public Question GetQuestionComments(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var questioncomment = db.Questions
+                    .Include(x => x.Comments)
+                    .FirstOrDefault(x => x.PostId == id);
+                return questioncomment;
+            }
         }
         //need to edit
-        public List<Question> GetQuestionsByString(string title)
+        public List<Question> GetQuestionsByString(string title, int page, int pageSize)
         {
             using (var db = new SOVAContext())
             {
                 var question = db.Questions
                 .Where(x => (x.Body.ToLower().Contains(title.ToLower()) || x.Title.ToLower().Contains(title.ToLower())));
-                return question.ToList();
+                return question
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
 
             }
         }
@@ -109,9 +124,26 @@ namespace DataLayer
             {
                 var answer = db.Answers
                     .Include(x => x.Comments)
-                    .FirstOrDefault(x => x.PostId == id);
+                    .Where(x => x.PostId == id)
+                    .FirstOrDefault();
+                    //.FirstOrDefault(x => x.PostId == id);
 
                 return answer;
+            }
+        }
+
+        public int GetNumberOfAnswers()
+        {
+            using (var db = new SOVAContext())
+            {
+                return db.Answers.Count();
+            }
+        }
+        public int GetNumberOfQuestions()
+        {
+            using (var db = new SOVAContext())
+            {
+                return db.Questions.Count();
             }
         }
         //-------------------------------users----------------

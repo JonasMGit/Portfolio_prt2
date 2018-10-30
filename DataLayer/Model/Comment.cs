@@ -15,10 +15,12 @@ namespace DataLayer.Model
         public int AuthorId { get; set; }
        
         public Author Author { get; set; }
-        [ForeignKey("Post")]
-        public int PostId { get; set; }
+        [ForeignKey("Answer")]
+        public int Parent { get; set; }
         
-        public Post Post { get; set; }
+        //public Post Post { get; set; }
+
+        public Answer Answer { get; set; }
 
         //public Comment Comment { get; set; }
 
