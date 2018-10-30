@@ -39,6 +39,10 @@ namespace DataLayer.Model
         //henrik said this should go to question
         //public List<Comment> Comments { get; set; }
 
+        public List<Annotations> Annotations { get; set; }
+
+        public List<Mark> Marked { get; set; }
+
 
 
 

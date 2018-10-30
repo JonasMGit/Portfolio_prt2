@@ -9,19 +9,21 @@ namespace DataLayer
 {
     public class SOVAContext : DbContext
     {
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<Question> Questions { get; set; }
+        public DbSet<Annotations> Annotations { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Mark> Marked { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<Question> Questions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<SearchHistories> SearchHistory{ get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
            
         }
 
@@ -58,6 +60,20 @@ namespace DataLayer
             modelBuilder.Entity<Author>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Author>().Property(x => x.Location).HasColumnName("location");
             modelBuilder.Entity<Author>().Property(x => x.Age).HasColumnName("age");
+
+            //Map Class Propert: Annotations
+            modelBuilder.Entity<Annotations>().ToTable("annotations");
+            modelBuilder.Entity<Annotations>().HasKey(x => new { x.UserId, x.PostId });
+            modelBuilder.Entity<Annotations>().Property(x => x.Body).HasColumnName("body");
+            modelBuilder.Entity<Annotations>().Property(x => x.PostId).HasColumnName("postid");
+            modelBuilder.Entity<Annotations>().Property(x => x.UserId).HasColumnName("userid");
+
+            //Map Class Propert: Mark
+            modelBuilder.Entity<Mark>().ToTable("marked");
+            modelBuilder.Entity<Mark>().HasKey(x => new { x.UserId, x.PostId });
+            modelBuilder.Entity<Mark>().Property(x => x.PostId).HasColumnName("postid");
+            modelBuilder.Entity<Mark>().Property(x => x.UserId).HasColumnName("userid");
+
 
             //Map Class Propert: Comment 
             modelBuilder.Entity<Comment>().ToTable("comments");

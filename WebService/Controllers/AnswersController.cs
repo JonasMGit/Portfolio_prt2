@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
-    public class QuestionsController : Controller
+    public class AnswersController : Controller
     {
         DataService _dataService;
-        public QuestionsController(DataService dataService)
+        public AnswersController(DataService dataService)
         {
             _dataService = dataService;
         }

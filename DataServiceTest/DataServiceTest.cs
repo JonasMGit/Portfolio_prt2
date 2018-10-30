@@ -8,19 +8,7 @@ namespace DataServiceTest
 {
     public class DataServiceTest
     {
-        
-
-        //post
-       /* [Fact]
-        public void GetallPost_withnoargument_Returnsallposts()
-        {
-            var service = new DataService();
-            var posts = service.GetPosts();
-            Assert.Equal(13629, posts.Count);
-            Assert.Equal("Hide Start Menu and Start Button in VB.NET", posts.First().Title);
-        }*/
-
-       
+    
         //questions
         [Fact]
         public void GetQuestions()
@@ -39,27 +27,18 @@ namespace DataServiceTest
             var posts = service.GetQuestion(13649012);
             DateTime myDate = DateTime.ParseExact("2012-11-30 16:21:10", "yyyy-MM-dd HH:mm:ss",
                 System.Globalization.CultureInfo.InvariantCulture);
-            //Assert.Null(posts.ParentId);
             Assert.Equal(myDate,posts.CreationDate);
         }
+
         //GetQuestion_ByString
         [Fact]
         public void GetQuestions_ByString_ReturnsList()
         {
             var service = new DataService();
-            var questions = service.GetQuestionsByString("eg");
-            Assert.Equal(224, questions.Count);
-            Assert.NotNull(questions.First().AuthorId);
-            Assert.Equal("How can a bot get the contents of subsequent pages in a category listing in WordPress?", questions.First().Title);
+            var questions = service.GetQuestionsByString("Hide");
+            Assert.Equal(30, questions.Count);
+            Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
         }
-
-      /* [Fact]
-        public void GetTags_ByPosts()
-        {
-            var service = new DataService();
-            var tag = service.GetPost(19329707);
-            Assert.Equal(5, tag.PostTags.Count());
-        }       */ 
      
         //Answers
         [Fact]
@@ -68,7 +47,6 @@ namespace DataServiceTest
             var service = new DataService();
             var posts = service.GetAnswers();
             Assert.Equal(11392, posts.Count);
-            //Assert.Equal("Hide Start Menu and Start Button in VB.NET", posts.First().Title);
         }
 
         [Fact]
@@ -96,8 +74,8 @@ namespace DataServiceTest
             var service = new DataService();
             var comments = service.GetQuestionComments(13649012);
             DateTime myDate = DateTime.ParseExact("2012-11-30 16:53:35", "yyyy-MM-dd HH:mm:ss",
-    System.Globalization.CultureInfo.InvariantCulture);
-            Assert.Equal(myDate,comments.First().CreationDate);
+            System.Globalization.CultureInfo.InvariantCulture);
+            Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
         }
 
         [Fact]
@@ -136,6 +114,7 @@ namespace DataServiceTest
 
             service.DeleteUser(newUser.Id);
         }
+
         [Fact]
         public void UpdateUser_InvalidId_ReturnsFalse()
         {
@@ -153,7 +132,33 @@ namespace DataServiceTest
             Assert.Equal("Hide", newSearch.Search);
         }
 
+        [Fact]
+        public void CreateAnnotation()
+        {
+            var service = new DataService();
+            var newUser = service.createUser("Annotationtor","Annobreaker").Id;
+            var parentIdentfire = service.GetQuestion(13649012).PostId;
+            var newAnnotation = service.CreateAnnotation("Annotation_created",newUser,parentIdentfire);
+            Assert.Equal("Annotation_created", newAnnotation.Body);
 
+            //Clean up
+            //deleteuser
+           
+
+
+         }
+
+        [Fact]
+        public void CreateMark()
+        {
+            var service = new DataService();
+            var newuser = service.createUser("marker","mark123").Id;
+            var parentpostt = service.GetQuestion(13649012).PostId;
+            var newMarking = service.CreateMarking(parentpostt,newuser);
+            Assert.Equal(13649012, newMarking.PostId);
+
+            //delete user
+        }
     } //closening the DataService class
 
 } //closing the namespace DataServiceTest

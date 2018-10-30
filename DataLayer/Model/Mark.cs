@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace DataLayer.Model
 {
-    public class Annotations
+     public class Mark
     {
-       
-        public string Body { get; set; }
-        [ForeignKey("Post")]
+        [ForeignKey("Mark")]
         public int PostId { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
-
+        public Post posts { get; set; }
         public User User { get; set; }
-
-        public Post Post { get; set; }
-        
     }
 }
