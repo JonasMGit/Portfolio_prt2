@@ -134,6 +134,7 @@ namespace DataServiceTest
             Assert.Equal("updatedusername", newUser.UserName);
             Assert.Equal("updatedpassword", newUser.Password);
 
+            service.DeleteUser(newUser.Id);
         }
         [Fact]
         public void UpdateUser_InvalidId_ReturnsFalse()
@@ -143,9 +144,16 @@ namespace DataServiceTest
             Assert.False(userr);
         }
 
+        [Fact]
+        public void SaveUserSearchHistory()
+        {
+            var service = new DataService();
+            var newUser = service.createUser("History","Saved");
+            var newSearch = service.SaveSearch("Hide",newUser.Id);
+            Assert.Equal("Hide", newSearch.Search);
+        }
 
 
+    } //closening the DataService class
 
-    }
-
-}
+} //closening the navnspace DataServiceTest

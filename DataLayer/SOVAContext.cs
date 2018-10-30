@@ -15,12 +15,13 @@ namespace DataLayer
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
-        public DbSet<User> Users{ get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<SearchHistories> SearchHistory{ get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=RucRuc13");
            
         }
 
@@ -40,17 +41,10 @@ namespace DataLayer
             modelBuilder.Entity<Post>().Property(x => x.ClosedDate).HasColumnName("closeddate");
             modelBuilder.Entity<Post>().Property(x => x.Title).HasColumnName("title");
             modelBuilder.Entity<Post>().Property(x => x.AuthorId).HasColumnName("authorid");
-            //foreign key to author. One post can have one author, but one author can have many posts
-           /* modelBuilder.Entity<Post>()
-                .HasOne(p => p.Author)
-                .WithMany(a => a.Posts)
-                .HasForeignKey(b => b.AuthorId);*/
-
-
-
+       
             //Map Class Propert: Author
             modelBuilder.Entity<Author>().ToTable("authors");
-            modelBuilder.Entity<Author>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<Author>().Property(x => x.AuthorId).HasColumnName("id");
             modelBuilder.Entity<Author>().Property(x => x.DisplayName).HasColumnName("displayname");
             modelBuilder.Entity<Author>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Author>().Property(x => x.Location).HasColumnName("location");
@@ -79,9 +73,26 @@ namespace DataLayer
             //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 
             //tag does not need to be foreign key to tag. Can just use distinct keyword
             modelBuilder.Entity<PostTag>().ToTable("posttags");
-            modelBuilder.Entity<PostTag>().HasKey(x => new { x.Id, x.Tag });
-            modelBuilder.Entity<PostTag>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<PostTag>().Property(x => x.PostTagId).HasColumnName("id");
             modelBuilder.Entity<PostTag>().Property(x => x.Tag).HasColumnName("tag");
+
+
+
+            //Map class property for users
+
+            modelBuilder.Entity<User>().ToTable("users");
+            modelBuilder.Entity<User>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<User>().Property(x => x.UserName).HasColumnName("username");
+            modelBuilder.Entity<User>().Property(x => x.CreationDate).HasColumnName("creationdate");
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
+
+
+            //Map SearchHistory
+            modelBuilder.Entity<SearchHistories>().ToTable("searchhistory");
+            modelBuilder.Entity<SearchHistories>().HasKey(x => x.Search);
+            modelBuilder.Entity<SearchHistories>().Property(x => x.Search).HasColumnName("search");
+            modelBuilder.Entity<SearchHistories>().Property(x => x.UserId).HasColumnName("userid");
+            modelBuilder.Entity<SearchHistories>().Property(x => x.Date).HasColumnName("date");
 
         }
 
