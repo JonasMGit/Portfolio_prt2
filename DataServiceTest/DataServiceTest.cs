@@ -24,7 +24,7 @@ namespace DataServiceTest
         public void GetQuestions_ByValidId()
         {
             var service = new DataService();
-            var posts = service.GetQuestion(13649012);
+            var posts = service.SearchHistories(13649012);
             DateTime myDate = DateTime.ParseExact("2012-11-30 16:21:10", "yyyy-MM-dd HH:mm:ss",
                 System.Globalization.CultureInfo.InvariantCulture);
             Assert.Equal(myDate,posts.CreationDate);
@@ -137,7 +137,7 @@ namespace DataServiceTest
         {
             var service = new DataService();
             var newUser = service.createUser("Annotationtor","Annobreaker").Id;
-            var parentIdentfire = service.GetQuestion(13649012).PostId;
+            var parentIdentfire = service.SearchHistories(13649012).PostId;
             var newAnnotation = service.CreateAnnotation("Annotation_created",newUser,parentIdentfire);
             Assert.Equal("Annotation_created", newAnnotation.Body);
 
@@ -153,7 +153,7 @@ namespace DataServiceTest
         {
             var service = new DataService();
             var newuser = service.createUser("marker","mark123").Id;
-            var parentpostt = service.GetQuestion(13649012).PostId;
+            var parentpostt = service.SearchHistories(13649012).PostId;
             var newMarking = service.CreateMarking(parentpostt,newuser);
             Assert.Equal(13649012, newMarking.PostId);
 

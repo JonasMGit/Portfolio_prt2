@@ -26,7 +26,7 @@ namespace DataLayer
         {
 
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
            
 
 
@@ -111,7 +111,7 @@ namespace DataLayer
 
             //Map SearchHistory Should have composite primary key of search userid and date
             modelBuilder.Entity<SearchHistories>().ToTable("searchhistory");
-            modelBuilder.Entity<SearchHistories>().HasKey(x => x.Search);
+            modelBuilder.Entity<SearchHistories>().HasKey(x => new { x.Search, x.UserId, x.Date });
             modelBuilder.Entity<SearchHistories>().Property(x => x.Search).HasColumnName("search");
             modelBuilder.Entity<SearchHistories>().Property(x => x.UserId).HasColumnName("userid");
             modelBuilder.Entity<SearchHistories>().Property(x => x.Date).HasColumnName("date");

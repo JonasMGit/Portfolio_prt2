@@ -59,13 +59,14 @@ namespace DataLayer
              }
          }*/
          //edited
-        public Question GetQuestion(int id)
+        public SearchHistories SearchHistories(int id)
         {
             using (var db = new SOVAContext())
             {
-                var question = db.Questions
-                    .Include(x => x.Comments)
-                    .FirstOrDefault(x => x.PostId == id);
+                var question = db.SearchHistory
+                    //.Include(x => x.User)
+                    .Where(x => x.UserId == id)
+                    .FirstOrDefault();
                 return question;
             }
         }
