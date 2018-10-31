@@ -59,12 +59,11 @@ namespace DataLayer
              }
          }*/
          //edited
-        public Question GetQuestion(int id)
+        public Question GetQuestion(int id) //Delete (.Include(x => x.Comments) ) because it couldnt work.
         {
             using (var db = new SOVAContext())
             {
                 var question = db.Questions
-                    .Include(x => x.Comments)
                     .FirstOrDefault(x => x.PostId == id);
                 return question;
             }

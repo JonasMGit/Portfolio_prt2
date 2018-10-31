@@ -64,13 +64,13 @@ namespace ProjoctPortfolioTests
         [Fact]
         public void ApiQuestions_GetQuestion_WithValidId()
         {
-            var (question, statusCode) = GetObject($"{QuestionsApi}/26583319");
+            var (question, statusCode) = GetObject($"{QuestionsApi}/13649012");
 
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            //Assert.Equal(13649012, question["postId"]);
+        } 
 
-        }
-
-
-
+     
         //Helpers
         (JArray, HttpStatusCode) GetArray(string url)
         {
@@ -80,7 +80,7 @@ namespace ProjoctPortfolioTests
             return ((JArray)JsonConvert.DeserializeObject(data), response.StatusCode);
         }
 
-        (JObject, HttpStatusCode) GetObject(string url)
+        (JObject, HttpStatusCode) GetObject(string url) 
         {
             var client = new HttpClient();
             var response = client.GetAsync(url).Result;
