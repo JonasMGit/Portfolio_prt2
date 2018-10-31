@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DataLayer
 {
+
     public class SOVAContext : DbContext
     {
         public DbSet<Annotations> Annotations { get; set; }
@@ -20,11 +21,15 @@ namespace DataLayer
         public DbSet<User> Users { get; set; }
         public DbSet<SearchHistories> SearchHistory{ get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
            
+
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -77,12 +82,14 @@ namespace DataLayer
 
             //Map Class Propert: Comment 
             modelBuilder.Entity<Comment>().ToTable("comments");
-            modelBuilder.Entity<Comment>().Property(x => x.CommentId).HasColumnName("id");
+            modelBuilder.Entity<Comment>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Comment>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Comment>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Comment>().Property(x => x.Body).HasColumnName("body");
-            modelBuilder.Entity<Comment>().Property(x => x.Parent).HasColumnName("parent");
+            modelBuilder.Entity<Comment>().Property(x => x.PostId).HasColumnName("parent");
             modelBuilder.Entity<Comment>().Property(x => x.AuthorId).HasColumnName("authorid");
+
+            
         
 
             //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 

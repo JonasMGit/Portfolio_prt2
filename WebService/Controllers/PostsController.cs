@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace WebService.Controllers
 {
-    [Route("api/posts")]
+    /*[Route("api/posts")]
     [ApiController]
     public class PostsController : Controller
     {
@@ -35,7 +35,7 @@ namespace WebService.Controllers
             return Ok(post);
         }*/
 
-        [HttpGet("questions")]
+       /* [HttpGet("questions")]
         public IActionResult GetQuestions()
         {
             var questions = _dataService.GetQuestions();
@@ -68,7 +68,7 @@ namespace WebService.Controllers
              return Ok(question);
             
 
-        }
+        }*/
       /*  private string CreateLinkToNextPage(int page, int pageSize, int numberOfPages)
         {
             return page >= numberOfPages - 1
@@ -104,7 +104,7 @@ namespace WebService.Controllers
         }
     }
     */
-    [HttpGet("answers")]
+    /*[HttpGet("answers")]
         public IActionResult GetAnswers()
         {
             var answers = _dataService.GetAnswers();
@@ -119,5 +119,5 @@ namespace WebService.Controllers
             return Ok(answer);
 
         }
-    }
+    }*/
 }

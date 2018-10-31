@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Text;
 
@@ -63,7 +64,7 @@ namespace DataLayer
             using (var db = new SOVAContext())
             {
                 var question = db.Questions
-                    .Include(x => x.Comments).ToList()
+                    .Include(x => x.Comments)
                     .FirstOrDefault(x => x.PostId == id);
                 return question;
             }

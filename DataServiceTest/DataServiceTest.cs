@@ -53,8 +53,8 @@ namespace DataServiceTest
         public void GetAnswer_WithComments()
         {
             var service = new DataService();
-            var answers = service.GetAnswer(408396);
-            Assert.Equal(25, answers.Comments.Count());
+            var answers = service.GetAnswer(12713875);
+            Assert.Equal(2, answers.Comments.Count());
         }
 
       /*  [Fact]
