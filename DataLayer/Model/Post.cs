@@ -9,7 +9,7 @@ namespace DataLayer.Model
    public abstract class Post
     {
        
-        public int PostId { get; set; }
+        public int Id { get; set; }
 
         public int PostType { get; set; }
         

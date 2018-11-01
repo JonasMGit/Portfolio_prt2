@@ -38,11 +38,14 @@ namespace DataLayer
 
         //Questions
         //edited
-        public List<Question> GetQuestions()
+        public List<Question> GetQuestions(int page, int pageSize)
         {
             using (var db = new SOVAContext())
             {
-                var questions = db.Questions.ToList();
+                var questions = db.Questions
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
                     
                 return questions;
             }
@@ -64,18 +67,19 @@ namespace DataLayer
             using (var db = new SOVAContext())
             {
                 var question = db.Questions
-                    .Include(x => x.Comments)
-                    .FirstOrDefault(x => x.PostId == id);
+                   // .Include(x => x.Comments)
+                    .FirstOrDefault(x => x.Id == id);
                 return question;
             }
         }
         //needs to be edited
-      /*  public List<Comment> GetQuestionComments(int id)
+       /* public List<Comment> GetQuestionComments(int id)
         {
             using (var db = new SOVAContext())
             {
 
                 var commentsToQuestion = db.Comments
+                      
                       .Where(x => x.PostId == id)
                       .ToList();
                 return commentsToQuestion;
@@ -88,7 +92,7 @@ namespace DataLayer
             {
                 var questioncomment = db.Questions
                     .Include(x => x.Comments)
-                    .FirstOrDefault(x => x.PostId == id);
+                    .FirstOrDefault(x => x.Id == id);
                 return questioncomment;
             }
         }
@@ -119,17 +123,16 @@ namespace DataLayer
             }
         }
         //Edited
-        public Answer GetAnswer(int id)
+        public List<Answer> GetAnswer(int id)
         {
             using (var db = new SOVAContext())
             {
                 var answer = db.Answers
-                    .Include(x => x.Comments)
-                    .Where(x => x.PostId == id)
-                    .FirstOrDefault();
+                    .Where(x => x.Id == id);
+                    
                     //.FirstOrDefault(x => x.PostId == id);
 
-                return answer;
+                return answer.ToList();
             }
         }
 

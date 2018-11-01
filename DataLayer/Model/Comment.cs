@@ -11,14 +11,13 @@ namespace DataLayer.Model
         public int Score { get; set; }
         public DateTime CreationDate { get; set; }
         public string Body { get; set; }
-        [ForeignKey("Author")]
         public int AuthorId { get; set; }
        
         public Author Author { get; set; }
-        [ForeignKey("Post")]
-        public int PostId { get; set; }
         
-        public Post Post { get; set; }
+        public int PostId { get; set; }
+        public Question Question { get; set; }
+        public Answer Answer { get; set; }
        
 
 

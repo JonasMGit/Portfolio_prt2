@@ -17,19 +17,58 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
-        [HttpGet]
-        public IActionResult GetQuestions()
+        [HttpGet(Name =nameof(GetQuestions))]
+        public IActionResult GetQuestions(int page = 0, int pageSize = 10)
         {
-            var questions = _dataService.GetQuestions();
-            return Ok(questions);
-        }
+            var questions = _dataService.GetQuestions(page, pageSize)
+                .Select(x => new
+                {
+                    Link =Url.Link(
+                        nameof(GetQuestion),
+                        new {x.Id}),
+                        x.Title
+                    
+                });
+            var total = _dataService.GetNumberOfQuestions();
+            var pages = Math.Ceiling(total / (double)pageSize);
+            var prev = page > 0 ? Url.Link(nameof(GetQuestions), new { page = page - 1, pageSize }) : null;
+            var next = page < pages - 1 ? Url.Link(nameof(GetQuestions), new { page = page + 1, pageSize }) : null;
 
-        [HttpGet("{id}")]
+            var result = new
+            {
+                total,
+                pages,
+                prev,
+                next,
+                items = questions
+            };
+            return Ok(result);
+        }
+        //something wrong here
+        [HttpGet("{id}", Name = nameof(GetQuestion))]
         public IActionResult GetQuestion(int id)
         {
             var question = _dataService.GetQuestion(id);
+            
             if (question == null) return NotFound();
-            return Ok(question);
+            
+            
+                var result = new
+                {
+                    Link = Url.Link(nameof(GetQuestion), new { question.Id }),
+                    question.Title,
+                    question.CreationDate,
+                    question.Score,
+                    question.Body,
+                    AcceptedAnswer = Url.Link(nameof(AnswersController.GetAnswer)
+                    , new {id = question.AcceptedAnswerId }),
+                    
+
+                };
+                return Ok(result);
+            
+           
+
         }
         [HttpGet("comments/{id}")]
         public IActionResult GetQuestionComment(int id)

@@ -10,7 +10,7 @@ namespace DataServiceTest
     {
     
         //questions
-        [Fact]
+        /*[Fact]
         public void GetQuestions()
         {
             var service = new DataService();
@@ -18,7 +18,7 @@ namespace DataServiceTest
             Assert.Equal(2237, posts.Count);
             Assert.Equal("Hide Start Menu and Start Button in VB.NET", posts.First().Title);
 
-        }
+        }*/
 
         [Fact]
         public void GetQuestions_ByValidId()
@@ -31,14 +31,14 @@ namespace DataServiceTest
         }
 
         //GetQuestion_ByString
-        [Fact]
+        /*[Fact]
         public void GetQuestions_ByString_ReturnsList()
         {
             var service = new DataService();
             var questions = service.GetQuestionsByString("Hide");
             Assert.Equal(30, questions.Count);
             Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
-        }
+        }*/
      
         //Answers
         [Fact]
@@ -49,12 +49,20 @@ namespace DataServiceTest
             Assert.Equal(11392, posts.Count);
         }
 
-        [Fact]
+        /*[Fact]
         public void GetAnswer_WithComments()
         {
             var service = new DataService();
             var answers = service.GetAnswer(12713875);
             Assert.Equal(2, answers.Comments.Count());
+        }*/
+
+        [Fact]
+        public void GetAnswer_Accepted()
+        {
+            var service = new DataService();
+            var answer = service.GetAcceptedAnswer(24362641);
+            Assert.Equal(24361884, answer.Id);
         }
 
       /*  [Fact]
@@ -68,7 +76,7 @@ namespace DataServiceTest
 
         //comments
 
-        [Fact]
+       /* [Fact]
         public void GetCommentsToAQuestion()
         {
             var service = new DataService();
@@ -76,7 +84,7 @@ namespace DataServiceTest
             DateTime myDate = DateTime.ParseExact("2012-11-30 16:53:35", "yyyy-MM-dd HH:mm:ss",
             System.Globalization.CultureInfo.InvariantCulture);
             Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
-        }
+        }*/
 
         [Fact]
         public void CreateNewUserTest()
@@ -137,7 +145,7 @@ namespace DataServiceTest
         {
             var service = new DataService();
             var newUser = service.createUser("Annotationtor","Annobreaker").Id;
-            var parentIdentfire = service.GetQuestion(13649012).PostId;
+            var parentIdentfire = service.GetQuestion(13649012).Id;
             var newAnnotation = service.CreateAnnotation("Annotation_created",newUser,parentIdentfire);
             Assert.Equal("Annotation_created", newAnnotation.Body);
 
@@ -153,7 +161,7 @@ namespace DataServiceTest
         {
             var service = new DataService();
             var newuser = service.createUser("marker","mark123").Id;
-            var parentpostt = service.GetQuestion(13649012).PostId;
+            var parentpostt = service.GetQuestion(13649012).Id;
             var newMarking = service.CreateMarking(parentpostt,newuser);
             Assert.Equal(13649012, newMarking.PostId);
 

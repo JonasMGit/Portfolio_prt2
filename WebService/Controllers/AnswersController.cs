@@ -22,7 +22,7 @@ namespace WebService.Controllers
             var answers = _dataService.GetAnswers();
             return Ok(answers);
         }
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = nameof(GetAnswer))]
         public IActionResult GetAnswer(int id)
         {
             var answer = _dataService.GetAnswer(id);
@@ -30,5 +30,6 @@ namespace WebService.Controllers
             return Ok(answer);
 
         }
+       
     }
 }

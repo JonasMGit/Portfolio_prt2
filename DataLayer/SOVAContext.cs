@@ -15,7 +15,7 @@ namespace DataLayer
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Mark> Marked { get; set; }
-        public DbSet<Post> Posts { get; set; }
+        //public DbSet<Post> Posts { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<User> Users { get; set; }
@@ -38,8 +38,8 @@ namespace DataLayer
 
             //Map Class property: Post. Principal entity. Still has relation to comment
             modelBuilder.Entity<Post>().ToTable("posts");
-            modelBuilder.Entity<Post>().HasKey(x => x.PostId);
-            modelBuilder.Entity<Post>().Property(x => x.PostId).HasColumnName("id");
+            modelBuilder.Entity<Post>().HasKey(x => x.Id);
+            modelBuilder.Entity<Post>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Post>().Property(x => x.PostType).HasColumnName("posttype");
            // modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
             modelBuilder.Entity<Post>().Property(x => x.AcceptedAnswerId).HasColumnName("acceptedanswerid");
@@ -55,6 +55,7 @@ namespace DataLayer
 
             //do we need to make this in database?
             modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
+            
 
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
 
@@ -88,9 +89,17 @@ namespace DataLayer
             modelBuilder.Entity<Comment>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Comment>().Property(x => x.PostId).HasColumnName("parent");
             modelBuilder.Entity<Comment>().Property(x => x.AuthorId).HasColumnName("authorid");
+            modelBuilder.Entity<Comment>()
+                .HasOne<Question>(c => c.Question)
+                .WithMany(q => q.Comments)
+                .HasForeignKey(c => c.PostId);
+            modelBuilder.Entity<Comment>()
+                .HasOne<Answer>(c => c.Answer)
+                .WithMany(q => q.Comments)
+                .HasForeignKey(c => c.PostId);
 
-            
-        
+
+
 
             //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 
             //tag does not need to be foreign key to tag. Can just use distinct keyword
