@@ -27,7 +27,7 @@ namespace DataLayer.Model
         //[ForeignKey("Author")]
         public int AuthorId { get; set; }
 
-        public List<Comment> Comments { get; set; }
+        //public List<Comment> Comments { get; set; }
         public List<PostTag> PostTags { get; set; }
         //public string Title { get; set; }
 

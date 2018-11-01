@@ -86,8 +86,8 @@ namespace DataLayer
                 return question;
             }
         }
-        //needs to be edited
-       /* public List<Comment> GetQuestionComments(int id)
+        //Comments
+        public List<Comment> GetQuestionComments(int id)
         {
             using (var db = new SOVAContext())
             {
@@ -98,9 +98,21 @@ namespace DataLayer
                       .ToList();
                 return commentsToQuestion;
             }
-        }*/
+        }
 
-        public Question GetQuestionComments(int id)
+        public List<Comment> GetCommentsByAnswer(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var answercomment = db.Comments
+                    .Where(x => x.PostId == id)
+                    .ToList();
+                return answercomment;
+            }
+
+        }
+
+        /*public Question GetQuestionComments(int id)
         {
             using (var db = new SOVAContext())
             {
@@ -109,7 +121,7 @@ namespace DataLayer
                     .FirstOrDefault(x => x.Id == id);
                 return questioncomment;
             }
-        }
+        }*/
         //need to edit
         public List<Question> GetQuestionsByString(string title, int page, int pageSize)
         {
@@ -137,16 +149,25 @@ namespace DataLayer
             }
         }
         //Edited
-        public List<Answer> GetAnswer(int id)
+        public Answer GetAnswer(int id)
         {
             using (var db = new SOVAContext())
             {
                 var answer = db.Answers
-                    .Where(x => x.Id == id);
-                    
+                    .Where(x => x.Id == id)
+                    .FirstOrDefault();
                     //.FirstOrDefault(x => x.PostId == id);
 
-                return answer.ToList();
+                return answer;
+            }
+        }
+        public List<Answer> GetAnswersByParent(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var answerbyparent = db.Answers
+                    .Where(x => x.ParentId == id);
+                return answerbyparent.ToList();
             }
         }
 

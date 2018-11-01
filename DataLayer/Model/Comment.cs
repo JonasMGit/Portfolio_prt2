@@ -12,13 +12,14 @@ namespace DataLayer.Model
         public DateTime CreationDate { get; set; }
         public string Body { get; set; }
         public int AuthorId { get; set; }
-       
+       //include author
         public Author Author { get; set; }
         
         public int PostId { get; set; }
+        //public Post Post { get; set; }
         public Question Question { get; set; }
         public Answer Answer { get; set; }
-       
+        
 
 
     }

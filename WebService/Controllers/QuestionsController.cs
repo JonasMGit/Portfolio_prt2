@@ -44,12 +44,12 @@ namespace WebService.Controllers
             };
             return Ok(result);
         }
-        //something wrong here
+        
         [HttpGet("{id}", Name = nameof(GetQuestion))]
         public IActionResult GetQuestion(int id)
         {
             var question = _dataService.GetQuestion(id);
-            
+           // var answer = _dataService.GetAnswersByParent(id); //by parent
             if (question == null) return NotFound();
             
             
@@ -62,28 +62,41 @@ namespace WebService.Controllers
                     question.Body,
                     AcceptedAnswer = Url.Link(nameof(AnswersController.GetAnswer)
                     , new {id = question.AcceptedAnswerId }),
+                    //something wrong
+                    Answers = Url.Link(nameof(AnswersController.GetAnswersByParent)
+                    , new {id = question.Id}),
+                    Comments = Url.Link(nameof(GetQuestionComment), new { id = question.Id}),
+
+                    
                     
 
                 };
                 return Ok(result);
-            
-           
-
+    
         }
 
 
-        [HttpGet("comments/{id}")]
+        [HttpGet("comments/{id}", Name = nameof(GetQuestionComment))]
         public IActionResult GetQuestionComment(int id)
         {
-            var question = _dataService.GetQuestionComments(id);
-            if (question == null) return NotFound();
-            return Ok(question);
+            var questioncomments = _dataService.GetQuestionComments(id);
+            if (questioncomments.Count == 0) return NotFound();
+            return Ok(questioncomments);
+
+
         }
+
+       
         [HttpGet("name/{name}")]
         public IActionResult GetQuestionByName(string name, int page = 0, int pageSize = 5)
         {
             var question = _dataService.GetQuestionsByString(name, page, pageSize);
             var numberOfItems = _dataService.GetNumberOfQuestions();
+
+            var total = _dataService.GetNumberOfQuestions();
+            var pages = Math.Ceiling(total / (double)pageSize);
+            var prev = page > 0 ? Url.Link(nameof(GetQuestions), new { page = page - 1, pageSize }) : null;
+            var next = page < pages - 1 ? Url.Link(nameof(GetQuestions), new { page = page + 1, pageSize }) : null;
 
             if (question.Count == 0) return NotFound();
             return Ok(question);
