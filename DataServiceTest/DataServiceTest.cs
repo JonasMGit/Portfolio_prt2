@@ -10,15 +10,15 @@ namespace DataServiceTest
     {
     
         //questions
-        /*[Fact]
+        [Fact]
         public void GetQuestions()
         {
             var service = new DataService();
-            var posts = service.GetQuestions();
-            Assert.Equal(2237, posts.Count);
+            var posts = service.GetQuestions(0 , 10);
+            Assert.Equal(10, posts.Count);
             Assert.Equal("Hide Start Menu and Start Button in VB.NET", posts.First().Title);
 
-        }*/
+        }
 
         [Fact]
         public void GetQuestions_ByValidId()
@@ -57,13 +57,7 @@ namespace DataServiceTest
             Assert.Equal(2, answers.Comments.Count());
         }*/
 
-        [Fact]
-        public void GetAnswer_Accepted()
-        {
-            var service = new DataService();
-            var answer = service.GetAcceptedAnswer(24362641);
-            Assert.Equal(24361884, answer.Id);
-        }
+
 
       /*  [Fact]
         public void GetAnswers_ByValidId()

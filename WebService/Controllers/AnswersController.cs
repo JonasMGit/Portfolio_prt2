@@ -26,7 +26,7 @@ namespace WebService.Controllers
         public IActionResult GetAnswer(int id)
         {
             var answer = _dataService.GetAnswer(id);
-            if (answer == null) return NotFound();
+            if (answer.Count == 0) return NotFound();
             return Ok(answer);
 
         }
