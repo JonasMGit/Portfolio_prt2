@@ -33,32 +33,32 @@ namespace ProjoctPortfolioTests
         [Fact]
         public void ApiAnswers_GetWithValidAnswerId_okAndAnswer()
         {
-            var (answer, statusCode) = GetObject($"{AnswersApi}/9854666");
+            var (answer, statusCode) = GetArray($"{AnswersApi}/9854666");
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
-            Assert.Equal(4, answer["score"]);
-            Assert.Equal(9844982, answer["parentId"]);
+            Assert.Equal(4 , answer[0]["score"]);
+            //Assert.Equal(9844982, answer["parentId"]);
         }
         
         [Fact]
         public void ApiAnswers_GetWithInvalidAnswerId_()
         {
-            var (answer, statusCode) = GetObject($"{AnswersApi}/0");
+            var (answer, statusCode) = GetArray($"{AnswersApi}/-1");
 
             Assert.Equal(HttpStatusCode.NotFound, statusCode);
         }
 
         //Questions
         [Fact]
-        public void ApiQuestions_GetWithNoArguments_OkAndAllAnswers()
+        public void ApiQuestions_GetWithNoArguments_OkAndAllQuestions()
         {
-            var (data, statusCode) = GetArray(QuestionsApi);
+            var (data, statusCode) = GetObject(QuestionsApi);
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
-            Assert.Equal(2237, data.Count);
-            Assert.Equal("<p>I'm setting my console full screen but I also want to hide the task bar and the start button in VB.NET using Visual Studio 2010</p>&#xA;&#xA;<p>Thanks</p>&#xA;", data.First()["body"]);
-            Assert.Equal(1365365, data.First()["authorId"]);
-            Assert.Equal(1, data.First()["postType"]);
+            Assert.Equal(10, data.GetValue("items").Count());
+            //Assert.Equal("<p>I'm setting my console full screen but I also want to hide the task bar and the start button in VB.NET using Visual Studio 2010</p>&#xA;&#xA;<p>Thanks</p>&#xA;", data.First()["body"]);
+            //Assert.Equal(1365365, data.First()["authorId"]);
+            //Assert.Equal(1, data.First()["postType"]);
         }
 
         [Fact]

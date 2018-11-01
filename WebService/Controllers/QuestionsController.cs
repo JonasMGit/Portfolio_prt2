@@ -16,7 +16,7 @@ namespace WebService.Controllers
         {
             _dataService = dataService;
         }
-
+        
         [HttpGet(Name =nameof(GetQuestions))]
         public IActionResult GetQuestions(int page = 0, int pageSize = 10)
         {
