@@ -35,7 +35,7 @@ namespace DataServiceTest
         public void GetQuestions_ByString_ReturnsList()
         {
             var service = new DataService();
-            var questions = service.GetQuestionsByString("Hide");
+            var questions = service.GetQuestionsByString("Hide", 0, 5);
             Assert.Equal(30, questions.Count);
             Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
         }*/
@@ -151,10 +151,9 @@ namespace DataServiceTest
 
             //Clean up
             //deleteuser
-           
 
-
-         }
+            
+        }
 
         [Fact]
         public void CreateMark()
@@ -169,4 +168,4 @@ namespace DataServiceTest
         }
     } //closening the DataService class
 
-} //closing the namespace DataServiceTest
+} //closing the namespace DataServiceTest 

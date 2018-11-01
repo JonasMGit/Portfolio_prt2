@@ -61,14 +61,28 @@ namespace DataLayer
                  return question;
              }
          }*/
-         //edited
-        public Question GetQuestion(int id)
+        //edited
+
+        public Question GetQuestion(int id) //Delete (.Include(x => x.Comments) ) because it couldnt work.
         {
             using (var db = new SOVAContext())
             {
                 var question = db.Questions
                    // .Include(x => x.Comments)
                     .FirstOrDefault(x => x.Id == id);
+                return question;
+            }
+        }
+
+
+        public SearchHistories SearchHistories(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var question = db.SearchHistory
+                    //.Include(x => x.User)
+                    .Where(x => x.UserId == id)
+                    .FirstOrDefault();
                 return question;
             }
         }
