@@ -9,10 +9,10 @@ namespace DataLayer.Model
     {
         public string Search { get; set; }
 
-        [ForeignKey("User")]
+        [ForeignKey("UserID")]
         public int UserId { get; set; }
         public DateTime Date { get; set; }
 
-        //public User User { get; set; }
+        public User User { get; set; }
     }
 }

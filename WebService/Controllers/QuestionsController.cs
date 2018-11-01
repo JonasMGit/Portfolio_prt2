@@ -27,7 +27,7 @@ namespace WebService.Controllers
         [HttpGet("{id}")]
         public IActionResult GetQuestion(int id)
         {
-            var question = _dataService.SearchHistories(id);
+            var question = _dataService.GetQuestion(id);
             if (question == null) return NotFound();
             return Ok(question);
         }
