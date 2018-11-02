@@ -26,8 +26,13 @@ namespace DataLayer
         {
 
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=RucRuc13");
+
            
+
+            optionsBuilder.UseNpgsql("User ID = asp_net_core_postgresql_connection;Password=Password123;Server=localhost;Port=5433;Database=stackoverflow;");
+
+
+
 
 
         }
@@ -41,13 +46,13 @@ namespace DataLayer
             modelBuilder.Entity<Post>().HasKey(x => x.Id);
             modelBuilder.Entity<Post>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Post>().Property(x => x.PostType).HasColumnName("posttype");
-           // modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
+            //modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
             modelBuilder.Entity<Post>().Property(x => x.AcceptedAnswerId).HasColumnName("acceptedanswerid");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Post>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Post>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Post>().Property(x => x.ClosedDate).HasColumnName("closeddate");
-           // modelBuilder.Entity<Post>().Property(x => x.Title).HasColumnName("title");
+            modelBuilder.Entity<Post>().Property(x => x.Title).HasColumnName("title");
             modelBuilder.Entity<Post>().Property(x => x.AuthorId).HasColumnName("authorid");
             modelBuilder.Entity<Post>().HasDiscriminator(x => x.PostType)
                 .HasValue<Question>(1)
