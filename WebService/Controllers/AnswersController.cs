@@ -38,6 +38,7 @@ namespace WebService.Controllers
             };
             return Ok(result);
         }
+
         [HttpGet("{id}", Name = nameof(GetAnswersByParent))]
         public IActionResult GetAnswersByParent(int id)
         {
