@@ -15,7 +15,8 @@ namespace ProjoctPortfolioTests
         private const string AnswersApi = "http://localhost:5001/api/answers";
         private const string QuestionsApi = "http://localhost:5001/api/questions";
         private const string SearchHostoryApi = "http://localhost:5001/api/searchhistory";
-
+        private const string AnnotationsApi = "http://localhost:5001/api/annotation";
+        private const string MarkApi = "http://localhost:5001/api/mark";
 
         //Answers
         [Fact]
@@ -69,6 +70,19 @@ namespace ProjoctPortfolioTests
             Assert.Equal(HttpStatusCode.OK, statusCode);
             //Assert.Equal(13649012, question["postId"]);
         } 
+        [Fact]
+        public void ApiAnnotation_PostAnnotation()
+        {
+            var annotation = new
+            {
+                Body = "Annotation post",
+                UserId= 51,
+                PostId= 13649012
+
+            };
+            var (annotations, statusCode) = PostData(AnnotationsApi,annotation);
+            Assert.Equal(HttpStatusCode.Created,statusCode);
+        }
 
      
         //Helpers
