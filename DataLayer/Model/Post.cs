@@ -13,7 +13,7 @@ namespace DataLayer.Model
 
         public int PostType { get; set; }
         
-       // public int ?ParentId { get; set; }
+       public int ?ParentId { get; set; }
         
         public int ?AcceptedAnswerId { get; set; }
 
@@ -29,7 +29,7 @@ namespace DataLayer.Model
 
         //public List<Comment> Comments { get; set; }
         public List<PostTag> PostTags { get; set; }
-        //public string Title { get; set; }
+        public string Title { get; set; }
 
         //this is foriegn key to author 
        

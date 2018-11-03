@@ -6,7 +6,7 @@ namespace DataLayer.Model
 {
    public class Answer : Post
     {
-        public int ParentId { get; set; }
+        //public new int ParentId { get; set; }
 
         public List<Comment> Comments { get; set; }
         //public Question Quesiton { get; set; }

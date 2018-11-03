@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
+    [Authorize]
     [Route("api/answers")]
     [ApiController]
     public class AnswersController : Controller
@@ -38,6 +40,7 @@ namespace WebService.Controllers
             };
             return Ok(result);
         }
+
         [HttpGet("{id}", Name = nameof(GetAnswersByParent))]
         public IActionResult GetAnswersByParent(int id)
         {

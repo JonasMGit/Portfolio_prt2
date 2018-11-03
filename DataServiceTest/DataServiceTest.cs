@@ -57,7 +57,17 @@ namespace DataServiceTest
             Assert.Equal(2, answers.Comments.Count());
         }*/
 
+<<<<<<< Updated upstream
 
+=======
+        /* [Fact]
+        public void GetAnswer_Accepted()
+        {
+            var service = new DataService();
+            var answer = service.GetAcceptedAnswer(24362641);
+            Assert.Equal(24361884, answer.Id);
+        }*/
+>>>>>>> Stashed changes
 
       /*  [Fact]
         public void GetAnswers_ByValidId()

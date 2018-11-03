@@ -32,22 +32,32 @@ namespace ProjoctPortfolioTests
         }
 
         [Fact]
-        public void ApiAnswers_GetWithValidAnswerId_okAndAnswer()
+        public void ApiAnswers_GetWithValidParentId_okAndAnswer()
         {
-            var (answer, statusCode) = GetArray($"{AnswersApi}/9854666");
+            var (answer, statusCode) = GetArray($"{AnswersApi}/9844982");
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal(4 , answer[0]["score"]);
             //Assert.Equal(9844982, answer["parentId"]);
         }
+
+        [Fact]
+        public void ApiAnswers_GetApectedAnswerId_OkAndAnswer()
+        {
+            var (answer, statusCode) = GetObject($"{AnswersApi}/acceptedanswer/15831991");
+            //($"{ProductsApi}/category/1")
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal(0, (int)answer.GetValue("score"));
+        }
         
+        /*
         [Fact]
         public void ApiAnswers_GetWithInvalidAnswerId_()
         {
             var (answer, statusCode) = GetArray($"{AnswersApi}/-1");
 
             Assert.Equal(HttpStatusCode.NotFound, statusCode);
-        }
+        } */
 
         //Questions
         [Fact]
