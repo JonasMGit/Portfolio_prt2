@@ -79,7 +79,7 @@ namespace WebService.Controllers
 
             if (user == null)
             {
-                return StatusCode(404, "Did not find Customer with ID " + id);
+                return StatusCode(404, "Did not find user with ID " + id);
             }
 
             return Ok($"user with Id: {id} is Deleted");
