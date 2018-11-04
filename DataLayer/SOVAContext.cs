@@ -26,8 +26,15 @@ namespace DataLayer
         {
 
             base.OnConfiguring(optionsBuilder);
+<<<<<<< HEAD
 
             optionsBuilder.UseNpgsql("User ID = asp_net_core_postgresql_connection;Password=Password123;Server=localhost;Port=5433;Database=stackoverflow;");
+=======
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
+           
+
+
+>>>>>>> origin/master
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

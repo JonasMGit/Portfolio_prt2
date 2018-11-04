@@ -295,9 +295,10 @@ namespace DataLayer
                 
                 var newannotation = new Annotations()
                 {
+                    Body = body,
                     UserId = userid,
-                    PostId = postid,
-                    Body = body
+                    PostId = postid
+                    
                 };
                 db.Annotations.Add(newannotation);
                 db.SaveChanges();
@@ -305,6 +306,48 @@ namespace DataLayer
             }
         }
 
+        public bool UpdateAnnotation(string body, int userId, int postid)
+        {
+            using (var db = new SOVAContext())
+            {
+                var anno = db.Annotations.FirstOrDefault(x => x.UserId == userId);
+                if (anno != null)
+                {
+                    anno.UserId = userId;
+                    anno.PostId = postid;
+                    anno.Body = body;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public bool DeleteAnnotation(int userid,int postid, string body)
+        {
+            try
+            {
+                using (var db = new SOVAContext())
+                {
+                    var delannotation = new Annotations()
+                    {
+                       UserId=userid,
+                       PostId=postid,
+                       Body = body
+                    };
+                    db.Annotations.Remove(delannotation);
+                    db.SaveChanges();
+
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+          
+            
         public Mark CreateMarking(int postid, int userid)
         {
             using (var db=new SOVAContext())
@@ -317,6 +360,31 @@ namespace DataLayer
                 db.Marked.Add(newmark);
                 db.SaveChanges();
                 return newmark;
+            }
+        }
+
+        public bool DeleteMarking(int postid, int userid)
+        {
+            try
+            {
+                using (var db = new SOVAContext())
+                {
+                    var delmarking = new Mark()
+                    {
+                        PostId = postid,
+                        UserId = userid
+                    
+                      
+                    };
+                    db.Marked.Remove(delmarking);
+                    db.SaveChanges();
+
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }

@@ -126,7 +126,7 @@ namespace DataServiceTest
 
             service.DeleteUser(newUser.Id);
         }
-
+       
         [Fact]
         public void UpdateUser_InvalidId_ReturnsFalse()
         {
@@ -144,6 +144,7 @@ namespace DataServiceTest
             Assert.Equal("Hide", newSearch.Search);
         }
 
+        //--------------Annotation test----------------
         [Fact]
         public void CreateAnnotation()
         {
@@ -160,6 +161,31 @@ namespace DataServiceTest
         }
 
         [Fact]
+        public void UpdateAnnotations_Body_Userid_Postid()
+        {
+            var service = new DataService();
+            var newannotation = service.UpdateAnnotation("Annotation is updated now", 51, 13649012);
+            Assert.True(newannotation);
+            //Assert.Equal("Annotation is updated", );
+        }
+
+        //---Needs to be fixed
+        [Fact]
+        public void DeleteAnnotation()
+        {
+            var service = new DataService();
+            var newuser= service.createUser("Camie", "cami123").Id;
+            var newpost = service.GetAnswer(9854666).Id;
+            var newannotation = service.CreateAnnotation("Annotation to be deleted",newuser,newpost);
+            var delannotation = service.DeleteAnnotation(newannotation.UserId, newannotation.PostId, newannotation.Body);
+            Assert.True(delannotation);
+
+        }
+        
+
+
+       //-----------------Marking Test-----------------
+        [Fact]
         public void CreateMark()
         {
             var service = new DataService();
@@ -169,6 +195,18 @@ namespace DataServiceTest
             Assert.Equal(13649012, newMarking.PostId);
 
             //delete user
+        }
+
+        [Fact]
+        public void DeleteMarking()
+        {
+            var service = new DataService();
+            var newuser = service.createUser("Peter", "pet123").Id;
+            var postt = service.GetQuestion(13649012).Id;
+            var newmark = service.CreateMarking(postt,newuser);
+            var delmark = service.DeleteMarking(newmark.PostId, newmark.UserId);
+            Assert.True(delmark);
+
         }
     } //closening the DataService class
 
