@@ -75,14 +75,14 @@ namespace WebService.Controllers
         [HttpDelete("{id}")]
         public ActionResult<User> Delete(int id)
         {
-            var customer = _dataService.DeleteUser(id);
+            var user = _dataService.DeleteUser(id);
 
-            if (customer == null)
+            if (user == null)
             {
                 return StatusCode(404, "Did not find Customer with ID " + id);
             }
 
-            return Ok($"Customer with Id: {id} is Deleted");
+            return Ok($"user with Id: {id} is Deleted");
         }
 
     }
