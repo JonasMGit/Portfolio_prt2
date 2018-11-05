@@ -19,7 +19,7 @@ namespace WebService.Controllers
         }
     }
     
-    [HttpPost]
+   /* [HttpPost]
     public IActionResult PostMarks()
     {
         _dataService.CreateMarking();
@@ -32,5 +32,5 @@ namespace WebService.Controllers
     public IActionResult DeleteMarks()
     {
         
-    }
+    }*/
 }
