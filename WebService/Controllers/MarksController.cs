@@ -17,19 +17,32 @@ namespace WebService.Controllers
         {
             _dataService = dataService;
         }
-        /*[HttpPost]
-        public IActionResult PostMarks()
-        {
-            _dataService.CreateMarking();
 
-        }*/
 
-       /* [HttpDelete]
-        public IActionResult DeleteMarks()
+        [HttpPost]
+        public IActionResult PostMarks([FromBody]Mark mark)
         {
 
-        }*/
+            _dataService.CreateMarking(mark.PostId, mark.UserId);
+
+            return Created($"api/mark/{mark}", mark);
+
+        }
+
+
+        [HttpDelete("userid")]
+        public IActionResult DeleteMarks(int postid, int userid)
+        {
+            var del = _dataService.DeleteMarking(postid, userid);
+
+            if (!del)
+            {
+                return NotFound();
+            }
+            return Ok(del);
+        }
+
     }
-    
-   
+
+
 }

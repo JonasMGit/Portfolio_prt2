@@ -15,7 +15,7 @@ namespace ProjoctPortfolioTests
         private const string AnswersApi = "http://localhost:5001/api/answers";
         private const string QuestionsApi = "http://localhost:5001/api/questions";
         private const string SearchHostoryApi = "http://localhost:5001/api/searchhistory";
-        private const string AnnotationsApi = "http://localhost:5001/api/annotation";
+        private const string AnnotationsApi = "http://localhost:5001/api/annotations";
         private const string MarkApi = "http://localhost:5001/api/mark";
 
         //Answers
@@ -80,21 +80,79 @@ namespace ProjoctPortfolioTests
             Assert.Equal(HttpStatusCode.OK, statusCode);
             //Assert.Equal(13649012, question["postId"]);
         } 
+
+        //--------Annotation test----------
         [Fact]
         public void ApiAnnotation_PostAnnotation()
         {
-            var annotation = new
+            var data = new 
             {
-                Body = "Annotation post",
-                UserId= 51,
-                PostId= 13649012
+                
+                Body = "Annotation is updated noww",
+                UserId = 100,
+                PostId = 7556427
+
 
             };
-            var (annotations, statusCode) = PostData(AnnotationsApi,annotation);
+            var  (annotate, statusCode) = PostData(AnnotationsApi,data);
             Assert.Equal(HttpStatusCode.Created,statusCode);
         }
 
-     
+       
+        [Fact]
+        public void ApiAnnotation_PutAnnotation()
+        {
+            var data = new
+            {
+                body = "Annotation to be updated now",
+                userid = 99,
+                postid = 13649012
+            };
+            var (annotate, _) = PostData($"{MarkApi}", data);
+
+            var update = new
+            {
+                Body = annotate["body"] + "Updated body",
+                UserId = annotate["userid"],
+                PostId = annotate["postid"]
+
+            };
+            var statusCode = PutData($"{MarkApi}/{annotate["userid"]}", update);
+
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+        }
+
+        //--------Mark test---------
+        [Fact]
+        public void ApiMark_PostMark()
+        {
+            var mark = new
+            {
+                postid= 9599360,
+                userid= 86
+            };
+            var (markk,  statusCode) = PostData(MarkApi,mark);
+            Assert.Equal(HttpStatusCode.Created, statusCode);
+        }
+
+        [Fact]
+        public void ApiMark_DeleteMark()
+        {
+
+            var data = new
+            {
+                PostId = 9854666,
+                UserId = 41
+            };
+             var (mark, _) = PostData($"{MarkApi}", data);
+
+            var statusCode = DeleteData($"{MarkApi}/{mark["userid"]}");
+
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+        }
+
+
+
         //Helpers
         (JArray, HttpStatusCode) GetArray(string url)
         {

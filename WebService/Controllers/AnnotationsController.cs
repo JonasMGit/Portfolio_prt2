@@ -26,15 +26,18 @@ namespace WebService.Controllers
             return Created($"api/annotation/{annotations}", annotations);
         } 
 
-        [HttpPut]
-        public IActionResult UpdateAnnotation(string body, int userid, int postid)
+        [HttpPut("body")]
+        public IActionResult UpdateAnnotation([FromBody]Annotations annotations)
         {
-            var anno = _dataService.UpdateAnnotation(body, userid, postid);
-            if (anno==false)
-            {
-                return NotFound();
-            }
-            return Ok(anno);
+           
+                var anno = _dataService.UpdateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);
+                if (anno == false)
+                {
+                    return NotFound();
+                }
+                return Ok(anno);
+            
+          
         }
         /*
         [HttpDelete]
