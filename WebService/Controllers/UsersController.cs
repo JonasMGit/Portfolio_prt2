@@ -23,67 +23,73 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
-        // GET api/users -- READ All       
         [HttpGet]
-        public List<User> GetUsers()
+        public ActionResult Test()
         {
-            List<User> users = _dataService.GetUsers();
-            return users;
+            return Ok("test");
         }
 
-        // GET api/users/5 -- READ By Id        
-        [HttpGet("{id}")]
-        public ActionResult<User> GetUserById(int id)
-        {
-            if (id < 1) return BadRequest("Id must be greater then 0");
+        /*  // GET api/users -- READ All       
+          [HttpGet]
+          public List<User> GetUsers()
+          {
+              List<User> users = _dataService.GetUsers();
+              return users;
+          }
 
-            var user = _dataService.GetUser(id);
-            
-            return user;
-        }
+          // GET api/users/5 -- READ By Id        
+          [HttpGet("{id}")]
+          public ActionResult<User> GetUserById(int id)
+          {
+              if (id < 1) return BadRequest("Id must be greater then 0");
+
+              var user = _dataService.GetUser(id);
+
+              return user;
+          }*/
 
 
-        // POST api/users -- CREATE JSON
-        [HttpPost]
-        public ActionResult<User> Create(string username, string password)
-        {
-            if (string.IsNullOrEmpty(username))
-            {
-                return BadRequest("Username is Required for Creating user");
-            }
+          // POST api/users -- CREATE JSON
+          [HttpPost]
+          public ActionResult<User> Create(string name, string password)
+          {
+              if (string.IsNullOrEmpty(name))
+              {
+                  return BadRequest("Username is Required for Creating user");
+              }
 
-            if (string.IsNullOrEmpty(password))
-            {
-                return BadRequest("Password is Required for Creating user");
-            }
-            return _dataService.createUser(username, password);
-        }
+              if (string.IsNullOrEmpty(password))
+              {
+                  return BadRequest("Password is Required for Creating user");
+              }
+              return _dataService.createUser(name, password);
+          }
 
-        // PUT api/users/5 -- Update
-        /*[HttpPut("{id}")]
-        public ActionResult<User> Update (int userId, string newName, string newPassword)
-        {
-            if (User.Id < 1 || User.Id != userId)
-            {
-                return BadRequest("Parameter Id and user ID must be the same");
-            }
+          // PUT api/users/5 -- Update
+          /*[HttpPut("{id}")]
+          public ActionResult<User> Update (int userId, string newName, string newPassword)
+          {
+              if (User.Id < 1 || User.Id != userId)
+              {
+                  return BadRequest("Parameter Id and user ID must be the same");
+              }
 
-            return Ok(_dataService.UpdateUser(userId, newName, newPassword));
-        }*/
+              return Ok(_dataService.UpdateUser(userId, newName, newPassword));
+          }
 
-        // DELETE api/users/5
-        [HttpDelete("{id}")]
-        public ActionResult<User> Delete(int id)
-        {
-            var user = _dataService.DeleteUser(id);
+          // DELETE api/users/5
+          [HttpDelete("{id}")]
+          public ActionResult<User> Delete(int id)
+          {
+              var user = _dataService.DeleteUser(id);
 
-            if (user == null)
-            {
-                return StatusCode(404, "Did not find user with ID " + id);
-            }
+              if (user == null)
+              {
+                  return StatusCode(404, "Did not find user with ID " + id);
+              }
 
-            return Ok($"user with Id: {id} is Deleted");
-        }
+              return Ok($"user with Id: {id} is Deleted");
+          }*/
 
     }
 }

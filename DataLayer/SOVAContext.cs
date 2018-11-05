@@ -27,8 +27,16 @@ namespace DataLayer
         {
 
             base.OnConfiguring(optionsBuilder);
+<<<<<<< Updated upstream
             optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
 
+=======
+
+            optionsBuilder.UseNpgsql("User ID = asp_net_core_postgresql_connection;Password=Password123;Server=localhost;Port=5433;Database=stackoverflow;");
+           
+
+
+>>>>>>> Stashed changes
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,7 +49,7 @@ namespace DataLayer
             modelBuilder.Entity<Post>().HasKey(x => x.Id);
             modelBuilder.Entity<Post>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Post>().Property(x => x.PostType).HasColumnName("posttype");
-            //modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
+            modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
             modelBuilder.Entity<Post>().Property(x => x.AcceptedAnswerId).HasColumnName("acceptedanswerid");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Post>().Property(x => x.CreationDate).HasColumnName("creationdate");

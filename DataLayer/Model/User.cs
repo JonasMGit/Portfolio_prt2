@@ -7,8 +7,8 @@ namespace DataLayer.Model
 {
     public class User
     {
-        public new int Id { get; set; }
-        public new string UserName{ get; set; }
+        public int Id { get; set; }
+        public string UserName{ get; set; }
         public DateTime CreationDate { get; set; }
         public string Password { get; set; }
         public List<SearchHistories> SearchHistory{ get; set; }
