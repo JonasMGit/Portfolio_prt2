@@ -105,10 +105,10 @@ namespace ProjoctPortfolioTests
             var data = new
             {
                 body = "Annotation to be updated now",
-                userid = 99,
+                userid = 36,
                 postid = 13649012
             };
-            var (annotate, _) = PostData($"{MarkApi}", data);
+            var (annotate, _) = PostData($"{AnnotationsApi}", data);
 
             var update = new
             {
@@ -117,7 +117,7 @@ namespace ProjoctPortfolioTests
                 PostId = annotate["postid"]
 
             };
-            var statusCode = PutData($"{MarkApi}/{annotate["userid"]}", update);
+            var statusCode = PutData($"{AnnotationsApi}/{annotate["userid"]}", update);
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
         }

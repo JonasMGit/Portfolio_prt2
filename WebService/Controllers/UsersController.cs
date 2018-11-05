@@ -48,55 +48,32 @@ namespace WebService.Controllers
               return user;
           }*/
 
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] User user)
 
-          // POST api/users -- CREATE JSON
-         /* [HttpPost]
-          public ActionResult<User> Create(string name, string password)
-          {
-              if (string.IsNullOrEmpty(name))
-              {
-                  return BadRequest("Username is Required for Creating user");
-              }
-
-              if (string.IsNullOrEmpty(password))
-              {
-                  return BadRequest("Password is Required for Creating user");
-              }
-              return _dataService.createUser(name, password);
-          }*/
-          [HttpPost]
-          public IActionResult CreateUser([FromBody] User user)
-              
         {
             _dataService.createUser(user.UserName, user.Password);
             return Created($"api/users/{user}", user);
         }
 
-          // PUT api/users/5 -- Update
-          /*[HttpPut("{id}")]
-          public ActionResult<User> Update (int userId, string newName, string newPassword)
-          {
-              if (User.Id < 1 || User.Id != userId)
-              {
-                  return BadRequest("Parameter Id and user ID must be the same");
-              }
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] User user)
+        {
+           var update =  _dataService.UpdateUser(id, user.UserName, user.Password);
+            if (update == false) return NotFound();
+            return Ok(update);
+        }
 
-              return Ok(_dataService.UpdateUser(userId, newName, newPassword));
-          }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            var delete = _dataService.DeleteUser(id);
+            if (delete == false) return NotFound();
+            return Ok(delete);
 
-          // DELETE api/users/5
-          [HttpDelete("{id}")]
-          public ActionResult<User> Delete(int id)
-          {
-              var user = _dataService.DeleteUser(id);
+        }
 
-            if (user == false)
-            {
-                return StatusCode(404, "Did not find user with ID " + id);
-            }
-
-              return Ok($"user with Id: {id} is Deleted");
-          }*/
+         
 
     }
 }

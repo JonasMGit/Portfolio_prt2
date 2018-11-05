@@ -205,10 +205,7 @@ namespace DataLayer
             {
                 using (var db = new SOVAContext())
                 {
-                    var deluser = new User()
-                    {
-                        Id = id
-                    };
+                    var deluser = db.Users.Find(id);
                     db.Users.Remove(deluser);
                     db.SaveChanges();
                 }
