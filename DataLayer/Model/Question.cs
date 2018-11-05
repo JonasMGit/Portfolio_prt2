@@ -9,6 +9,7 @@ namespace DataLayer.Model
         //public new string Title { get; set; }
 
         public List<Comment> Comments { get; set; }
+        public List<PostLink> PostLinks { get; set; }
        // public Answer Answer { get; set; }
         
 

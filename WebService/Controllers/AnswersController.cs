@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using DataLayer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebService.DTO;
 
 namespace WebService.Controllers
 {
-    [Authorize]
+    //comment authorize out for now
+    //[Authorize]
     [Route("api/answers")]
     [ApiController]
     public class AnswersController : Controller
@@ -24,7 +26,7 @@ namespace WebService.Controllers
             var answers = _dataService.GetAnswers();
             return Ok(answers);
         }
-        
+
         [HttpGet("acceptedanswer/{id}", Name = nameof(GetAnswer))]
         public IActionResult GetAnswer(int id)
         {
@@ -36,7 +38,7 @@ namespace WebService.Controllers
                 answer.CreationDate,
                 answer.Score,
                 answer.Body,
-                Comments = Url.Link(nameof(GetCommentsByAnswer), new { id = answer.Id})
+                Comments = Url.Link(nameof(GetCommentsByAnswer), new { id = answer.Id })
             };
             return Ok(result);
         }
@@ -45,28 +47,28 @@ namespace WebService.Controllers
         public IActionResult GetAnswersByParent(int id)
         {
             var answerbyparent = _dataService.GetAnswersByParent(id);
-            
-           /* if (answerbyparent.Count == 0) return NotFound();
+
+            if (answerbyparent.Count == 0) return NotFound();
+            List<AnswerDto> dtoAnswers = new List<AnswerDto>();
             //for loop
             foreach (var item in answerbyparent)
             {
-                //data tranfer object with url variable
-                item.
-                Url.Link(nameof(GetCommentsByAnswer), new { id = item.Id });
+                var AnswerDto = new AnswerDto()
+                {
+                    Url = Url.Link(nameof(GetAnswersByParent), new { item.Id }),
+                    Body = item.Body,
+                    Score = item.Score,
+                    UrlComment = Url.Link(nameof(GetCommentsByAnswer), new { id = item.Id })
+                };
+                dtoAnswers.Add(AnswerDto);
+                   
             }
-            var result = new
-            {
-                items = answerbyparent
+            return Ok(dtoAnswers);
             
-                
-            };*/
-           
-
-
-
-            return Ok(answerbyparent);
-
         }
+
+
+
 
         [HttpGet("comments/{id}", Name = nameof(GetCommentsByAnswer))]
         public IActionResult GetCommentsByAnswer(int id)
@@ -75,6 +77,12 @@ namespace WebService.Controllers
             if (commentanswer.Count == 0) return NotFound();
             return Ok(commentanswer);
         }
-       
+
+
+
     }
+
+        
+       
+    
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using DataLayer.Model;
 using Microsoft.AspNetCore.Mvc;
+using WebService.DTO;
 
 namespace WebService.Controllers
 {
@@ -66,20 +68,37 @@ namespace WebService.Controllers
                     Answers = Url.Link(nameof(AnswersController.GetAnswersByParent)
                     , new {id = question.Id}),
                     Comments = Url.Link(nameof(GetQuestionComment), new { id = question.Id}),
-
+                    PostLink = Url.Link(nameof(GetQuestionPostLinks), new { id = question.Id})
                     
-                    
-
                 };
                 return Ok(result);
     
         }
 
+        [HttpGet("links/{id}", Name =nameof(GetQuestionPostLinks))]
+        public IActionResult GetQuestionPostLinks(int id)
+        {
+            var questionpostlinks = _dataService.GetPostLinksByQuestion(id);               
+            if (questionpostlinks.Count == 0) return NotFound();
+
+            List<PostLinkDto> postLinks = new List<PostLinkDto>();
+            foreach(var item in questionpostlinks)
+            {
+                var linklist = new PostLinkDto()
+                {
+                    LinkedUrl = Url.Link(nameof(GetQuestion), new { id = item.PostLinkId })
+                };
+                postLinks.Add(linklist);
+            }
+           
+            return Ok(postLinks);
+        }
 
         [HttpGet("comments/{id}", Name = nameof(GetQuestionComment))]
         public IActionResult GetQuestionComment(int id)
         {
             var questioncomments = _dataService.GetQuestionComments(id);
+                
             if (questioncomments.Count == 0) return NotFound();
             return Ok(questioncomments);
 
@@ -87,19 +106,37 @@ namespace WebService.Controllers
         }
 
        
-        [HttpGet("name/{name}")]
-        public IActionResult GetQuestionByName(string name, int page = 0, int pageSize = 5)
+        [HttpGet("name/{name}", Name= nameof(GetQuestionByName))]
+        public IActionResult GetQuestionByName(string name, int page = 0, int pageSize = 10)
         {
-            var question = _dataService.GetQuestionsByString(name, page, pageSize);
+            var question = _dataService.GetQuestionsByString(name, page, pageSize)
+                 .Select(x => new
+                 {
+                     Link = Url.Link(
+                        nameof(GetQuestion),
+                        new { x.Id }),
+                        x.Title,
+                        x.Body
+
+                 }); ;
             var numberOfItems = _dataService.GetNumberOfQuestions();
 
             var total = _dataService.GetNumberOfQuestions();
             var pages = Math.Ceiling(total / (double)pageSize);
-            var prev = page > 0 ? Url.Link(nameof(GetQuestions), new { page = page - 1, pageSize }) : null;
-            var next = page < pages - 1 ? Url.Link(nameof(GetQuestions), new { page = page + 1, pageSize }) : null;
+            var prev = page > 0 ? Url.Link(nameof(GetQuestionByName), new { page = page - 1, pageSize }) : null;
+            var next = page < pages - 1 ? Url.Link(nameof(GetQuestionByName), new { page = page + 1, pageSize }) : null;
 
-            if (question.Count == 0) return NotFound();
-            return Ok(question);
+            if (question == null) return NotFound();
+
+            var result = new
+            {
+                total,
+                pages,
+                prev,
+                next,
+                items = question
+            };
+            return Ok(result);
 
 
         }

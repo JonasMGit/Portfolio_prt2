@@ -17,6 +17,7 @@ namespace DataLayer
         public DbSet<Mark> Marked { get; set; }
         //public DbSet<Post> Posts { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<PostLink> PostLinks { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<SearchHistories> SearchHistory{ get; set; }
@@ -26,14 +27,7 @@ namespace DataLayer
         {
 
             base.OnConfiguring(optionsBuilder);
-
-           
-
-            optionsBuilder.UseNpgsql("User ID = asp_net_core_postgresql_connection;Password=Password123;Server=localhost;Port=5433;Database=stackoverflow;");
-
-
-
-
+            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
 
         }
 
@@ -103,16 +97,25 @@ namespace DataLayer
                 .WithMany(q => q.Comments)
                 .HasForeignKey(c => c.PostId);
 
-
-
-
             //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 
             //tag does not need to be foreign key to tag. Can just use distinct keyword
             modelBuilder.Entity<PostTag>().ToTable("posttags");
             modelBuilder.Entity<PostTag>().Property(x => x.PostTagId).HasColumnName("id");
             modelBuilder.Entity<PostTag>().Property(x => x.Tag).HasColumnName("tag");
 
-
+            //Map Class Property: PostLinks
+            modelBuilder.Entity<PostLink>().ToTable("postlinks");
+            modelBuilder.Entity<PostLink>().HasKey(x => new { x.Id, x.PostLinkId });
+            modelBuilder.Entity<PostLink>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<PostLink>().Property(x => x.PostLinkId).HasColumnName("postlinkid");
+            modelBuilder.Entity<PostLink>()
+               .HasOne<Question>(c => c.Question)
+               .WithMany(q => q.PostLinks)
+               .HasForeignKey(c => c.Id);
+            modelBuilder.Entity<PostLink>()
+               .HasOne<Answer>(c => c.Answer)
+               .WithMany(q => q.PostLinks)
+               .HasForeignKey(c => c.Id);
 
             //Map class property for users
 
