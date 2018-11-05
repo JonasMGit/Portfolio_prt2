@@ -57,9 +57,9 @@ namespace DataServiceTest
             Assert.Equal(2, answers.Comments.Count());
         }*/
 
-<<<<<<< Updated upstream
 
-=======
+
+
         /* [Fact]
         public void GetAnswer_Accepted()
         {
@@ -67,7 +67,7 @@ namespace DataServiceTest
             var answer = service.GetAcceptedAnswer(24362641);
             Assert.Equal(24361884, answer.Id);
         }*/
->>>>>>> Stashed changes
+
 
       /*  [Fact]
         public void GetAnswers_ByValidId()
@@ -164,7 +164,7 @@ namespace DataServiceTest
         public void UpdateAnnotations_Body_Userid_Postid()
         {
             var service = new DataService();
-            var newannotation = service.UpdateAnnotation("Annotation is updated now", 51, 13649012);
+            var newannotation = service.UpdateAnnotation("Annotation is updated now", 99, 13649012);
             Assert.True(newannotation);
             //Assert.Equal("Annotation is updated", );
         }

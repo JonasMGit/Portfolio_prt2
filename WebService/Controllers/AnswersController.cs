@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/answers")]
     [ApiController]
     public class AnswersController : Controller
