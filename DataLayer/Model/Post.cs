@@ -13,7 +13,7 @@ namespace DataLayer.Model
 
         public int PostType { get; set; }
         
-       public int ?ParentId { get; set; }
+       //public int ?ParentId { get; set; }
         
         public int ?AcceptedAnswerId { get; set; }
 
@@ -29,17 +29,12 @@ namespace DataLayer.Model
 
         //public List<Comment> Comments { get; set; }
         public List<PostTag> PostTags { get; set; }
-        public string Title { get; set; }
+        //public string Title { get; set; }
 
         //this is foriegn key to author 
        
-        //I removed the posttype column as it is not needed
 
-       
-
-       // [ForeignKey("AuthorId")]
         //public Author Author { get; set; }
-        //henrik said this should go to question
         
 
         public List<Annotations> Annotations { get; set; }

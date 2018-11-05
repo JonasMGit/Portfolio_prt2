@@ -1,7 +1,7 @@
 ﻿using DataLayer.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+//using Microsoft.AspNetCore.Identity;
 
 namespace DataLayer
 {
@@ -15,7 +15,7 @@ namespace DataLayer
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Mark> Marked { get; set; }
-        public DbSet<Post> Posts { get; set; }
+        //public DbSet<Post> Posts { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<PostLink> PostLinks { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -41,20 +41,19 @@ namespace DataLayer
             modelBuilder.Entity<Post>().HasKey(x => x.Id);
             modelBuilder.Entity<Post>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Post>().Property(x => x.PostType).HasColumnName("posttype");
-            //modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
             modelBuilder.Entity<Post>().Property(x => x.AcceptedAnswerId).HasColumnName("acceptedanswerid");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Post>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Post>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Post>().Property(x => x.ClosedDate).HasColumnName("closeddate");
-            modelBuilder.Entity<Post>().Property(x => x.Title).HasColumnName("title");
             modelBuilder.Entity<Post>().Property(x => x.AuthorId).HasColumnName("authorid");
             modelBuilder.Entity<Post>().HasDiscriminator(x => x.PostType)
                 .HasValue<Question>(1)
                 .HasValue<Answer>(2);
-
-            //do we need to make this in database?
            
+
+            
+
             modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
             
 

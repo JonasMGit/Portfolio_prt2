@@ -17,20 +17,19 @@ namespace WebService.Controllers
         {
             _dataService = dataService;
         }
+        /*[HttpPost]
+        public IActionResult PostMarks()
+        {
+            _dataService.CreateMarking();
+
+        }*/
+
+       /* [HttpDelete]
+        public IActionResult DeleteMarks()
+        {
+
+        }*/
     }
     
-    [HttpPost]
-    public IActionResult PostMarks()
-    {
-        _dataService.CreateMarking();
-        
-        
-        
-    }
-
-    [HttpDelete]
-    public IActionResult DeleteMarks()
-    {
-        
-    }
+   
 }

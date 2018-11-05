@@ -13,7 +13,7 @@ namespace WebService.Controllers
 
     // API attribute
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : Controller
     {
         // Instance of DataService
         DataService _dataService;
@@ -77,7 +77,7 @@ namespace WebService.Controllers
         {
             var user = _dataService.DeleteUser(id);
 
-            if (user == null)
+            if (user == false)
             {
                 return StatusCode(404, "Did not find user with ID " + id);
             }
