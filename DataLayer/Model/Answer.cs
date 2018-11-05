@@ -9,6 +9,8 @@ namespace DataLayer.Model
         //public new int ParentId { get; set; }
 
         public List<Comment> Comments { get; set; }
+        public List<PostLink> PostLinks { get; set; }
+
         //public Question Quesiton { get; set; }
     }
 }
