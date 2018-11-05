@@ -10,8 +10,8 @@ namespace DataLayer.Model
        
         public string Body { get; set; }
 
-        [ForeignKey("PostId")]
-        public int PostId { get; set; }
+        [ForeignKey("Post")]
+        public int ParentId { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }

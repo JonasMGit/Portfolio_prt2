@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WebService.Controllers
 {
     // URL address
-    [Route("api/[controller]")]
+    [Route("api/users")]
 
     // API attribute
     [ApiController]
@@ -50,7 +50,7 @@ namespace WebService.Controllers
 
 
           // POST api/users -- CREATE JSON
-          [HttpPost]
+         /* [HttpPost]
           public ActionResult<User> Create(string name, string password)
           {
               if (string.IsNullOrEmpty(name))
@@ -63,7 +63,14 @@ namespace WebService.Controllers
                   return BadRequest("Password is Required for Creating user");
               }
               return _dataService.createUser(name, password);
-          }
+          }*/
+          [HttpPost]
+          public IActionResult CreateUser([FromBody] User user)
+              
+        {
+            _dataService.createUser(user.UserName, user.Password);
+            return Created($"api/users/{user}", user);
+        }
 
           // PUT api/users/5 -- Update
           /*[HttpPut("{id}")]

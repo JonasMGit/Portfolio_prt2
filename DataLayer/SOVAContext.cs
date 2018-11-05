@@ -27,16 +27,10 @@ namespace DataLayer
         {
 
             base.OnConfiguring(optionsBuilder);
-<<<<<<< Updated upstream
+
             optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
 
-=======
 
-            optionsBuilder.UseNpgsql("User ID = asp_net_core_postgresql_connection;Password=Password123;Server=localhost;Port=5433;Database=stackoverflow;");
-           
-
-
->>>>>>> Stashed changes
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -79,9 +73,9 @@ namespace DataLayer
             //Map Class Propert: Annotations
            
             modelBuilder.Entity<Annotations>().ToTable("annotations");
-            modelBuilder.Entity<Annotations>().HasKey(x => new {x.UserId, x.PostId});
+            modelBuilder.Entity<Annotations>().HasKey(x => new {x.Body, x.UserId, x.ParentId});
             modelBuilder.Entity<Annotations>().Property(x => x.Body).HasColumnName("body");
-            modelBuilder.Entity<Annotations>().Property(x => x.PostId).HasColumnName("postid");
+            modelBuilder.Entity<Annotations>().Property(x => x.ParentId).HasColumnName("parentid");
             modelBuilder.Entity<Annotations>().Property(x => x.UserId).HasColumnName("userid");
 
             //Map Class Propert: Mark

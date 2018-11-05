@@ -7,11 +7,11 @@ namespace DataLayer.Model
 {
      public class Mark
     {
-        [ForeignKey("Mark")]
+        [ForeignKey("Post")]
         public int PostId { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public Post posts { get; set; }
+        public Post Posts { get; set; }
         public User User { get; set; }
     }
 }

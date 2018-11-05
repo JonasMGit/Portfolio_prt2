@@ -264,7 +264,7 @@ namespace DataLayer
                 {
                     Body = body,
                     UserId = userid,
-                    PostId = postid
+                    ParentId = postid
                     
                 };
                 db.Annotations.Add(newannotation);
@@ -281,7 +281,7 @@ namespace DataLayer
                 if (anno != null)
                 {
                     anno.UserId = userId;
-                    anno.PostId = postid;
+                    anno.ParentId = postid;
                     anno.Body = body;
                     db.SaveChanges();
                     return true;
@@ -299,7 +299,7 @@ namespace DataLayer
                     var delannotation = new Annotations()
                     {
                        UserId=userid,
-                       PostId=postid,
+                       ParentId=postid,
                        Body = body
                     };
                     db.Annotations.Remove(delannotation);
