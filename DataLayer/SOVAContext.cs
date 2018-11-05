@@ -1,22 +1,23 @@
-﻿using System;
-using DataLayer.Model;
+﻿using DataLayer.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Scaffolding.Internal;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace DataLayer
 {
 
-    public class SOVAContext : DbContext
+    public class SOVAContext: DbContext
     {
+
+
         public DbSet<Annotations> Annotations { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Mark> Marked { get; set; }
-        //public DbSet<Post> Posts { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<PostLink> PostLinks { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<SearchHistories> SearchHistory{ get; set; }
@@ -26,10 +27,16 @@ namespace DataLayer
         {
 
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
+<<<<<<< Updated upstream
+            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
+
+=======
+
+            optionsBuilder.UseNpgsql("User ID = asp_net_core_postgresql_connection;Password=Password123;Server=localhost;Port=5433;Database=stackoverflow;");
            
 
 
+>>>>>>> Stashed changes
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,11 +44,12 @@ namespace DataLayer
             base.OnModelCreating(modelBuilder);
 
             //Map Class property: Post. Principal entity. Still has relation to comment
+           
             modelBuilder.Entity<Post>().ToTable("posts");
             modelBuilder.Entity<Post>().HasKey(x => x.Id);
             modelBuilder.Entity<Post>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Post>().Property(x => x.PostType).HasColumnName("posttype");
-            //modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
+            modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
             modelBuilder.Entity<Post>().Property(x => x.AcceptedAnswerId).HasColumnName("acceptedanswerid");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Post>().Property(x => x.CreationDate).HasColumnName("creationdate");
@@ -54,12 +62,14 @@ namespace DataLayer
                 .HasValue<Answer>(2);
 
             //do we need to make this in database?
+           
             modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
             
 
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
 
             //Map Class Propert: Author
+           
             modelBuilder.Entity<Author>().ToTable("authors");
             modelBuilder.Entity<Author>().Property(x => x.AuthorId).HasColumnName("id");
             modelBuilder.Entity<Author>().Property(x => x.DisplayName).HasColumnName("displayname");
@@ -68,6 +78,7 @@ namespace DataLayer
             modelBuilder.Entity<Author>().Property(x => x.Age).HasColumnName("age");
 
             //Map Class Propert: Annotations
+           
             modelBuilder.Entity<Annotations>().ToTable("annotations");
             modelBuilder.Entity<Annotations>().HasKey(x => new {x.UserId, x.PostId});
             modelBuilder.Entity<Annotations>().Property(x => x.Body).HasColumnName("body");
@@ -75,6 +86,7 @@ namespace DataLayer
             modelBuilder.Entity<Annotations>().Property(x => x.UserId).HasColumnName("userid");
 
             //Map Class Propert: Mark
+           
             modelBuilder.Entity<Mark>().ToTable("marked");
             modelBuilder.Entity<Mark>().HasKey(x => new { x.UserId, x.PostId });
             modelBuilder.Entity<Mark>().Property(x => x.PostId).HasColumnName("postid");
@@ -82,6 +94,7 @@ namespace DataLayer
 
 
             //Map Class Propert: Comment 
+           
             modelBuilder.Entity<Comment>().ToTable("comments");
             modelBuilder.Entity<Comment>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Comment>().Property(x => x.Score).HasColumnName("score");
@@ -98,16 +111,26 @@ namespace DataLayer
                 .WithMany(q => q.Comments)
                 .HasForeignKey(c => c.PostId);
 
-
-
-
             //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 
             //tag does not need to be foreign key to tag. Can just use distinct keyword
+           
             modelBuilder.Entity<PostTag>().ToTable("posttags");
             modelBuilder.Entity<PostTag>().Property(x => x.PostTagId).HasColumnName("id");
             modelBuilder.Entity<PostTag>().Property(x => x.Tag).HasColumnName("tag");
 
-
+            //Map Class Property: PostLinks
+            modelBuilder.Entity<PostLink>().ToTable("postlinks");
+            modelBuilder.Entity<PostLink>().HasKey(x => new { x.Id, x.PostLinkId });
+            modelBuilder.Entity<PostLink>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<PostLink>().Property(x => x.PostLinkId).HasColumnName("postlinkid");
+            modelBuilder.Entity<PostLink>()
+               .HasOne<Question>(c => c.Question)
+               .WithMany(q => q.PostLinks)
+               .HasForeignKey(c => c.Id);
+            modelBuilder.Entity<PostLink>()
+               .HasOne<Answer>(c => c.Answer)
+               .WithMany(q => q.PostLinks)
+               .HasForeignKey(c => c.Id);
 
             //Map class property for users
 
@@ -119,6 +142,7 @@ namespace DataLayer
 
 
             //Map SearchHistory Should have composite primary key of search userid and date
+
             modelBuilder.Entity<SearchHistories>().ToTable("searchhistory");
             modelBuilder.Entity<SearchHistories>().HasKey(x => new { x.Search, x.UserId, x.Date });
             modelBuilder.Entity<SearchHistories>().Property(x => x.Search).HasColumnName("search");
