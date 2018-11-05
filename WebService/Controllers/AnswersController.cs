@@ -16,10 +16,12 @@ namespace WebService.Controllers
     public class AnswersController : Controller
     {
         DataService _dataService;
+
         public AnswersController(DataService dataService)
         {
             _dataService = dataService;
         }
+
         [HttpGet]
         public IActionResult GetAnswers()
         {
