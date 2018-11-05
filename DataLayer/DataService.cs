@@ -10,33 +10,6 @@ namespace DataLayer
 {
     public class DataService
     {
-        /*public List<Post> GetPosts()
-        {
-            using (var db = new SOVAContext())
-
-
-                return db.Posts.ToList();
-        }*/
-        //Full post including comments and tags
-        //Get post by comment parentid. Only way we can find that gets question 
-        //with comment and posttags
-        /*public Post GetPost(int id)
-        {
-            using (var db = new SOVAContext())
-            {
-                var fullPost = db.Posts
-                    .Where(x => x.PostId == id)
-                    .Include(x => x.PostTags)
-                    .FirstOrDefault();
-                    
-                    
-                    //.FirstOrDefault(x => x.PostId == id);
-                return fullPost;
-            }
-        }*/
-       
-            
-
         //Questions
         //edited
         public List<Question> GetQuestions(int page, int pageSize)
@@ -52,28 +25,17 @@ namespace DataLayer
             }
         }
 
-        /* public Post GetQuestion(int id)
-         {
-             using (var db = new SOVAContext())
-             {
-                 var question = db.Posts
-                     .Where(x => x.ParentId == null)
-                     .FirstOrDefault(x => x.PostId == id);
-                 return question;
-             }
-         }*/
-        //edited
-
-        public Question GetQuestion(int id) //Delete (.Include(x => x.Comments) ) because it couldnt work.
+        public Question GetQuestion(int id) 
         {
             using (var db = new SOVAContext())
             {
                 var question = db.Questions
-                   // .Include(x => x.Comments)
                     .FirstOrDefault(x => x.Id == id);
                 return question;
             }
         }
+
+
 
 
         public SearchHistories SearchHistories(int id)
@@ -113,17 +75,7 @@ namespace DataLayer
 
         }
 
-        /*public Question GetQuestionComments(int id)
-        {
-            using (var db = new SOVAContext())
-            {
-                var questioncomment = db.Questions
-                    .Include(x => x.Comments)
-                    .FirstOrDefault(x => x.Id == id);
-                return questioncomment;
-            }
-        }*/
-        //need to edit
+    
         public List<Question> GetQuestionsByString(string title, int page, int pageSize)
         {
             using (var db = new SOVAContext())
@@ -137,6 +89,8 @@ namespace DataLayer
 
             }
         }
+
+       
 
         //Answers
         //edited
@@ -186,6 +140,19 @@ namespace DataLayer
                 return db.Questions.Count();
             }
         }
+
+        //-----------------PostLinks--------------------------
+        public List<PostLink> GetPostLinksByQuestion(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var qpostlinks = db.PostLinks
+                    .Where(x => x.Id == id);
+                return qpostlinks.ToList();
+            }
+        }
+        
+
         //-------------------------------users----------------
         public List<User> GetUsers()
         {
