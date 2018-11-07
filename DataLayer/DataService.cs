@@ -89,9 +89,6 @@ namespace DataLayer
 
             }
         }
-
-       
-
         //Answers
       
         public List<Answer> GetAnswers()

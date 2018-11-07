@@ -23,13 +23,6 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
-        [HttpGet]
-        public ActionResult Test()
-        {
-            return Ok("test");
-        }
-
-
         [HttpPost]
         public IActionResult CreateUser([FromBody] User user)
 
@@ -54,8 +47,6 @@ namespace WebService.Controllers
             return Ok(delete);
 
         }
-
-         
 
     }
 }
