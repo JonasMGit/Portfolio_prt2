@@ -24,17 +24,12 @@ namespace DataLayer.Model
         public string Body { get; set; }
 
         public DateTime ?ClosedDate { get; set; }
+
         //[ForeignKey("Author")]
         public int AuthorId { get; set; }
 
         //public List<Comment> Comments { get; set; }
         public List<PostTag> PostTags { get; set; }
-        //public string Title { get; set; }
-
-        //this is foriegn key to author 
-       
-
-        //public Author Author { get; set; }
         
 
         public List<Annotations> Annotations { get; set; }

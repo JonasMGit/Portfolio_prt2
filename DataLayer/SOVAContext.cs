@@ -1,7 +1,6 @@
 ﻿using DataLayer.Model;
 using Microsoft.EntityFrameworkCore;
-//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-//using Microsoft.AspNetCore.Identity;
+
 
 namespace DataLayer
 {
@@ -15,7 +14,6 @@ namespace DataLayer
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Mark> Marked { get; set; }
-        //public DbSet<Post> Posts { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<PostLink> PostLinks { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -28,7 +26,7 @@ namespace DataLayer
 
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
 
 
         }
@@ -37,7 +35,7 @@ namespace DataLayer
         {
             base.OnModelCreating(modelBuilder);
 
-            //Map Class property: Post. Principal entity. Still has relation to comment
+            //Map Class property: Post. 
            
             modelBuilder.Entity<Post>().ToTable("posts");
             modelBuilder.Entity<Post>().HasKey(x => x.Id);
@@ -73,9 +71,9 @@ namespace DataLayer
             //Map Class Propert: Annotations
            
             modelBuilder.Entity<Annotations>().ToTable("annotations");
-            modelBuilder.Entity<Annotations>().HasKey(x => new {x.Body, x.UserId, x.ParentId});
+            modelBuilder.Entity<Annotations>().HasKey(x => new {x.Body, x.UserId, x.PostId});
             modelBuilder.Entity<Annotations>().Property(x => x.Body).HasColumnName("body");
-            modelBuilder.Entity<Annotations>().Property(x => x.ParentId).HasColumnName("parentid");
+            modelBuilder.Entity<Annotations>().Property(x => x.PostId).HasColumnName("postid");
             modelBuilder.Entity<Annotations>().Property(x => x.UserId).HasColumnName("userid");
 
             //Map Class Propert: Mark
@@ -104,8 +102,6 @@ namespace DataLayer
                 .WithMany(q => q.Comments)
                 .HasForeignKey(c => c.PostId);
 
-            //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 
-            //tag does not need to be foreign key to tag. Can just use distinct keyword
            
             modelBuilder.Entity<PostTag>().ToTable("posttags");
             modelBuilder.Entity<PostTag>().Property(x => x.PostTagId).HasColumnName("id");
@@ -133,8 +129,7 @@ namespace DataLayer
             modelBuilder.Entity<User>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
 
-
-            //Map SearchHistory Should have composite primary key of search userid and date
+            
 
             modelBuilder.Entity<SearchHistories>().ToTable("searchhistory");
             modelBuilder.Entity<SearchHistories>().HasKey(x => new { x.Search, x.UserId, x.Date });

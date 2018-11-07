@@ -51,7 +51,6 @@ namespace WebService.Controllers
         public IActionResult GetQuestion(int id)
         {
             var question = _dataService.GetQuestion(id);
-           // var answer = _dataService.GetAnswersByParent(id); //by parent
             if (question == null) return NotFound();
             
             
@@ -64,7 +63,7 @@ namespace WebService.Controllers
                     question.Body,
                     AcceptedAnswer = Url.Link(nameof(AnswersController.GetAnswer)
                     , new {id = question.AcceptedAnswerId }),
-                    //something wrong
+                 
                     Answers = Url.Link(nameof(AnswersController.GetAnswersByParent)
                     , new {id = question.Id}),
                     Comments = Url.Link(nameof(GetQuestionComment), new { id = question.Id}),

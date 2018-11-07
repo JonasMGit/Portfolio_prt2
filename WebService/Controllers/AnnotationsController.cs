@@ -17,28 +17,28 @@ namespace WebService.Controllers
         {
             _dataService = dataService;
         }
-        
+
         [HttpPost]
         public IActionResult PostAnnotations([FromBody]Annotations annotations)
         {
-             _dataService.CreateAnnotation(annotations.Body, annotations.UserId, annotations.ParentId);
+            _dataService.CreateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);
 
             return Created($"api/annotation/{annotations}", annotations);
-        } 
+        }
 
-        [HttpPut("body")]
-        public IActionResult UpdateAnnotation([FromBody]Annotations annotations)
+        [HttpPut]
+        public IActionResult UpdateAnnotation(string body ,[FromBody]Annotations annotations)
         {
            
-                var anno = _dataService.UpdateAnnotation(annotations.Body, annotations.UserId, annotations.ParentId);
-                if (anno == false)
-                {
-                    return NotFound();
-                }
-                return Ok(anno);
+                var anno = _dataService.UpdateAnnotation(body, annotations.UserId, annotations.PostId);
+                if (anno ==false) return NotFound();
+                 return Ok(anno);
+
+        }
+                
             
           
-        }
+        
         /*
         [HttpDelete]
 

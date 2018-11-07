@@ -11,7 +11,7 @@ namespace DataLayer
     public class DataService
     {
         //Questions
-        //edited
+        
         public List<Question> GetQuestions(int page, int pageSize)
         {
             using (var db = new SOVAContext())
@@ -43,12 +43,12 @@ namespace DataLayer
             using (var db = new SOVAContext())
             {
                 var question = db.SearchHistory
-                    //.Include(x => x.User)
                     .Where(x => x.UserId == id)
                     .FirstOrDefault();
                 return question;
             }
         }
+
         //Comments
         public List<Comment> GetQuestionComments(int id)
         {
@@ -93,7 +93,7 @@ namespace DataLayer
        
 
         //Answers
-        //edited
+      
         public List<Answer> GetAnswers()
         {
             using (var db = new SOVAContext())
@@ -103,7 +103,7 @@ namespace DataLayer
                 return answers;
             }
         }
-        //Edited
+       
         public Answer GetAnswer(int id)
         {
             using (var db = new SOVAContext())
@@ -111,9 +111,7 @@ namespace DataLayer
                 var answer = db.Answers
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
-                    //.FirstOrDefault(x => x.PostId == id);
-
-                return answer;
+                    return answer;
             }
         }
         public List<Answer> GetAnswersByParent(int id)
@@ -153,7 +151,7 @@ namespace DataLayer
         }
         
 
-        //-------------------------------users----------------
+        //----------------users----------------
         public List<User> GetUsers()
         {
             using (var db = new SOVAContext())
@@ -261,7 +259,7 @@ namespace DataLayer
                 {
                     Body = body,
                     UserId = userid,
-                    ParentId = postid
+                    PostId = postid
                     
                 };
                 db.Annotations.Add(newannotation);
@@ -277,11 +275,12 @@ namespace DataLayer
                 var anno = db.Annotations.FirstOrDefault(x => x.UserId == userId);
                 if (anno != null)
                 {
-                    anno.UserId = userId;
-                    anno.ParentId = postid;
                     anno.Body = body;
+                    anno.UserId = userId;
+                    anno.PostId = postid;
                     db.SaveChanges();
                     return true;
+
                 }
                 return false;
             }
@@ -296,7 +295,7 @@ namespace DataLayer
                     var delannotation = new Annotations()
                     {
                        UserId=userid,
-                       ParentId=postid,
+                       PostId=postid,
                        Body = body
                     };
                     db.Annotations.Remove(delannotation);

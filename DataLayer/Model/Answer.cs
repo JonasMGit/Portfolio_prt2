@@ -11,6 +11,6 @@ namespace DataLayer.Model
         public List<Comment> Comments { get; set; }
         public List<PostLink> PostLinks { get; set; }
 
-        //public Question Quesiton { get; set; }
+      
     }
 }
