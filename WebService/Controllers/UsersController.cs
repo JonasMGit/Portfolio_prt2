@@ -23,31 +23,6 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
-        [HttpGet]
-        public ActionResult Test()
-        {
-            return Ok("test");
-        }
-
-        /*  // GET api/users -- READ All       
-          [HttpGet]
-          public List<User> GetUsers()
-          {
-              List<User> users = _dataService.GetUsers();
-              return users;
-          }
-
-          // GET api/users/5 -- READ By Id        
-          [HttpGet("{id}")]
-          public ActionResult<User> GetUserById(int id)
-          {
-              if (id < 1) return BadRequest("Id must be greater then 0");
-
-              var user = _dataService.GetUser(id);
-
-              return user;
-          }*/
-
         [HttpPost]
         public IActionResult CreateUser([FromBody] User user)
 
@@ -72,8 +47,6 @@ namespace WebService.Controllers
             return Ok(delete);
 
         }
-
-         
 
     }
 }

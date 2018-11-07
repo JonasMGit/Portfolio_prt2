@@ -43,7 +43,6 @@ namespace DataLayer
             using (var db = new SOVAContext())
             {
                 var question = db.SearchHistory
-                    //.Include(x => x.User)
                     .Where(x => x.UserId == id)
                     .FirstOrDefault();
                 return question;
@@ -89,9 +88,6 @@ namespace DataLayer
 
             }
         }
-
-       
-
         //Answers
         //edited
         public List<Answer> GetAnswers()
