@@ -21,7 +21,7 @@ namespace WebService.Controllers
         [HttpPost]
         public IActionResult PostAnnotations([FromBody]Annotations annotations)
         {
-             _dataService.CreateAnnotation(annotations.Body, annotations.UserId, annotations.ParentId);
+             _dataService.CreateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);
 
             return Created($"api/annotation/{annotations}", annotations);
         } 
@@ -30,7 +30,7 @@ namespace WebService.Controllers
         public IActionResult UpdateAnnotation([FromBody]Annotations annotations)
         {
            
-                var anno = _dataService.UpdateAnnotation(annotations.Body, annotations.UserId, annotations.ParentId);
+                var anno = _dataService.UpdateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);
                 if (anno == false)
                 {
                     return NotFound();

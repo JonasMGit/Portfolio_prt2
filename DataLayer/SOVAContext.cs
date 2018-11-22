@@ -22,13 +22,15 @@ namespace DataLayer
         public DbSet<User> Users { get; set; }
         public DbSet<SearchHistories> SearchHistory{ get; set; }
 
+        public DbQuery<SearchResult> SearchResults { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseNpgsql("host=localhost;db=stackedoverflow;uid=postgres;pwd=postgres");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=postgres");
 
 
         }
@@ -52,9 +54,12 @@ namespace DataLayer
             modelBuilder.Entity<Post>().HasDiscriminator(x => x.PostType)
                 .HasValue<Question>(1)
                 .HasValue<Answer>(2);
-           
 
-            
+            modelBuilder.Query<SearchResult>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Query<SearchResult>().Property(x => x.Body).HasColumnName("body");
+
+
+
 
             modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
             
@@ -73,9 +78,9 @@ namespace DataLayer
             //Map Class Propert: Annotations
            
             modelBuilder.Entity<Annotations>().ToTable("annotations");
-            modelBuilder.Entity<Annotations>().HasKey(x => new {x.Body, x.UserId, x.ParentId});
+            modelBuilder.Entity<Annotations>().HasKey(x => new {x.Body, x.UserId, x.PostId});
             modelBuilder.Entity<Annotations>().Property(x => x.Body).HasColumnName("body");
-            modelBuilder.Entity<Annotations>().Property(x => x.ParentId).HasColumnName("parentid");
+            modelBuilder.Entity<Annotations>().Property(x => x.PostId).HasColumnName("postid");
             modelBuilder.Entity<Annotations>().Property(x => x.UserId).HasColumnName("userid");
 
             //Map Class Propert: Mark

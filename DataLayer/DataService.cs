@@ -75,12 +75,12 @@ namespace DataLayer
         }
 
     
-        public List<Question> GetQuestionsByString(string title, int page, int pageSize)
+        public List<SearchResult> GetQuestionsByString(string title, int page, int pageSize)
         {
             using (var db = new SOVAContext())
             {
-                var question = db.Questions
-                .Where(x => (x.Body.ToLower().Contains(title.ToLower()) || x.Title.ToLower().Contains(title.ToLower())));
+                var question = db.SearchResults.FromSql("select * from TFIDF_MATCH({0})", title);
+                //.Where(x => (x.Body.ToLower().Contains(title.ToLower()) || x.Body.ToLower().Contains(title.ToLower())));
                 return question
                     .Skip(page * pageSize)
                     .Take(pageSize)
@@ -88,6 +88,22 @@ namespace DataLayer
 
             }
         }
+
+        /*private List<Question> EfExample(string title, int page, int pagesize)
+        {
+            using (var db = new SOVAContext())
+            {
+                // you can add parameters to the query, as shown here, by list them after the 
+                // statement, and reference them with {0} {1} ... {n}, where 0 is the first argument,
+                // 1 is the second etc.
+                foreach (var result in db.SearchResults.FromSql("select * from TFIDF_MATCH({0} , {1})", "constructors", "regions"))
+                {
+                    Console.WriteLine($"Result(ADO): {result.Id}, {result.Body}");
+                }
+
+            }
+        }*/
+
         //Answers
         //edited
         public List<Answer> GetAnswers()
@@ -257,7 +273,7 @@ namespace DataLayer
                 {
                     Body = body,
                     UserId = userid,
-                    ParentId = postid
+                    PostId = postid
                     
                 };
                 db.Annotations.Add(newannotation);
@@ -274,7 +290,7 @@ namespace DataLayer
                 if (anno != null)
                 {
                     anno.UserId = userId;
-                    anno.ParentId = postid;
+                    anno.PostId = postid;
                     anno.Body = body;
                     db.SaveChanges();
                     return true;
@@ -292,7 +308,7 @@ namespace DataLayer
                     var delannotation = new Annotations()
                     {
                        UserId=userid,
-                       ParentId=postid,
+                       PostId=postid,
                        Body = body
                     };
                     db.Annotations.Remove(delannotation);

@@ -175,7 +175,7 @@ namespace DataServiceTest
             var newuser= service.createUser("Camie", "cami123").Id;
             var newpost = service.GetAnswer(9854666).Id;
             var newannotation = service.CreateAnnotation("Annotation to be deleted",newuser,newpost);
-            var delannotation = service.DeleteAnnotation(newannotation.UserId, newannotation.ParentId, newannotation.Body);
+            var delannotation = service.DeleteAnnotation(newannotation.UserId, newannotation.PostId, newannotation.Body);
             Assert.True(delannotation);
 
         }
