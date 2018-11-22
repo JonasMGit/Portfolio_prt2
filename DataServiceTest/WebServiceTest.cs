@@ -50,14 +50,7 @@ namespace ProjoctPortfolioTests
             Assert.Equal(0, (int)answer.GetValue("score"));
         }
         
-        /*
-        [Fact]
-        public void ApiAnswers_GetWithInvalidAnswerId_()
-        {
-            var (answer, statusCode) = GetArray($"{AnswersApi}/-1");
-
-            Assert.Equal(HttpStatusCode.NotFound, statusCode);
-        } */
+       
 
         //Questions
         [Fact]
@@ -67,9 +60,7 @@ namespace ProjoctPortfolioTests
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal(10, data.GetValue("items").Count());
-            //Assert.Equal("<p>I'm setting my console full screen but I also want to hide the task bar and the start button in VB.NET using Visual Studio 2010</p>&#xA;&#xA;<p>Thanks</p>&#xA;", data.First()["body"]);
-            //Assert.Equal(1365365, data.First()["authorId"]);
-            //Assert.Equal(1, data.First()["postType"]);
+            
         }
 
         [Fact]
@@ -78,7 +69,7 @@ namespace ProjoctPortfolioTests
             var (question, statusCode) = GetObject($"{QuestionsApi}/13649012");
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
-            //Assert.Equal(13649012, question["postId"]);
+           
         } 
 
         //--------Annotation test----------
@@ -117,7 +108,7 @@ namespace ProjoctPortfolioTests
                 PostId = annotate["postid"]
 
             };
-            var statusCode = PutData($"{AnnotationsApi}/{annotate["userid"]}", update);
+            var statusCode = PutData($"{AnnotationsApi}/{annotate}", update);
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
         }
@@ -141,12 +132,12 @@ namespace ProjoctPortfolioTests
 
             var data = new
             {
-                PostId = 9854666,
+                PostId = 18156230,
                 UserId = 41
             };
              var (mark, _) = PostData($"{MarkApi}", data);
 
-            var statusCode = DeleteData($"{MarkApi}/{mark["userid"]}");
+            var statusCode = DeleteData($"{MarkApi}/{mark}");
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
         }

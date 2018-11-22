@@ -63,7 +63,7 @@ namespace WebService.Controllers
                     question.Body,
                     AcceptedAnswer = Url.Link(nameof(AnswersController.GetAnswer)
                     , new {id = question.AcceptedAnswerId }),
-                    //something wrong
+                 
                     Answers = Url.Link(nameof(AnswersController.GetAnswersByParent)
                     , new {id = question.Id}),
                     Comments = Url.Link(nameof(GetQuestionComment), new { id = question.Id}),

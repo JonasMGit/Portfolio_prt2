@@ -31,14 +31,14 @@ namespace DataServiceTest
         }
 
         //GetQuestion_ByString
-        /*[Fact]
+        [Fact]
         public void GetQuestions_ByString_ReturnsList()
         {
             var service = new DataService();
             var questions = service.GetQuestionsByString("Hide", 0, 5);
             Assert.Equal(30, questions.Count);
             Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
-        }*/
+        }
      
         //Answers
         [Fact]
@@ -162,8 +162,11 @@ namespace DataServiceTest
         public void UpdateAnnotations_Body_Userid_Postid()
         {
             var service = new DataService();
-            var newannotation = service.UpdateAnnotation("Annotation is updated now", 99, 13649012);
-            Assert.True(newannotation);
+            var newUser = service.createUser("Heran", "heri123").Id;
+            var parentIdentfire = service.GetQuestion(13649012).Id;
+            var newAnnotation = service.CreateAnnotation("Annotation_created by Heran", newUser, parentIdentfire);
+            var updatedannotation = service.UpdateAnnotation(newAnnotation.Body, newAnnotation.UserId, newAnnotation.PostId);
+            Assert.True(updatedannotation);
             //Assert.Equal("Annotation is updated", );
         }
 
@@ -199,7 +202,7 @@ namespace DataServiceTest
         public void DeleteMarking()
         {
             var service = new DataService();
-            var newuser = service.createUser("Peter", "pet123").Id;
+            var newuser = service.createUser("Peter pet", "pet123").Id;
             var postt = service.GetQuestion(13649012).Id;
             var newmark = service.CreateMarking(postt,newuser);
             var delmark = service.DeleteMarking(newmark.PostId, newmark.UserId);

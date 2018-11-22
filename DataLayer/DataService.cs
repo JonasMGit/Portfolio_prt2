@@ -11,7 +11,7 @@ namespace DataLayer
     public class DataService
     {
         //Questions
-        //edited
+        
         public List<Question> GetQuestions(int page, int pageSize)
         {
             using (var db = new SOVAContext())
@@ -48,6 +48,7 @@ namespace DataLayer
                 return question;
             }
         }
+
         //Comments
         public List<Comment> GetQuestionComments(int id)
         {
@@ -105,7 +106,7 @@ namespace DataLayer
         }*/
 
         //Answers
-        //edited
+      
         public List<Answer> GetAnswers()
         {
             using (var db = new SOVAContext())
@@ -115,7 +116,7 @@ namespace DataLayer
                 return answers;
             }
         }
-        //Edited
+       
         public Answer GetAnswer(int id)
         {
             using (var db = new SOVAContext())
@@ -123,9 +124,7 @@ namespace DataLayer
                 var answer = db.Answers
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
-                    //.FirstOrDefault(x => x.PostId == id);
-
-                return answer;
+                    return answer;
             }
         }
         public List<Answer> GetAnswersByParent(int id)
@@ -165,7 +164,7 @@ namespace DataLayer
         }
         
 
-        //-------------------------------users----------------
+        //----------------users----------------
         public List<User> GetUsers()
         {
             using (var db = new SOVAContext())
@@ -289,11 +288,13 @@ namespace DataLayer
                 var anno = db.Annotations.FirstOrDefault(x => x.UserId == userId);
                 if (anno != null)
                 {
+                    anno.Body = body;
                     anno.UserId = userId;
                     anno.PostId = postid;
                     anno.Body = body;
                     db.SaveChanges();
                     return true;
+
                 }
                 return false;
             }

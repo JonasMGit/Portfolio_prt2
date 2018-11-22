@@ -17,17 +17,17 @@ namespace WebService.Controllers
         {
             _dataService = dataService;
         }
-        
+
         [HttpPost]
         public IActionResult PostAnnotations([FromBody]Annotations annotations)
         {
              _dataService.CreateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);
 
             return Created($"api/annotation/{annotations}", annotations);
-        } 
+        }
 
-        [HttpPut("body")]
-        public IActionResult UpdateAnnotation([FromBody]Annotations annotations)
+        [HttpPut]
+        public IActionResult UpdateAnnotation(string body ,[FromBody]Annotations annotations)
         {
            
                 var anno = _dataService.UpdateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);

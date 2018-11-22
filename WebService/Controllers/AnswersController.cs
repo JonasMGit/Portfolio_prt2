@@ -9,8 +9,8 @@ using WebService.DTO;
 
 namespace WebService.Controllers
 {
-    //comment authorize out for now
-    //[Authorize]
+    
+    [Authorize]
     [Route("api/answers")]
     [ApiController]
     public class AnswersController : Controller
@@ -52,7 +52,7 @@ namespace WebService.Controllers
 
             if (answerbyparent.Count == 0) return NotFound();
             List<AnswerDto> dtoAnswers = new List<AnswerDto>();
-            //for loop
+            
             foreach (var item in answerbyparent)
             {
                 var AnswerDto = new AnswerDto()

@@ -1,7 +1,6 @@
 ﻿using DataLayer.Model;
 using Microsoft.EntityFrameworkCore;
-//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-//using Microsoft.AspNetCore.Identity;
+
 
 namespace DataLayer
 {
@@ -15,7 +14,6 @@ namespace DataLayer
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Mark> Marked { get; set; }
-        //public DbSet<Post> Posts { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<PostLink> PostLinks { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -39,7 +37,7 @@ namespace DataLayer
         {
             base.OnModelCreating(modelBuilder);
 
-            //Map Class property: Post. Principal entity. Still has relation to comment
+            //Map Class property: Post. 
            
             modelBuilder.Entity<Post>().ToTable("posts");
             modelBuilder.Entity<Post>().HasKey(x => x.Id);
@@ -109,8 +107,6 @@ namespace DataLayer
                 .WithMany(q => q.Comments)
                 .HasForeignKey(c => c.PostId);
 
-            //Map class property: PostTag Id is still foreign key. Need to ask about this as well. 
-            //tag does not need to be foreign key to tag. Can just use distinct keyword
            
             modelBuilder.Entity<PostTag>().ToTable("posttags");
             modelBuilder.Entity<PostTag>().Property(x => x.PostTagId).HasColumnName("id");
@@ -138,8 +134,7 @@ namespace DataLayer
             modelBuilder.Entity<User>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
 
-
-            //Map SearchHistory Should have composite primary key of search userid and date
+            
 
             modelBuilder.Entity<SearchHistories>().ToTable("searchhistory");
             modelBuilder.Entity<SearchHistories>().HasKey(x => new { x.Search, x.UserId, x.Date });
