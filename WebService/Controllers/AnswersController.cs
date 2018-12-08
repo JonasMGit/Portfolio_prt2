@@ -10,17 +10,17 @@ using WebService.DTO;
 namespace WebService.Controllers
 {
     
-    [Authorize]
+    //[Authorize]
     [Route("api/answers")]
     [ApiController]
     public class AnswersController : Controller
     {
-        DataService _dataService;
-
+        private readonly IDataService _dataService;
+        
         public AnswersController(DataService dataService)
         {
             _dataService = dataService;
-        }
+        } 
 
         [HttpGet]
         public IActionResult GetAnswers()

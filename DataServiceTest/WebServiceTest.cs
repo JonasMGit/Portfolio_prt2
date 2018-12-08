@@ -69,7 +69,7 @@ namespace ProjoctPortfolioTests
             var (question, statusCode) = GetObject($"{QuestionsApi}/13649012");
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
-           
+            Assert.Equal(2, question.GetValue("score"));
         } 
 
         //--------Annotation test----------

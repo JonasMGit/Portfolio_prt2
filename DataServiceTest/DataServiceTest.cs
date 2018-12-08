@@ -37,7 +37,7 @@ namespace DataServiceTest
             var service = new DataService();
             var questions = service.GetQuestionsByString("Hide", 0, 5);
             Assert.Equal(30, questions.Count);
-            Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
+            //Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
         }
      
         //Answers
@@ -93,7 +93,13 @@ namespace DataServiceTest
         {
             var service = new DataService();
             var userNew = service.createUser("Henning", "Flemming");
-           
+
+            Assert.Equal("Henning", userNew.UserName);
+
+            //Clean up
+            var delUser = service.DeleteUser(userNew.Id);
+            Assert.True(delUser);
+
         }
 
         [Fact]
@@ -122,7 +128,8 @@ namespace DataServiceTest
             Assert.Equal("updatedusername", newUser.UserName);
             Assert.Equal("updatedpassword", newUser.Password);
 
-            service.DeleteUser(newUser.Id);
+            //clean up
+           var delUpdatedUser = service.DeleteUser(newUser.Id);
         }
        
         [Fact]
@@ -140,6 +147,11 @@ namespace DataServiceTest
             var newUser = service.createUser("History","Saved");
             var newSearch = service.SaveSearch("Hide",newUser.Id);
             Assert.Equal("Hide", newSearch.Search);
+
+            //clean up
+            var delHistoryUser = service.DeleteUser(newUser.Id); 
+            //var delHistorySearch = service - CREATE DELETE SEARCH HISTORY
+
         }
 
         //--------------Annotation test----------------
@@ -154,8 +166,8 @@ namespace DataServiceTest
 
             //Clean up
             //deleteuser
-
-            
+            var delAnnotation = service.DeleteAnnotation(newUser,parentIdentfire, newAnnotation.Body);
+            var delNewUser = service.DeleteUser(newUser);
         }
 
         [Fact]
@@ -165,12 +177,13 @@ namespace DataServiceTest
             var newUser = service.createUser("Heran", "heri123").Id;
             var parentIdentfire = service.GetQuestion(13649012).Id;
             var newAnnotation = service.CreateAnnotation("Annotation_created by Heran", newUser, parentIdentfire);
-            var updatedannotation = service.UpdateAnnotation(newAnnotation.Body, newAnnotation.UserId, newAnnotation.PostId);
-            Assert.True(updatedannotation);
+            var updatedannotation = service.UpdateAnnotation("Henning", newAnnotation.UserId, newAnnotation.PostId);
+            Assert.Equal("Henning", newAnnotation.Body);
             //Assert.Equal("Annotation is updated", );
+
         }
 
-        //---Needs to be fixed
+        
         [Fact]
         public void DeleteAnnotation()
         {
@@ -196,6 +209,8 @@ namespace DataServiceTest
             Assert.Equal(13649012, newMarking.PostId);
 
             //delete user
+            var delNewMark = service.DeleteMarking(newMarking.PostId, newMarking.UserId);
+            var delMarkTestUser = service.DeleteUser(newuser);
         }
 
         [Fact]

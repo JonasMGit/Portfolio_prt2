@@ -28,7 +28,7 @@ namespace DataLayer
 
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=postgres");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=RucRuc13");
 
 
         }
