@@ -23,7 +23,7 @@ namespace WebService.Controllers
         public IActionResult PostMarks([FromBody]Mark mark)
         {
 
-            _dataService.CreateMarking(mark.Id, mark.CreationDate, mark.PostId, mark.UserId);
+            _dataService.CreateMarking(mark.PostId, mark.UserId);
 
             return Created($"api/mark/{mark}", mark);
 
@@ -31,9 +31,9 @@ namespace WebService.Controllers
 
 
         [HttpDelete]
-        public IActionResult DeleteMarks(int id, DateTime creationdate, int postid, int userid)
+        public IActionResult DeleteMarks(int id)
         {
-            var del = _dataService.DeleteMarking(id, creationdate,postid, userid);
+            var del = _dataService.DeleteMarking(id);
 
             if (del==false) return NotFound();
             return Ok(del);
