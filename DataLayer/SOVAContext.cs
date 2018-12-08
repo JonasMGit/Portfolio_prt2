@@ -76,15 +76,17 @@ namespace DataLayer
             //Map Class Propert: Annotations
            
             modelBuilder.Entity<Annotations>().ToTable("annotations");
-            modelBuilder.Entity<Annotations>().HasKey(x => new {x.Body, x.UserId, x.PostId});
+            modelBuilder.Entity<Mark>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Annotations>().Property(x => x.Body).HasColumnName("body");
+            modelBuilder.Entity<Annotations>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Annotations>().Property(x => x.PostId).HasColumnName("postid");
             modelBuilder.Entity<Annotations>().Property(x => x.UserId).HasColumnName("userid");
 
             //Map Class Propert: Mark
            
             modelBuilder.Entity<Mark>().ToTable("marked");
-            modelBuilder.Entity<Mark>().HasKey(x => new { x.UserId, x.PostId });
+            modelBuilder.Entity<Mark>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<Mark>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Mark>().Property(x => x.PostId).HasColumnName("postid");
             modelBuilder.Entity<Mark>().Property(x => x.UserId).HasColumnName("userid");
 
