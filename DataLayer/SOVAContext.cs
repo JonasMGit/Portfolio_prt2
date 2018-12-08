@@ -77,6 +77,7 @@ namespace DataLayer
            
             modelBuilder.Entity<Annotations>().ToTable("annotations");
             modelBuilder.Entity<Annotations>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<Annotations>().HasKey(x => x.Id);
             modelBuilder.Entity<Annotations>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Annotations>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Annotations>().Property(x => x.PostId).HasColumnName("postid");
@@ -142,7 +143,7 @@ namespace DataLayer
             modelBuilder.Entity<SearchHistories>().HasKey(x => new { x.Search, x.UserId, x.Date });
             modelBuilder.Entity<SearchHistories>().Property(x => x.Search).HasColumnName("search");
             modelBuilder.Entity<SearchHistories>().Property(x => x.UserId).HasColumnName("userid");
-            modelBuilder.Entity<SearchHistories>().Property(x => x.Date).HasColumnName("date");
+            modelBuilder.Entity<SearchHistories>().Property(x => x.Date).HasColumnName("creationdate");
 
         }
 

@@ -30,7 +30,7 @@ namespace WebService.Controllers
         public IActionResult UpdateAnnotation(string body ,[FromBody]Annotations annotations)
         {
            
-                var anno = _dataService.UpdateAnnotation( annotations.Body, annotations.UserId, annotations.PostId);
+                var anno = _dataService.UpdateAnnotation( annotations.Body, annotations.Id);
                 if (anno == false)
                 {
                     return NotFound();

@@ -29,7 +29,7 @@ namespace DataLayer
         bool UpdateUser(int userId, string newName, string newPassword);
         SearchHistories SaveSearch(string newSearch, int newUserId);
         Annotations CreateAnnotation(string body, int userid, int postid);
-        bool UpdateAnnotation(string body, int userId, int postid);
+        bool UpdateAnnotation(string body, int id);
         bool DeleteAnnotation(int id);
         Mark CreateMarking(int postid, int userid);
         bool DeleteMarking(int id);
@@ -301,7 +301,7 @@ namespace DataLayer
                 var newannotation = new Annotations()
                 {
                    
-                   //CreationDate = creationdate,
+                   CreationDate = creationdate,
                     Body = body,
                     UserId = userid,
                     PostId = postid
@@ -313,17 +313,13 @@ namespace DataLayer
             }
         }
 
-        public bool UpdateAnnotation(string body, int userId, int postid)
+        public bool UpdateAnnotation(string body, int id)
         {
             using (var db = new SOVAContext())
             {
-                var anno = db.Annotations.FirstOrDefault(x => x.UserId == userId);
+                var anno = db.Annotations.FirstOrDefault(x => x.Id ==id); 
                 if (anno != null)
                 {
-                   
-                    anno.Body = body;
-                    anno.UserId = userId;
-                    anno.PostId = postid;
                     anno.Body = body;
                     db.SaveChanges();
                     return true;

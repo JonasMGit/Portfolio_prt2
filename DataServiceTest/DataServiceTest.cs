@@ -57,7 +57,7 @@ namespace DataServiceTest
             Assert.Equal(2, answers.Comments.Count());
         }
 
-
+        /*
         [Fact]
         public void GetAnswer_Accepted()
         {
@@ -65,7 +65,7 @@ namespace DataServiceTest
             var answer = service.GetAcceptedAnswer(24362641);
             Assert.Equal(24361884, answer.Id);
         }
-
+        */
 
         [Fact]
         public void GetAnswers_ByValidId()
@@ -178,7 +178,9 @@ namespace DataServiceTest
             var newUser = service.createUser("Heran", "heri123").Id;
             var parentIdentfire = service.GetQuestion(13649012).Id;
             var newAnnotation = service.CreateAnnotation("Annotation_created by Heran", newUser, parentIdentfire);
-            var updatedannotation = service.UpdateAnnotation("Henning", newAnnotation.UserId, newAnnotation.PostId);
+            var updatedannotation = service.UpdateAnnotation("Henning", newAnnotation.Id);
+            //var getanno = service.getanno(id);
+            Assert.Equal(13649012, newAnnotation.PostId);
             Assert.Equal("Henning", newAnnotation.Body);
             //Assert.Equal("Annotation is updated", );
 
