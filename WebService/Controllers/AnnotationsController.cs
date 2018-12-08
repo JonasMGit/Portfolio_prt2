@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
-    [Route("api/annotation")]
+    [Route("api/annotations")]
     [ApiController]
     public class AnnotationsController : Controller
     {
@@ -23,7 +23,7 @@ namespace WebService.Controllers
         {
              _dataService.CreateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);
 
-            return Created($"api/annotation/{annotations}", annotations);
+            return Created($"api/annotations/{annotations}", annotations);
         }
 
         [HttpPut]

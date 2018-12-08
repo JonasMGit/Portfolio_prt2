@@ -79,9 +79,9 @@ namespace ProjoctPortfolioTests
             var data = new 
             {
                 
-                Body = "Annotation is updated noww",
-                UserId = 100,
-                PostId = 7556427
+                Body = "Henning",
+                UserId = 227,
+                PostId = 13649012
 
 
             };
@@ -103,7 +103,7 @@ namespace ProjoctPortfolioTests
 
             var update = new
             {
-                Body = annotate["body"] + "Updated body",
+                Body = annotate["body"],
                 UserId = annotate["userid"],
                 PostId = annotate["postid"]
 
@@ -132,8 +132,8 @@ namespace ProjoctPortfolioTests
 
             var data = new
             {
-                PostId = 18156230,
-                UserId = 41
+                PostId = 9599360,
+                UserId = 86
             };
              var (mark, _) = PostData($"{MarkApi}", data);
 

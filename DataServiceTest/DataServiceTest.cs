@@ -179,11 +179,9 @@ namespace DataServiceTest
             var parentIdentfire = service.GetQuestion(13649012).Id;
             var newAnnotation = service.CreateAnnotation("Annotation_created by Heran", newUser, parentIdentfire);
             var updatedannotation = service.UpdateAnnotation("Henning", newAnnotation.Id);
-            //var getanno = service.getanno(id);
             Assert.Equal(13649012, newAnnotation.PostId);
             Assert.Equal("Henning", newAnnotation.Body);
-            //Assert.Equal("Annotation is updated", );
-
+      
         }
 
         
