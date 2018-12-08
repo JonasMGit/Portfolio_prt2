@@ -28,11 +28,11 @@ namespace DataLayer
         bool DeleteUser(int id);
         bool UpdateUser(int userId, string newName, string newPassword);
         SearchHistories SaveSearch(string newSearch, int newUserId);
-        Annotations CreateAnnotation(int id,DateTime creationdate,string body, int userid, int postid);
-        bool UpdateAnnotation(int id, DateTime creationdate,string body, int userId, int postid);
-        bool DeleteAnnotation(int id, DateTime creationdate, int userid, int postid, string body);
-        Mark CreateMarking(int id, DateTime creationdate,int postid, int userid);
-        bool DeleteMarking(int id, DateTime creationdate,int postid, int userid);
+        Annotations CreateAnnotation(string body, int userid, int postid);
+        bool UpdateAnnotation(string body, int userId, int postid);
+        bool DeleteAnnotation(int id);
+        Mark CreateMarking(int postid, int userid);
+        bool DeleteMarking(int id);
 
 
     }
