@@ -8,7 +8,37 @@ using System.Text;
 
 namespace DataLayer
 {
-    public class DataService
+    public interface IDataService
+    {
+        List<Question> GetQuestions(int page, int pageSize);
+        Question GetQuestion(int id);
+        SearchHistories SearchHistories(int id);
+        List<Comment> GetQuestionComments(int id);
+        List<Comment> GetCommentsByAnswer(int id);
+        List<SearchResult> GetQuestionsByString(string title, int page, int pageSize);
+        List<Answer> GetAnswers();
+        Answer GetAnswer(int id);
+        List<Answer> GetAnswersByParent(int id);
+        int GetNumberOfAnswers();
+        int GetNumberOfQuestions();
+        List<PostLink> GetPostLinksByQuestion(int id);
+        List<User> GetUsers();
+        User GetUser(int id);
+        User createUser(string name, string password);
+        bool DeleteUser(int id);
+        bool UpdateUser(int userId, string newName, string newPassword);
+        SearchHistories SaveSearch(string newSearch, int newUserId);
+        Annotations CreateAnnotation(string body, int userid, int postid);
+        bool UpdateAnnotation(string body, int userId, int postid);
+        bool DeleteAnnotation(int userid, int postid, string body);
+        Mark CreateMarking(int postid, int userid);
+        bool DeleteMarking(int postid, int userid);
+
+
+    }
+
+
+    public class DataService : IDataService
     {
         //Questions
         

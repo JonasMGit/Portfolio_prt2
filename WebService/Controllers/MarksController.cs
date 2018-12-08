@@ -12,7 +12,7 @@ namespace WebService.Controllers
     [ApiController]
     public class MarksController : Controller
     {
-        DataService _dataService;
+        private readonly IDataService _dataService;
         public MarksController(DataService dataService)
         {
             _dataService = dataService;

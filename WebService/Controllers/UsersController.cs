@@ -16,7 +16,7 @@ namespace WebService.Controllers
     public class UsersController : Controller
     {
         // Instance of DataService
-        DataService _dataService;
+        private readonly IDataService _dataService;
 
         public UsersController(DataService dataService)
         {

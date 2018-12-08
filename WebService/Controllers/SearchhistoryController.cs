@@ -11,7 +11,7 @@ namespace WebService.Controllers
     [ApiController]
     public class SearchhistoryController : Controller
     {
-        DataService _dataService;
+        private readonly IDataService _dataService;
         public SearchhistoryController(DataService dataService)
         {
             _dataService = dataService;
