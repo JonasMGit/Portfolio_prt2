@@ -28,7 +28,7 @@ namespace DataLayer
 
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=RucRuc13");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
 
 
         }
@@ -76,7 +76,7 @@ namespace DataLayer
             //Map Class Propert: Annotations
            
             modelBuilder.Entity<Annotations>().ToTable("annotations");
-            modelBuilder.Entity<Mark>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<Annotations>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Annotations>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Annotations>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Annotations>().Property(x => x.PostId).HasColumnName("postid");

@@ -28,11 +28,11 @@ namespace DataLayer
         bool DeleteUser(int id);
         bool UpdateUser(int userId, string newName, string newPassword);
         SearchHistories SaveSearch(string newSearch, int newUserId);
-        Annotations CreateAnnotation(string body, int userid, int postid);
-        bool UpdateAnnotation(string body, int userId, int postid);
-        bool DeleteAnnotation(int userid, int postid, string body);
-        Mark CreateMarking(int postid, int userid);
-        bool DeleteMarking(int postid, int userid);
+        Annotations CreateAnnotation(int id,DateTime creationdate,string body, int userid, int postid);
+        bool UpdateAnnotation(int id, DateTime creationdate,string body, int userId, int postid);
+        bool DeleteAnnotation(int id, DateTime creationdate, int userid, int postid, string body);
+        Mark CreateMarking(int id, DateTime creationdate,int postid, int userid);
+        bool DeleteMarking(int id, DateTime creationdate,int postid, int userid);
 
 
     }
@@ -296,10 +296,12 @@ namespace DataLayer
         public Annotations CreateAnnotation(string body, int userid, int postid)
         {
             using (var db=new SOVAContext())
-            {   
-                
+            {
+                var creationdate = DateTime.Now;
                 var newannotation = new Annotations()
                 {
+                   
+                   CreationDate = creationdate,
                     Body = body,
                     UserId = userid,
                     PostId = postid
@@ -318,6 +320,7 @@ namespace DataLayer
                 var anno = db.Annotations.FirstOrDefault(x => x.UserId == userId);
                 if (anno != null)
                 {
+                   
                     anno.Body = body;
                     anno.UserId = userId;
                     anno.PostId = postid;
@@ -330,7 +333,7 @@ namespace DataLayer
             }
         }
 
-        public bool DeleteAnnotation(int userid,int postid, string body)
+        public bool DeleteAnnotation( int id)
         {
             try
             {
@@ -338,9 +341,8 @@ namespace DataLayer
                 {
                     var delannotation = new Annotations()
                     {
-                       UserId=userid,
-                       PostId=postid,
-                       Body = body
+                        Id=id
+                      
                     };
                     db.Annotations.Remove(delannotation);
                     db.SaveChanges();
@@ -359,10 +361,14 @@ namespace DataLayer
         {
             using (var db=new SOVAContext())
             {
+
+                var creationdate = DateTime.Now;
                 var newmark = new Mark()
                 {
-                    PostId=postid,
-                    UserId=userid
+                
+                    CreationDate = creationdate,
+                    PostId = postid,
+                    UserId = userid
                 };
                 db.Marked.Add(newmark);
                 db.SaveChanges();
@@ -370,7 +376,7 @@ namespace DataLayer
             }
         }
 
-        public bool DeleteMarking(int postid, int userid)
+        public bool DeleteMarking(int id)
         {
             try
             {
@@ -378,8 +384,8 @@ namespace DataLayer
                 {
                     var delmarking = new Mark()
                     {
-                        PostId = postid,
-                        UserId = userid
+                        Id=id
+                       
                     
                       
                     };
