@@ -49,36 +49,36 @@ namespace DataServiceTest
             Assert.Equal(11392, posts.Count);
         }
 
-        /*[Fact]
+        [Fact]
         public void GetAnswer_WithComments()
         {
             var service = new DataService();
             var answers = service.GetAnswer(12713875);
             Assert.Equal(2, answers.Comments.Count());
-        }*/
+        }
 
 
-        /* [Fact]
+        [Fact]
         public void GetAnswer_Accepted()
         {
             var service = new DataService();
             var answer = service.GetAcceptedAnswer(24362641);
             Assert.Equal(24361884, answer.Id);
-        }*/
+        }
 
 
-      /*  [Fact]
+        [Fact]
         public void GetAnswers_ByValidId()
         {
             var service = new DataService();
             var posts = service.GetAnswer(3126560);
             Assert.Equal(2180354, posts.ParentId);
             Assert.Equal(1, posts.Score);
-        }*/
+        }
 
         //comments
 
-       /* [Fact]
+       [Fact]
         public void GetCommentsToAQuestion()
         {
             var service = new DataService();
@@ -86,7 +86,7 @@ namespace DataServiceTest
             DateTime myDate = DateTime.ParseExact("2012-11-30 16:53:35", "yyyy-MM-dd HH:mm:ss",
             System.Globalization.CultureInfo.InvariantCulture);
             Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
-        }*/
+        }
 
         [Fact]
         public void CreateNewUserTest()
@@ -155,7 +155,7 @@ namespace DataServiceTest
         }
 
         //--------------Annotation test----------------
-        /*
+        
         [Fact]
         public void CreateAnnotation()
         {
@@ -167,7 +167,7 @@ namespace DataServiceTest
 
             //Clean up
             //deleteuser
-            var delAnnotation = service.DeleteAnnotation(newUser,parentIdentfire, newAnnotation.Body);
+            var delAnnotation = service.DeleteAnnotation(newAnnotation.Id);
             var delNewUser = service.DeleteUser(newUser);
         }
 
@@ -192,7 +192,7 @@ namespace DataServiceTest
             var newuser= service.createUser("Camie", "cami123").Id;
             var newpost = service.GetAnswer(9854666).Id;
             var newannotation = service.CreateAnnotation("Annotation to be deleted",newuser,newpost);
-            var delannotation = service.DeleteAnnotation(newannotation.UserId, newannotation.PostId, newannotation.Body);
+            var delannotation = service.DeleteAnnotation(newannotation.Id);
             Assert.True(delannotation);
 
         }
@@ -210,7 +210,7 @@ namespace DataServiceTest
             Assert.Equal(13649012, newMarking.PostId);
 
             //delete user
-            var delNewMark = service.DeleteMarking(newMarking.PostId, newMarking.UserId);
+            var delNewMark = service.DeleteMarking(newMarking.Id);
             var delMarkTestUser = service.DeleteUser(newuser);
         }
 
@@ -221,10 +221,10 @@ namespace DataServiceTest
             var newuser = service.createUser("Peter pet", "pet123").Id;
             var postt = service.GetQuestion(13649012).Id;
             var newmark = service.CreateMarking(postt,newuser);
-            var delmark = service.DeleteMarking(newmark.PostId, newmark.UserId);
+            var delmark = service.DeleteMarking(newmark.Id);
             Assert.True(delmark);
 
-        }*/
+        }
     } //closening the DataService class
 
 } //closing the namespace DataServiceTest 
