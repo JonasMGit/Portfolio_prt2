@@ -30,10 +30,10 @@ namespace WebService.Controllers
         }
 
 
-        [HttpDelete("id")]
-        public IActionResult DeleteMarks(int userid, int postid)
+        [HttpDelete]
+        public IActionResult DeleteMarks([FromBody]Mark mark)
         {
-            var del = _dataService.DeleteMarking(userid, postid);
+            var del = _dataService.DeleteMarking(mark.UserId, mark.PostId);
 
             if (del==false) return NotFound();
             return Ok(del);
