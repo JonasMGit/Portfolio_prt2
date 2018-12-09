@@ -214,7 +214,7 @@ namespace DataServiceTest
             Assert.Equal(13649012, newMarking.PostId);
 
             //delete user
-            var delNewMark = service.DeleteMarking(newMarking.Id);
+            var delNewMark = service.DeleteMarking(newMarking.UserId,newMarking.PostId);
             var delMarkTestUser = service.DeleteUser(newuser);
         }
 
@@ -225,7 +225,7 @@ namespace DataServiceTest
             var newuser = service.createUser("Peter pet", "pet123").Id;
             var postt = service.GetQuestion(13649012).Id;
             var newmark = service.CreateMarking(postt,newuser);
-            var delmark = service.DeleteMarking(newmark.Id);
+            var delmark = service.DeleteMarking(newmark.UserId, newmark.PostId);
             Assert.True(delmark);
 
         }

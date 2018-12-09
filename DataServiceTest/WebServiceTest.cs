@@ -95,20 +95,20 @@ namespace ProjoctPortfolioTests
         {
             var data = new
             {
-                body = "Annotation to be updated now",
-                userid = 36,
+                body = "Annotation to be updated",
+                userid = 244,
                 postid = 13649012
             };
+           
             var (annotate, _) = PostData($"{AnnotationsApi}", data);
 
             var update = new
             {
-                Body = annotate["body"],
-                UserId = annotate["userid"],
-                PostId = annotate["postid"]
-
-            };
-            var statusCode = PutData($"{AnnotationsApi}/{annotate}", update);
+                Id=annotate["id"],
+                Body = annotate["body"] + "Updated now"
+          };
+         
+            var statusCode = PutData($"{AnnotationsApi}/{annotate["id"]}", update);
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
         }
@@ -119,8 +119,8 @@ namespace ProjoctPortfolioTests
         {
             var mark = new
             {
-                postid= 9599360,
-                userid= 86
+                postid= 19329707,
+                userid= 100
             };
             var (markk,  statusCode) = PostData(MarkApi,mark);
             Assert.Equal(HttpStatusCode.Created, statusCode);
@@ -132,12 +132,13 @@ namespace ProjoctPortfolioTests
 
             var data = new
             {
-                PostId = 9599360,
-                UserId = 86
+                
+                UserId = 47,
+                PostId = 2180354
             };
              var (mark, _) = PostData($"{MarkApi}", data);
 
-            var statusCode = DeleteData($"{MarkApi}/{mark}");
+            var statusCode=DeleteData($"{MarkApi}/{mark["userid"]}");
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
         }

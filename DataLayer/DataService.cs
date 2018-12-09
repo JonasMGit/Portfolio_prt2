@@ -32,7 +32,7 @@ namespace DataLayer
         bool UpdateAnnotation(string body, int id);
         bool DeleteAnnotation(int id);
         Mark CreateMarking(int postid, int userid);
-        bool DeleteMarking(int id);
+        bool DeleteMarking(int userid, int postid);
 
 
     }
@@ -372,7 +372,7 @@ namespace DataLayer
             }
         }
 
-        public bool DeleteMarking(int id)
+        public bool DeleteMarking(int userid,int postid)
         {
             try
             {
@@ -380,7 +380,8 @@ namespace DataLayer
                 {
                     var delmarking = new Mark()
                     {
-                        Id=id
+                        UserId=userid,
+                        PostId=postid
                        
                     
                       

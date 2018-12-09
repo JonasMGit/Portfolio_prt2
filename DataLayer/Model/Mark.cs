@@ -7,12 +7,15 @@ namespace DataLayer.Model
 {
      public class Mark
     {
-        public int Id { get; set; }
+        
         public DateTime CreationDate { get; set; }
+
         [ForeignKey("Post")]
         public int PostId { get; set; }
+
         [ForeignKey("User")]
         public int UserId { get; set; }
+
         public Post Posts { get; set; }
         public User User { get; set; }
     }
