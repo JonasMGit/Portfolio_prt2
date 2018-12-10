@@ -119,7 +119,6 @@ namespace DataLayer
             using (var db = new SOVAContext())
             {
                 var question = db.SearchResults.FromSql("select * from TFIDF_MATCH({0})", title);
-                //.Where(x => (x.Body.ToLower().Contains(title.ToLower()) || x.Body.ToLower().Contains(title.ToLower())));
                 return question
                     .Skip(page * pageSize)
                     .Take(pageSize)
@@ -127,21 +126,6 @@ namespace DataLayer
 
             }
         }
-
-        /*private List<Question> EfExample(string title, int page, int pagesize)
-        {
-            using (var db = new SOVAContext())
-            {
-                // you can add parameters to the query, as shown here, by list them after the 
-                // statement, and reference them with {0} {1} ... {n}, where 0 is the first argument,
-                // 1 is the second etc.
-                foreach (var result in db.SearchResults.FromSql("select * from TFIDF_MATCH({0} , {1})", "constructors", "regions"))
-                {
-                    Console.WriteLine($"Result(ADO): {result.Id}, {result.Body}");
-                }
-
-            }
-        }*/
 
         //Answers
       
