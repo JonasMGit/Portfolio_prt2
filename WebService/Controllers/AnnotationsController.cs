@@ -18,6 +18,14 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
+        [HttpGet]
+        public IActionResult GetAnnotation()
+        {
+            var annotate = _dataService.GetAnnotation();
+            return Ok(annotate);
+        }
+
+
         [HttpPost]
         public IActionResult PostAnnotations([FromBody]Annotations annotations)
         {
