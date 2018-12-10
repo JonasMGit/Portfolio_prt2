@@ -91,7 +91,7 @@ namespace DataServiceTest
         public void GetAnnotation()
         {
             var service = new DataService();
-            var annotate = service.GetAnnotation(1);
+            var annotate = service.GetAnnotation();
             //Assert.Equal(10, annotate.Count);
             Assert.Equal("Annotation_created", annotate.First().Body);
 
