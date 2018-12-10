@@ -32,8 +32,10 @@ namespace DataLayer
         bool UpdateAnnotation(string body, int id);
         bool DeleteAnnotation(int id);
         Mark CreateMarking(int postid, int userid);
+        List<Mark> GetMarks(int userid, int page, int pageSize);
         bool DeleteMarking(int userid, int postid);
-
+        int GetNumberOfMarks();
+        Mark GetMark(int userid, int postid);
 
     }
 
@@ -369,6 +371,42 @@ namespace DataLayer
                 db.Marked.Add(newmark);
                 db.SaveChanges();
                 return newmark;
+            }
+        }
+
+        public Mark GetMark(int userid, int postid)
+        {
+            using (var db = new SOVAContext())
+            {
+                var mark = db.Marked
+                    .FirstOrDefault(x => x.UserId == userid && x.PostId == postid);
+                return mark;
+                
+            }
+            
+        }
+
+        public int GetNumberOfMarks()
+        {
+            using (var db = new SOVAContext())
+            {
+                return db.Marked.Count();
+            }
+        }
+
+        public List<Mark> GetMarks(int userid, int page, int pageSize)
+        {
+            using (var db = new SOVAContext())
+            {
+                var marks = db.Marked
+                    .Where (x => x.UserId == userid)
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+                //.Where(x => x.UserId == id)
+                //.ToList(); 
+                return marks;
+           
             }
         }
 

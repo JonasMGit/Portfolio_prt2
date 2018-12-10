@@ -30,6 +30,37 @@ namespace WebService.Controllers
         }
 
 
+
+     
+        [HttpGet("{userid}", Name = nameof(GetMarks))]
+        public IActionResult GetMarks(int userid, int postid, int page = 0, int pageSize = 10)
+        {
+            var questions = _dataService.GetMarks(userid, page, pageSize)
+                .Select(x => new
+                {
+                    Link = Url.Link(nameof(QuestionsController.GetQuestion), new { id = x.PostId }),
+                        x.UserId
+
+
+
+                });
+            var total = _dataService.GetNumberOfMarks();
+            var pages = Math.Ceiling(total / (double)pageSize);
+            var prev = page > 0 ? Url.Link(nameof(GetMarks), new { page = page - 1, pageSize }) : null;
+            var next = page < pages - 1 ? Url.Link(nameof(GetMarks), new { page = page + 1, pageSize }) : null;
+
+            var result = new
+            {
+                total,
+                pages,
+                prev,
+                next,
+                items = questions
+            };
+            return Ok(result);
+        }
+
+
         [HttpDelete]
         public IActionResult DeleteMarks([FromBody]Mark mark)
         {
