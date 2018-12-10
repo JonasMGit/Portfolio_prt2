@@ -8,7 +8,37 @@ using System.Text;
 
 namespace DataLayer
 {
-    public class DataService
+    public interface IDataService
+    {
+        List<Question> GetQuestions(int page, int pageSize);
+        Question GetQuestion(int id);
+        SearchHistories SearchHistories(int id);
+        List<Comment> GetQuestionComments(int id);
+        List<Comment> GetCommentsByAnswer(int id);
+        List<SearchResult> GetQuestionsByString(string title, int page, int pageSize);
+        List<Answer> GetAnswers();
+        Answer GetAnswer(int id);
+        List<Answer> GetAnswersByParent(int id);
+        int GetNumberOfAnswers();
+        int GetNumberOfQuestions();
+        List<PostLink> GetPostLinksByQuestion(int id);
+        List<User> GetUsers();
+        User GetUser(int id);
+        User createUser(string name, string password);
+        bool DeleteUser(int id);
+        bool UpdateUser(int userId, string newName, string newPassword);
+        SearchHistories SaveSearch(string newSearch, int newUserId);
+        Annotations CreateAnnotation(string body, int userid, int postid);
+        bool UpdateAnnotation(string body, int id);
+        bool DeleteAnnotation(int id);
+        Mark CreateMarking(int postid, int userid);
+        bool DeleteMarking(int userid, int postid);
+        List <Annotations> GetAnnotation();
+
+    }
+
+
+    public class DataService : IDataService
     {
         //Questions
         
@@ -170,7 +200,17 @@ namespace DataLayer
             }
         }
 
+        public List<Annotations> GetAnnotation()
+        {
+            using (var db = new SOVAContext())
+            {
 
+                var annotate = db.Annotations.ToList();
+
+                return annotate;
+
+            }
+        }
         public User createUser(string name, string password)
         {
             using (var db = new SOVAContext())
@@ -250,10 +290,12 @@ namespace DataLayer
         public Annotations CreateAnnotation(string body, int userid, int postid)
         {
             using (var db=new SOVAContext())
-            {   
-                
+            {
+                var creationdate = DateTime.Now;
                 var newannotation = new Annotations()
                 {
+                   
+                   CreationDate = creationdate,
                     Body = body,
                     UserId = userid,
                     PostId = postid
@@ -265,16 +307,13 @@ namespace DataLayer
             }
         }
 
-        public bool UpdateAnnotation(string body, int userId, int postid)
+        public bool UpdateAnnotation(string body, int id)
         {
             using (var db = new SOVAContext())
             {
-                var anno = db.Annotations.FirstOrDefault(x => x.UserId == userId);
+                var anno = db.Annotations.FirstOrDefault(x => x.Id ==id); 
                 if (anno != null)
                 {
-                    anno.Body = body;
-                    anno.UserId = userId;
-                    anno.PostId = postid;
                     anno.Body = body;
                     db.SaveChanges();
                     return true;
@@ -284,7 +323,7 @@ namespace DataLayer
             }
         }
 
-        public bool DeleteAnnotation(int userid,int postid, string body)
+        public bool DeleteAnnotation( int id)
         {
             try
             {
@@ -292,9 +331,8 @@ namespace DataLayer
                 {
                     var delannotation = new Annotations()
                     {
-                       UserId=userid,
-                       PostId=postid,
-                       Body = body
+                        Id=id
+                      
                     };
                     db.Annotations.Remove(delannotation);
                     db.SaveChanges();
@@ -313,10 +351,14 @@ namespace DataLayer
         {
             using (var db=new SOVAContext())
             {
+
+                var creationdate = DateTime.Now;
                 var newmark = new Mark()
                 {
-                    PostId=postid,
-                    UserId=userid
+                
+                    CreationDate = creationdate,
+                    PostId = postid,
+                    UserId = userid
                 };
                 db.Marked.Add(newmark);
                 db.SaveChanges();
@@ -324,7 +366,7 @@ namespace DataLayer
             }
         }
 
-        public bool DeleteMarking(int postid, int userid)
+        public bool DeleteMarking(int userid,int postid)
         {
             try
             {
@@ -332,8 +374,9 @@ namespace DataLayer
                 {
                     var delmarking = new Mark()
                     {
-                        PostId = postid,
-                        UserId = userid
+                        UserId=userid,
+                        PostId=postid
+                       
                     
                       
                     };

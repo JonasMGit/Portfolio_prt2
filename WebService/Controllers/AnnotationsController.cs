@@ -8,29 +8,37 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
-    [Route("api/annotation")]
+    [Route("api/annotations")]
     [ApiController]
     public class AnnotationsController : Controller
     {
-        DataService _dataService;
+        private readonly IDataService _dataService;
         public AnnotationsController(DataService dataService)
         {
             _dataService = dataService;
         }
 
+        [HttpGet]
+        public IActionResult GetAnnotation()
+        {
+            var annotate = _dataService.GetAnnotation();
+            return Ok(annotate);
+        }
+
+
         [HttpPost]
         public IActionResult PostAnnotations([FromBody]Annotations annotations)
         {
-             _dataService.CreateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);
+            _dataService.CreateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);
 
-            return Created($"api/annotation/{annotations}", annotations);
+            return Created($"api/annotations/{annotations}", annotations);
         }
 
         [HttpPut]
         public IActionResult UpdateAnnotation(string body ,[FromBody]Annotations annotations)
         {
            
-                var anno = _dataService.UpdateAnnotation(annotations.Body, annotations.UserId, annotations.PostId);
+                var anno = _dataService.UpdateAnnotation(annotations.Body, annotations.Id);
                 if (anno == false)
                 {
                     return NotFound();

@@ -13,7 +13,7 @@ namespace WebService.Controllers
     [ApiController]
     public class QuestionsController : Controller
     {
-        DataService _dataService;
+        private readonly IDataService _dataService;
         public QuestionsController(DataService dataService)
         {
             _dataService = dataService;

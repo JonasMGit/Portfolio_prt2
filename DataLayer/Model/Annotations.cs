@@ -7,8 +7,9 @@ namespace DataLayer.Model
 {
     public class Annotations
     {
-       
+        public int Id { get; set; }
         public string Body { get; set; }
+        public DateTime CreationDate { get; set; }
 
         [ForeignKey("Post")]
         public int PostId { get; set; }
@@ -19,6 +20,6 @@ namespace DataLayer.Model
         public User User { get; set; }
 
         public Post Post { get; set; }
-        
+
     }
 }

@@ -12,7 +12,7 @@ namespace WebService.Controllers
     [ApiController]
     public class MarksController : Controller
     {
-        DataService _dataService;
+        private readonly IDataService _dataService;
         public MarksController(DataService dataService)
         {
             _dataService = dataService;
@@ -31,9 +31,9 @@ namespace WebService.Controllers
 
 
         [HttpDelete]
-        public IActionResult DeleteMarks(int postid, int userid)
+        public IActionResult DeleteMarks([FromBody]Mark mark)
         {
-            var del = _dataService.DeleteMarking(postid, userid);
+            var del = _dataService.DeleteMarking(mark.UserId, mark.PostId);
 
             if (del==false) return NotFound();
             return Ok(del);

@@ -35,9 +35,9 @@ namespace DataServiceTest
         public void GetQuestions_ByString_ReturnsList()
         {
             var service = new DataService();
-            var questions = service.GetQuestionsByString("Hide", 0, 5);
-            Assert.Equal(30, questions.Count);
-            Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
+            var questions = service.GetQuestionsByString("Hide", 0, 8);
+            Assert.Equal(8, questions.Count);
+            //Assert.Equal("Hide Start Menu and Start Button in VB.NET", questions.First().Title);
         }
      
         //Answers
@@ -49,36 +49,36 @@ namespace DataServiceTest
             Assert.Equal(11392, posts.Count);
         }
 
-        /*[Fact]
+        [Fact]
         public void GetAnswer_WithComments()
         {
             var service = new DataService();
             var answers = service.GetAnswer(12713875);
             Assert.Equal(2, answers.Comments.Count());
-        }*/
+        }
 
-
-        /* [Fact]
+        /*
+        [Fact]
         public void GetAnswer_Accepted()
         {
             var service = new DataService();
             var answer = service.GetAcceptedAnswer(24362641);
             Assert.Equal(24361884, answer.Id);
-        }*/
+        }
+        */
 
-
-      /*  [Fact]
+        [Fact]
         public void GetAnswers_ByValidId()
         {
             var service = new DataService();
             var posts = service.GetAnswer(3126560);
             Assert.Equal(2180354, posts.ParentId);
             Assert.Equal(1, posts.Score);
-        }*/
+        }
 
         //comments
 
-       /* [Fact]
+       [Fact]
         public void GetCommentsToAQuestion()
         {
             var service = new DataService();
@@ -86,14 +86,28 @@ namespace DataServiceTest
             DateTime myDate = DateTime.ParseExact("2012-11-30 16:53:35", "yyyy-MM-dd HH:mm:ss",
             System.Globalization.CultureInfo.InvariantCulture);
             Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
-        }*/
+        }
+        [Fact]
+        public void GetAnnotation()
+        {
+            var service = new DataService();
+            var annotate = service.GetAnnotation();
+            //Assert.Equal(10, annotate.Count);
+            Assert.Equal("Annotation_created", annotate.First().Body);
 
+        }
         [Fact]
         public void CreateNewUserTest()
         {
             var service = new DataService();
             var userNew = service.createUser("Henning", "Flemming");
-           
+
+            Assert.Equal("Henning", userNew.UserName);
+
+            //Clean up
+            var delUser = service.DeleteUser(userNew.Id);
+            Assert.True(delUser);
+
         }
 
         [Fact]
@@ -122,7 +136,8 @@ namespace DataServiceTest
             Assert.Equal("updatedusername", newUser.UserName);
             Assert.Equal("updatedpassword", newUser.Password);
 
-            service.DeleteUser(newUser.Id);
+            //clean up
+           var delUpdatedUser = service.DeleteUser(newUser.Id);
         }
        
         [Fact]
@@ -140,9 +155,15 @@ namespace DataServiceTest
             var newUser = service.createUser("History","Saved");
             var newSearch = service.SaveSearch("Hide",newUser.Id);
             Assert.Equal("Hide", newSearch.Search);
+
+            //clean up
+            var delHistoryUser = service.DeleteUser(newUser.Id); 
+            //var delHistorySearch = service - CREATE DELETE SEARCH HISTORY
+
         }
 
         //--------------Annotation test----------------
+        
         [Fact]
         public void CreateAnnotation()
         {
@@ -154,8 +175,8 @@ namespace DataServiceTest
 
             //Clean up
             //deleteuser
-
-            
+            var delAnnotation = service.DeleteAnnotation(newAnnotation.Id);
+            var delNewUser = service.DeleteUser(newUser);
         }
 
         [Fact]
@@ -165,12 +186,17 @@ namespace DataServiceTest
             var newUser = service.createUser("Heran", "heri123").Id;
             var parentIdentfire = service.GetQuestion(13649012).Id;
             var newAnnotation = service.CreateAnnotation("Annotation_created by Heran", newUser, parentIdentfire);
-            var updatedannotation = service.UpdateAnnotation(newAnnotation.Body, newAnnotation.UserId, newAnnotation.PostId);
+            var updatedannotation = service.UpdateAnnotation("wasd", newAnnotation.Id);
+            //var getanno = service.getanno(id);
             Assert.True(updatedannotation);
+            //Assert.Matches("wasd", newAnnotation.Body);
+            Assert.Equal(13649012, newAnnotation.PostId);
+            //Assert.Equal("wasd", newAnnotation.Body);
             //Assert.Equal("Annotation is updated", );
+
         }
 
-        //---Needs to be fixed
+        
         [Fact]
         public void DeleteAnnotation()
         {
@@ -178,7 +204,7 @@ namespace DataServiceTest
             var newuser= service.createUser("Camie", "cami123").Id;
             var newpost = service.GetAnswer(9854666).Id;
             var newannotation = service.CreateAnnotation("Annotation to be deleted",newuser,newpost);
-            var delannotation = service.DeleteAnnotation(newannotation.UserId, newannotation.PostId, newannotation.Body);
+            var delannotation = service.DeleteAnnotation(newannotation.Id);
             Assert.True(delannotation);
 
         }
@@ -196,6 +222,8 @@ namespace DataServiceTest
             Assert.Equal(13649012, newMarking.PostId);
 
             //delete user
+            var delNewMark = service.DeleteMarking(newMarking.UserId,newMarking.PostId);
+            var delMarkTestUser = service.DeleteUser(newuser);
         }
 
         [Fact]
@@ -205,7 +233,7 @@ namespace DataServiceTest
             var newuser = service.createUser("Peter pet", "pet123").Id;
             var postt = service.GetQuestion(13649012).Id;
             var newmark = service.CreateMarking(postt,newuser);
-            var delmark = service.DeleteMarking(newmark.PostId, newmark.UserId);
+            var delmark = service.DeleteMarking(newmark.UserId, newmark.PostId);
             Assert.True(delmark);
 
         }
