@@ -33,7 +33,7 @@ namespace DataLayer
         bool DeleteAnnotation(int id);
         Mark CreateMarking(int postid, int userid);
         bool DeleteMarking(int userid, int postid);
-
+        List <Annotations> GetAnnotation();
 
     }
 
@@ -216,7 +216,17 @@ namespace DataLayer
             }
         }
 
+        public List<Annotations> GetAnnotation()
+        {
+            using (var db = new SOVAContext())
+            {
 
+                var annotate = db.Annotations.ToList();
+
+                return annotate;
+
+            }
+        }
         public User createUser(string name, string password)
         {
             using (var db = new SOVAContext())
