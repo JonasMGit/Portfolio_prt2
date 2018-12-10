@@ -53,19 +53,16 @@ namespace DataLayer
                 .HasValue<Question>(1)
                 .HasValue<Answer>(2);
 
+           
+            modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
+            modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
+
+            //search result mapping
             modelBuilder.Query<SearchResult>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Query<SearchResult>().Property(x => x.Body).HasColumnName("body");
 
-
-
-
-            modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
-            
-
-            modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
-
             //Map Class Propert: Author
-           
+
             modelBuilder.Entity<Author>().ToTable("authors");
             modelBuilder.Entity<Author>().Property(x => x.AuthorId).HasColumnName("id");
             modelBuilder.Entity<Author>().Property(x => x.DisplayName).HasColumnName("displayname");
