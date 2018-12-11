@@ -16,10 +16,17 @@
         $.getJSON("api/questions/name" + terms +"", callback)
 
     };
+
+    var getWords = function (callback) {
+        $.getJSON('api/words', function (data) {
+            callback(data);
+        });
+    };
     return {
         getPosts,
         getPost,
-        searchPosts
+        searchPosts,
+        getWords
     };
 
 });
