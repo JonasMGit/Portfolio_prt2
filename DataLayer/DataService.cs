@@ -42,7 +42,7 @@ namespace DataLayer
         bool DeleteAnnotation(int id);
         List<Annotations> GetAnnotations(int userid, int page, int pageSize);
         int GetNumberOfAnnotations();
-        Annotations GetAnnotation(int userid);
+        Annotations GetAnnotation(int userid, int AnnoId);
 
         //----------Marked------------------
         Mark CreateMarking(int postid, int userid);
@@ -339,7 +339,19 @@ namespace DataLayer
                 return db.Annotations.Count();
             }
         }
- 
+
+        public Annotations GetAnnotation(int userid, int AnnoId)
+        {
+            using (var db = new SOVAContext())
+            {
+                var annotation = db.Annotations
+                    .FirstOrDefault(x => x.UserId == userid && x.Id == AnnoId);
+                return annotation;
+
+            }
+
+        }
+
         public List<Annotations> GetAnnotations(int userid, int page, int pageSize)
         {
             using (var db = new SOVAContext())
@@ -371,17 +383,7 @@ namespace DataLayer
             }
         }
 
-        public Annotations GetAnnotation(int userid)
-        {
-            using (var db = new SOVAContext())
-            {
-                var annotation = db.Annotations
-                    .FirstOrDefault(x => x.UserId == userid);
-                return annotation;
 
-            }
-
-        }
 
         public bool DeleteAnnotation( int id)
         {

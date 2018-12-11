@@ -87,16 +87,8 @@ namespace DataServiceTest
             System.Globalization.CultureInfo.InvariantCulture);
             Assert.Equal(myDate,comments.FirstOrDefault().CreationDate);
         }
-        /*
-        [Fact]
-        public void GetAnnotation()
-        {
-            var service = new DataService();
-            var annotate = service.GetAnnotation();
-            //Assert.Equal(10, annotate.Count);
-            Assert.Equal("Annotation_created", annotate.First().Body);
 
-        }*/
+ 
         [Fact]
         public void CreateNewUserTest()
         {
@@ -188,16 +180,37 @@ namespace DataServiceTest
             var parentIdentfire = service.GetQuestion(13649012).Id;
             var newAnnotation = service.CreateAnnotation("Annotation_created by Heran", newUser, parentIdentfire);
             var updatedannotation = service.UpdateAnnotation("wasd", newAnnotation.Id);
-            //var getanno = service.getanno(id);
+         
             Assert.True(updatedannotation);
             //Assert.Matches("wasd", newAnnotation.Body);
             Assert.Equal(13649012, newAnnotation.PostId);
-            //Assert.Equal("wasd", newAnnotation.Body);
-            //Assert.Equal("Annotation is updated", );
+       
 
         }
 
-        
+        [Fact]
+        public void getannotation()
+        {
+            var service = new DataService();
+            var newanno = service.CreateAnnotation("AnnotationTestGetAnno", 36, 13649012).Id;
+            var GetAnno = service.GetAnnotation(36, newanno);
+            Assert.NotNull(GetAnno);
+            Assert.Equal("AnnotationTestGetAnno", GetAnno.Body);
+        }
+
+        [Fact]
+        public void GetAnnos_test()
+        {
+            var service = new DataService();
+            var Annos = service.GetAnnotations(36, 0, 10);
+            Assert.Equal(10, Annos.Count);
+            Assert.NotNull(Annos);
+        }
+
+
+
+
+
         [Fact]
         public void DeleteAnnotation()
         {
@@ -238,11 +251,6 @@ namespace DataServiceTest
             Assert.Equal(13649012, GetMarker.PostId);
             Assert.Equal(newuser, GetMarker.UserId);
         }
-
-
-
-
-
         
         [Fact]
         public void GetMarks_test()

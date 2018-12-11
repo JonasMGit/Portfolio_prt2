@@ -18,12 +18,34 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
-        [HttpGet]
-        public IActionResult GetAnnotation(int userid)
+        [HttpGet("{userid}", Name = nameof(GetAnnotations))]
+        public IActionResult GetAnnotations(int userid, int postid, int page = 0, int pageSize = 10)
         {
-            var annotate = _dataService.GetAnnotation(userid);
-            return Ok(annotate);
+            var questions = _dataService.GetAnnotations(userid, page, pageSize)
+                .Select(x => new
+                {
+                    Link = Url.Link(nameof(QuestionsController.GetQuestion), new { id = x.PostId }),
+                    x.UserId
+
+
+
+                });
+            var total = _dataService.GetNumberOfMarks();
+            var pages = Math.Ceiling(total / (double)pageSize);
+            var prev = page > 0 ? Url.Link(nameof(GetAnnotations), new { page = page - 1, pageSize }) : null;
+            var next = page < pages - 1 ? Url.Link(nameof(GetAnnotations), new { page = page + 1, pageSize }) : null;
+
+            var result = new
+            {
+                total,
+                pages,
+                prev,
+                next,
+                items = questions
+            };
+            return Ok(result);
         }
+
 
 
         [HttpPost]
