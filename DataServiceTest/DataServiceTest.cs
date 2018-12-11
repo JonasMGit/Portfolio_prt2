@@ -218,13 +218,40 @@ namespace DataServiceTest
             var service = new DataService();
             var newuser = service.createUser("marker","mark123").Id;
             var parentpostt = service.GetQuestion(13649012).Id;
-            var newMarking = service.CreateMarking(parentpostt,newuser);
+            var newMarking = service.CreateMarking(parentpostt, newuser);
             Assert.Equal(13649012, newMarking.PostId);
 
             //delete user
             var delNewMark = service.DeleteMarking(newMarking.UserId,newMarking.PostId);
             var delMarkTestUser = service.DeleteUser(newuser);
         }
+        
+        [Fact]
+        public void getmark()
+        {
+            var service = new DataService();
+            var newuser = service.createUser("markerTestGetMark", "mark123").Id;
+            var parentpostt = service.GetQuestion(13649012).Id;
+            var newMarking = service.CreateMarking(parentpostt, newuser);
+            var GetMarker = service.GetMark(newuser, parentpostt);
+            Assert.Equal(13649012, GetMarker.PostId);
+            Assert.Equal(newuser, GetMarker.UserId);
+        }
+
+
+
+
+
+        
+        [Fact]
+        public void GetMarks_test()
+        {
+            var service = new DataService();
+            var marks = service.GetMarks(2, 0, 10);
+            Assert.Equal(10, marks.Count);
+            Assert.NotNull(marks);
+        }
+
 
         [Fact]
         public void DeleteMarking()

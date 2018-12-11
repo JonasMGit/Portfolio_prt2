@@ -10,30 +10,47 @@ namespace DataLayer
 {
     public interface IDataService
     {
-        List<Question> GetQuestions(int page, int pageSize);
-        Question GetQuestion(int id);
+        //------search-----------
         SearchHistories SearchHistories(int id);
-        List<Comment> GetQuestionComments(int id);
-        List<Comment> GetCommentsByAnswer(int id);
-        List<SearchResult> GetQuestionsByString(string title, int page, int pageSize);
+        SearchHistories SaveSearch(string newSearch, int newUserId);
+
+        //--------Answers--------
         List<Answer> GetAnswers();
         Answer GetAnswer(int id);
         List<Answer> GetAnswersByParent(int id);
         int GetNumberOfAnswers();
+        List<Comment> GetCommentsByAnswer(int id);
+
+        //-------Questions--------
+        List<Comment> GetQuestionComments(int id);
+        List<SearchResult> GetQuestionsByString(string title, int page, int pageSize);
         int GetNumberOfQuestions();
         List<PostLink> GetPostLinksByQuestion(int id);
+        List<Question> GetQuestions(int page, int pageSize);
+        Question GetQuestion(int id);
+
+        //------Users----------
         List<User> GetUsers();
         User GetUser(int id);
         User createUser(string name, string password);
         bool DeleteUser(int id);
         bool UpdateUser(int userId, string newName, string newPassword);
-        SearchHistories SaveSearch(string newSearch, int newUserId);
+        
+        //-------Annotations-------
         Annotations CreateAnnotation(string body, int userid, int postid);
         bool UpdateAnnotation(string body, int id);
         bool DeleteAnnotation(int id);
+        List<Annotations> GetAnnotations(int userid, int page, int pageSize);
+        int GetNumberOfAnnotations();
+        Annotations GetAnnotation(int userid);
+
+        //----------Marked------------------
         Mark CreateMarking(int postid, int userid);
+        List<Mark> GetMarks(int userid, int page, int pageSize);
         bool DeleteMarking(int userid, int postid);
-        List <Annotations> GetAnnotation();
+        int GetNumberOfMarks();
+        Mark GetMark(int userid, int postid);
+        
 
     }
 
@@ -68,16 +85,7 @@ namespace DataLayer
 
 
 
-        public SearchHistories SearchHistories(int id)
-        {
-            using (var db = new SOVAContext())
-            {
-                var question = db.SearchHistory
-                    .Where(x => x.UserId == id)
-                    .FirstOrDefault();
-                return question;
-            }
-        }
+
 
         //Comments
         public List<Comment> GetQuestionComments(int id)
@@ -200,17 +208,7 @@ namespace DataLayer
             }
         }
 
-        public List<Annotations> GetAnnotation()
-        {
-            using (var db = new SOVAContext())
-            {
-
-                var annotate = db.Annotations.ToList();
-
-                return annotate;
-
-            }
-        }
+ 
         public User createUser(string name, string password)
         {
             using (var db = new SOVAContext())
@@ -269,7 +267,7 @@ namespace DataLayer
             }
         }
 
-        //SaveSearchs
+        //--------------------- Searchs ----------------
         public SearchHistories SaveSearch(string newSearch, int newUserId)
         {
             using (var db = new SOVAContext())
@@ -286,6 +284,22 @@ namespace DataLayer
                 return newSearchHistory;
             }
         }
+
+        public SearchHistories SearchHistories(int id)
+        {
+            using (var db = new SOVAContext())
+            {
+                var question = db.SearchHistory
+                    .Where(x => x.UserId == id)
+                    .FirstOrDefault();
+                return question;
+            }
+        }
+
+
+        //---------------- ANNOTATIONS ------------------
+
+
 
         public Annotations CreateAnnotation(string body, int userid, int postid)
         {
@@ -307,6 +321,29 @@ namespace DataLayer
             }
         }
 
+        public int GetNumberOfAnnotations()
+        {
+            using (var db = new SOVAContext())
+            {
+                return db.Annotations.Count();
+            }
+        }
+ 
+        public List<Annotations> GetAnnotations(int userid, int page, int pageSize)
+        {
+            using (var db = new SOVAContext())
+            {
+                var annotations = db.Annotations
+                    .Where (x => x.UserId == userid)
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                return annotations;
+           
+            }
+        }
+    
         public bool UpdateAnnotation(string body, int id)
         {
             using (var db = new SOVAContext())
@@ -321,6 +358,18 @@ namespace DataLayer
                 }
                 return false;
             }
+        }
+
+        public Annotations GetAnnotation(int userid)
+        {
+            using (var db = new SOVAContext())
+            {
+                var annotation = db.Annotations
+                    .FirstOrDefault(x => x.UserId == userid);
+                return annotation;
+
+            }
+
         }
 
         public bool DeleteAnnotation( int id)
@@ -363,6 +412,42 @@ namespace DataLayer
                 db.Marked.Add(newmark);
                 db.SaveChanges();
                 return newmark;
+            }
+        }
+
+        public Mark GetMark(int userid, int postid)
+        {
+            using (var db = new SOVAContext())
+            {
+                var mark = db.Marked
+                    .FirstOrDefault(x => x.UserId == userid && x.PostId == postid);
+                return mark;
+                
+            }
+            
+        }
+
+        public int GetNumberOfMarks()
+        {
+            using (var db = new SOVAContext())
+            {
+                return db.Marked.Count();
+            }
+        }
+
+        public List<Mark> GetMarks(int userid, int page, int pageSize)
+        {
+            using (var db = new SOVAContext())
+            {
+                var marks = db.Marked
+                    .Where (x => x.UserId == userid)
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+                //.Where(x => x.UserId == id)
+                //.ToList(); 
+                return marks;
+           
             }
         }
 
