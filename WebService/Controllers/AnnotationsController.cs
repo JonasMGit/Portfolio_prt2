@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -46,6 +44,12 @@ namespace WebService.Controllers
             return Ok(result);
         }
 
+        /*[HttpGet]
+        public IActionResult GetAnnotation()
+        {
+            var annotate = _dataService.GetAnnotation();
+            return Ok(annotate);
+        }*/
 
 
         [HttpPost]
