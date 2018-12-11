@@ -11,22 +11,22 @@
         $.getJSON(url, callback);
     };
 
+    var getWords = function (callback) {
+        $.getJSON('api/wordCloud', function (data) {
+            callback(data);
+        });
+    };
+
 //need a search function here
     var searchPosts = function (terms, callback){
         $.getJSON("api/questions/name" + terms +"", callback)
 
     };
-
-    var getWords = function (callback) {
-        $.getJSON('api/words', function (data) {
-            callback(data);
-        });
-    };
     return {
         getPosts,
         getPost,
-        searchPosts,
-        getWords
+        getWords,
+        searchPosts
     };
 
 });

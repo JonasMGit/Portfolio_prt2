@@ -50,7 +50,10 @@ namespace DataLayer
         bool DeleteMarking(int userid, int postid);
         int GetNumberOfMarks();
         Mark GetMark(int userid, int postid);
-        
+
+        List<WordCloud> GetWordCloud(string word);
+
+
 
     }
 
@@ -126,9 +129,17 @@ namespace DataLayer
 
             }
         }
-
+        
+        public List<WordCloud> GetWordCloud(string word)
+        {
+            using (var db = new SOVAContext())
+            {
+                var cloud = db.WordClouds.FromSql("select * from wrdCloud({0})", word);
+                return cloud.ToList();
+            }
+        }
         //Answers
-      
+
         public List<Answer> GetAnswers()
         {
             using (var db = new SOVAContext())

@@ -1,13 +1,17 @@
 ﻿using DataLayer;
 using DataLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebService.Services;
 
 namespace WebService.Controllers
 {
+    [Authorize]
+
     // URL address
     [Route("api/users")]
 
@@ -18,9 +22,32 @@ namespace WebService.Controllers
         // Instance of DataService
         private readonly IDataService _dataService;
 
-        public UsersController(DataService dataService)
+        private IUserService _userService;
+
+        public UsersController(DataService dataService, IUserService userService)
         {
             _dataService = dataService;
+            _userService = userService;
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody]User userParam)
+        {
+            var user = await _userService.Authenticate(userParam.UserName, userParam.Password);
+
+            if (user == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(user);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var users = await _userService.GetAll();
+            return Ok(users);
         }
 
         [HttpPost]
@@ -46,6 +73,11 @@ namespace WebService.Controllers
             if (delete == false) return NotFound();
             return Ok(delete);
 
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
     }
