@@ -43,7 +43,7 @@ namespace DataLayer
         bool DeleteAnnotation(int id);
         List<Annotations> GetAnnotations(int userid, int page, int pageSize);
         int GetNumberOfAnnotations();
-        Annotations GetAnnotation(int userid);
+        Annotations GetAnnotation(int userid, int AnnoId);
 
         //----------Marked------------------
         Mark CreateMarking(int postid, int userid);
@@ -51,7 +51,10 @@ namespace DataLayer
         bool DeleteMarking(int userid, int postid);
         int GetNumberOfMarks();
         Mark GetMark(int userid, int postid);
-        
+
+        List<WordCloud> GetWordCloud(string word);
+
+
 
     }
 
@@ -127,9 +130,17 @@ namespace DataLayer
 
             }
         }
-
+        
+        public List<WordCloud> GetWordCloud(string word)
+        {
+            using (var db = new SOVAContext())
+            {
+                var cloud = db.WordClouds.FromSql("select * from wrdCloud({0})", word);
+                return cloud.ToList();
+            }
+        }
         //Answers
-      
+
         public List<Answer> GetAnswers()
         {
             using (var db = new SOVAContext())
@@ -338,7 +349,19 @@ namespace DataLayer
                 return db.Annotations.Count();
             }
         }
- 
+
+        public Annotations GetAnnotation(int userid, int AnnoId)
+        {
+            using (var db = new SOVAContext())
+            {
+                var annotation = db.Annotations
+                    .FirstOrDefault(x => x.UserId == userid && x.Id == AnnoId);
+                return annotation;
+
+            }
+
+        }
+
         public List<Annotations> GetAnnotations(int userid, int page, int pageSize)
         {
             using (var db = new SOVAContext())
@@ -370,17 +393,7 @@ namespace DataLayer
             }
         }
 
-        public Annotations GetAnnotation(int userid)
-        {
-            using (var db = new SOVAContext())
-            {
-                var annotation = db.Annotations
-                    .FirstOrDefault(x => x.UserId == userid);
-                return annotation;
 
-            }
-
-        }
 
         public bool DeleteAnnotation( int id)
         {

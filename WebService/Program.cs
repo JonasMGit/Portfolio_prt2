@@ -15,7 +15,8 @@ namespace WebService
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
-            
+            //BuildWebHost(args).Run();
+
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -27,5 +28,6 @@ namespace WebService
             .UseStartup<Startup>()
             .UseUrls("http://localhost:5001/")
             .Build();
+
     }
 }

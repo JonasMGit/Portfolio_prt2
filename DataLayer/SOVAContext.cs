@@ -21,6 +21,7 @@ namespace DataLayer
         public DbSet<SearchHistories> SearchHistory{ get; set; }
 
         public DbQuery<SearchResult> SearchResults { get; set; }
+        public DbQuery<WordCloud> WordClouds { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -62,6 +63,10 @@ namespace DataLayer
             modelBuilder.Query<SearchResult>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Query<SearchResult>().Property(x => x.Title).HasColumnName("title");
 
+
+            //word cloud mapping
+            modelBuilder.Query<WordCloud>().Property(x => x.Word).HasColumnName("word");
+           
 
             //Map Class Propert: Author
 

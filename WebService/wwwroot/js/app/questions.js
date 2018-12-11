@@ -1,11 +1,31 @@
 ﻿define(['jquery', 'knockout', 'postman'], function ($, ko, postman) {
 
     //var currentComponent = ko.observable("post-list")
-    var selectedComponent = ko.observable("question-list")
-    var title = ko.observable("Question")
     var selectedParams = ko.observable("");
 
+    var title = "Stackinator";
+    var menuItems = [
+        { name: 'Home', component: 'question-list' },
+        { name: 'Cloud', component: 'Cloud' }
+    ];
 
+    var selectedMenu = ko.observable(menuItems[0]);
+    var selectedComponent = ko.observable("question-list");
+    var isActive = function (menu) {
+        return selectedMenu() === menu ? "active" : "";
+    };
+
+    var changeMenu = function (menu) {
+        selectedMenu(menu);
+        selectedComponent(menu.component);
+    };
+
+    postman.subscribe("changeMenu", function (menuName) {
+        var menu = menuItems.find(function (m) {
+            return m.name === menuName;
+        });
+        if (menu) changeMenu(menu);
+    });
 
     //var selectedComponent = function (comp) {
     //     currentComponent(comp)
@@ -80,7 +100,11 @@
         // currentComponent,
         title,
         selectedComponent,
-        selectedParams
+        selectedParams,
+        menuItems,
+        isActive,
+        changeMenu
+
         // posts,
         // prev,
         //canPrev,
