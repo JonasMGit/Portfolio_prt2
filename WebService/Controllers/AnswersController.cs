@@ -60,6 +60,7 @@ namespace WebService.Controllers
                     Url = Url.Link(nameof(GetAnswersByParent), new { item.Id }),
                     Body = item.Body,
                     Score = item.Score,
+                    CreationDate  = item.CreationDate,
                     UrlComment = Url.Link(nameof(GetCommentsByAnswer), new { id = item.Id })
                 };
                 dtoAnswers.Add(AnswerDto);

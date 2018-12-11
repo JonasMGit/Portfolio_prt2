@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebService": {
+    "Portfolio_prt2": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

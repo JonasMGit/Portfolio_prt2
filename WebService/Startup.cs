@@ -58,13 +58,13 @@ namespace WebService
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseFileServer();
+
+
             app.UseMvc();
 
-           /* app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });*/
+           
         }
 
             
