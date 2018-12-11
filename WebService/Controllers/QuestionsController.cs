@@ -33,6 +33,7 @@ namespace WebService.Controllers
                 });
             var total = _dataService.GetNumberOfQuestions();
             var pages = Math.Ceiling(total / (double)pageSize);
+            var cur = Url.Link(nameof(GetQuestions), new { page, pageSize });
             var prev = page > 0 ? Url.Link(nameof(GetQuestions), new { page = page - 1, pageSize }) : null;
             var next = page < pages - 1 ? Url.Link(nameof(GetQuestions), new { page = page + 1, pageSize }) : null;
 
@@ -107,7 +108,7 @@ namespace WebService.Controllers
        
         [HttpGet("name/{name}", Name= nameof(GetQuestionByName))]
         public IActionResult GetQuestionByName(string name, int page = 0, int pageSize = 10)
-        {
+        {//need to show the same amount o info as get posts
             var question = _dataService.GetQuestionsByString(name, page, pageSize)
                  .Select(x => new
                  {
@@ -119,9 +120,10 @@ namespace WebService.Controllers
 
                  }); ;
             var numberOfItems = _dataService.GetNumberOfQuestions();
-
+            var terms = name;
             var total = _dataService.GetNumberOfQuestions();
             var pages = Math.Ceiling(total / (double)pageSize);
+            var cur = Url.Link(nameof(GetQuestionByName), new { page, pageSize });
             var prev = page > 0 ? Url.Link(nameof(GetQuestionByName), new { page = page - 1, pageSize }) : null;
             var next = page < pages - 1 ? Url.Link(nameof(GetQuestionByName), new { page = page + 1, pageSize }) : null;
 
@@ -133,6 +135,7 @@ namespace WebService.Controllers
                 pages,
                 prev,
                 next,
+                terms,
                 items = question
             };
             return Ok(result);
