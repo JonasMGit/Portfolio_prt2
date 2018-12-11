@@ -7,13 +7,15 @@
         var prevUrl = "";
         var canNext = ko.observable(false);
         var nextUrl = "";
-        var searchVal = ""
+        var total = 0;
+        var searchVal = ko.observable("")
 
 
 
         var getPosts = function (url) {
 
             ds.getPosts(url, function (data) {
+                total = data.total
                 curUrl = data.cur;
                 prevUrl = data.prev;
                 canPrev(false);
@@ -27,7 +29,15 @@
 
         var getSearch = function (terms) {
             ds.searchPosts(terms, function (data) {
-                searchVal = data.terms
+                //searchVal = data.terms
+                total = data.total
+                curUrl = data.cur;
+                prevUrl = data.prev;
+                canPrev(false);
+                data.prev !== null && canPrev(true);
+                nextUrl = data.next;
+                canNext(false);
+                data.next !== null && canNext(true);
                 posts(data.items);
             })
 
@@ -44,7 +54,7 @@
         };
 
         var searchPost = function () {
-            getSearch(searchVal)
+            getSearch(searchVal())
 
         }
 
@@ -53,7 +63,7 @@
             postman.publish("selectedComponent", { item: "question", params: { link: post.link } });
         };
 
-        getPosts();
+
 
         return {
             posts,
@@ -62,6 +72,7 @@
             searchPost,
             next,
             canNext,
+            searchVal,
 
 
             // selectComponent,

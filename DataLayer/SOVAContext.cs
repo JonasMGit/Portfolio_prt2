@@ -60,6 +60,8 @@ namespace DataLayer
             //search result mapping
             modelBuilder.Query<SearchResult>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Query<SearchResult>().Property(x => x.Body).HasColumnName("body");
+            modelBuilder.Query<SearchResult>().Property(x => x.Title).HasColumnName("title");
+
 
             //Map Class Propert: Author
 

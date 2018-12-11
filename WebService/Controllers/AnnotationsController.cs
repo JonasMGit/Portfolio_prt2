@@ -18,10 +18,10 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
-        [HttpGet]
-        public IActionResult GetAnnotation()
+        [HttpGet("{userid}")]
+        public IActionResult GetAnnotation(int userid)
         {
-            var annotate = _dataService.GetAnnotation();
+            var annotate = _dataService.GetAnnotation(userid);
             return Ok(annotate);
         }
 

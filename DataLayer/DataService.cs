@@ -25,14 +25,15 @@ namespace DataLayer
         List<Comment> GetQuestionComments(int id);
         List<SearchResult> GetQuestionsByString(string title, int page, int pageSize);
         int GetNumberOfQuestions();
-        List<PostLink> GetPostLinksByQuestion(int id);
+        int GetNumberOfSearches();
+         List<PostLink> GetPostLinksByQuestion(int id);
         List<Question> GetQuestions(int page, int pageSize);
         Question GetQuestion(int id);
 
         //------Users----------
         List<User> GetUsers();
         User GetUser(int id);
-        User createUser(string name, string password);
+        User CreateUser(string name, string password);
         bool DeleteUser(int id);
         bool UpdateUser(int userId, string newName, string newPassword);
         
@@ -174,6 +175,8 @@ namespace DataLayer
             }
         }
 
+        
+
         //-----------------PostLinks--------------------------
         public List<PostLink> GetPostLinksByQuestion(int id)
         {
@@ -209,7 +212,7 @@ namespace DataLayer
         }
 
  
-        public User createUser(string name, string password)
+        public User CreateUser(string name, string password)
         {
             using (var db = new SOVAContext())
             {
@@ -296,6 +299,13 @@ namespace DataLayer
             }
         }
 
+        public int GetNumberOfSearches()
+        {
+            using (var db = new SOVAContext())
+            {
+                return db.SearchResults.Count();
+            }
+        }
 
         //---------------- ANNOTATIONS ------------------
 

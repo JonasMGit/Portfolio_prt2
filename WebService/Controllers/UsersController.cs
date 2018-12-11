@@ -27,7 +27,7 @@ namespace WebService.Controllers
         public IActionResult CreateUser([FromBody] User user)
 
         {
-            _dataService.createUser(user.UserName, user.Password);
+            _dataService.CreateUser(user.UserName, user.Password);
             return Created($"api/users/{user}", user);
         }
 

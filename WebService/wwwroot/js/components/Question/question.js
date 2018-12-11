@@ -22,7 +22,7 @@
         getPost(curLink);
 
         var back = function () {
-            ds.getPosts("api/questions");
+            //ds.getPosts("api/questions");
             postman.publish("selectedComponent", { item: "question-list", params: {} });
 
         };
