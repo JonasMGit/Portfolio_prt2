@@ -58,7 +58,7 @@ namespace WebService
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseFileServer();
             app.UseMvc();
 
            /* app.Run(async (context) =>
