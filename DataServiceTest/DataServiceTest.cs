@@ -151,6 +151,7 @@ namespace DataServiceTest
 
             //clean up
             var delHistoryUser = service.DeleteUser(newUser.Id); 
+            
             //var delHistorySearch = service - CREATE DELETE SEARCH HISTORY
 
         }
