@@ -15,13 +15,14 @@
                 $.getJSON(data.answers, function (answers) {
                     hasAnswers(answers && answers.length > 0);
                     data.answers = answers;
+
+                    $.getJSON(data.comments, function (comments) {
+                        data.comments = comments;
+                        console.log(comments);
+                        //currentPostComment(comments)
+                    });
                     currentPostAnswer(data);
 
-                    //$.getJSON(data.comments, function (comments) {
-                    //    data.comments = comments;
-                    //    console.log(comments);
-                    //    currentPostComment(data)
-                    //});
                 });
                 
 
