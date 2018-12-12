@@ -10,7 +10,7 @@ using WebService.Services;
 
 namespace WebService.Controllers
 {
-    [Authorize]
+    //[Authorize]
 
     // URL address
     [Route("api/users")]
