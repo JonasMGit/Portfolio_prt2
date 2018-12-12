@@ -1,6 +1,8 @@
 ﻿<div class="question">
-    <!--<div><button data-bind="click: back">Back</button></div>-->
+
     <div data-bind="with: currentPostComment">
+        <div><button data-bind="click: $parent.back">Back</button></div>
+
         <h1 data-bind="text: title"></h1>
         <h3>Date: <span data-bind="text: creationDate"></span></h3>
         <h3>Score: <span data-bind="text: score"></span></h3>
@@ -16,11 +18,9 @@
     </div>
     <div data-bind="with: currentPostAnswer">
 
-
-
         <div data-bind="if: $parent.hasAnswers">
 
-            <!--<div><button data-bind="click: $parent.back">Back</button></div>-->
+            <div><button data-bind="click: $parent.back">Back</button></div>
             <h3>Answers:</h3>
             <div data-bind="foreach: answers">
                 <div style="background: lightgrey; margin: 20px; border: 1px solid black">
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <!--<div><button data-bind="click: back">Back</button></div>-->
+        <div><button data-bind="click: $parent.back">Back</button></div>
 
 
 

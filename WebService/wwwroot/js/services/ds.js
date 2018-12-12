@@ -18,7 +18,7 @@
     };
 
 //need a search function here
-    var searchPosts = function (terms, callback){
+    var searchPosts = function (terms, callback) {
         $.getJSON("api/questions/name/" + terms +"", callback)
 
     };

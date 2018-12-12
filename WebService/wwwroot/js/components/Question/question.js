@@ -25,29 +25,16 @@
                     currentPostComment(data)
                     
                 });
-
-                //console.log(currentPostAnswer(data))
-
             });
         }
 
-        //var getPostComments = function (url) {
-
-        //    ds.getPost(url, function (data) {
-        //        $.getJSON(data.comments, function (comments) {
-        //            data.comments = comments;
-                   
-        //            currentPostComment(data);
-        //        });
-        //    });
-        //}
+       
 
         getPostAnswers(curLink);
-        //getPostComments(curLink);
 
-        var back = function () {
-            //ds.getPosts("api/questions");
-            postman.publish("selectedComponent", { item: "question-list", params: {} });
+        var back = function (backTerm) {
+           // ds.getPosts("api/questions/name/"+ backTerm + "");
+            postman.publish("selectedComponent", { item: "question-list", params: {back: params.back} });
 
         };
 
