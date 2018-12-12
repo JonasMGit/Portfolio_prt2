@@ -33,5 +33,13 @@ namespace WebService.Controllers
             if (Searchh == null) return NotFound();
             return Ok(Searchh);
         }
+
+        //[HttpPost("{userid}")]
+        //public IActionResult CreateSearch(int userid, [FromBody] User)
+        //{
+        //    var createSearch = _dataService.SaveSearch(term, userid);
+        //    if (createSearch == null) return NotFound();
+        //    return Ok(createSearch);
+        //}
     }
 }

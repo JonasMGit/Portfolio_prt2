@@ -97,10 +97,24 @@ namespace WebService.Controllers
         [HttpGet("comments/{id}", Name = nameof(GetQuestionComment))]
         public IActionResult GetQuestionComment(int id)
         {
-            var questioncomments = _dataService.GetQuestionComments(id);
-                
-            if (questioncomments.Count == 0) return NotFound();
-            return Ok(questioncomments);
+            var questioncomments = _dataService.GetQuestionComments(id).Select(x => new
+            {
+                Link = Url.Link(
+                        nameof(GetQuestion),
+                        new { x.Id }),
+                   Score = x.Score,
+                   CreationDate = x.CreationDate,
+                   Body = x.Body
+
+            });
+
+            var result = new
+            {
+                items = questioncomments
+            };
+
+            return Ok(result);
+
 
 
         }

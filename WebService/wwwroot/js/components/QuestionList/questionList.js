@@ -39,6 +39,8 @@
                 canNext(false);
                 data.next !== null && canNext(true);
                 posts(data.items);
+                console.log(data.items);
+
             })
 
         }

@@ -1,0 +1,14 @@
+﻿a {
+    cursor: pointer;
+}
+
+.nav {
+    border: 1px solid black;
+    background-color: lightgoldenrodyellow;
+    position: fixed;
+}
+
+body {
+    background-color: lightgoldenrodyellow;
+
+}

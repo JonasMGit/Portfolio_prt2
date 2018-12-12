@@ -2,24 +2,48 @@
 
     return function (params) {
 
-        var currentPost = ko.observable();
+        var currentPostAnswer = ko.observable();
+        var currentPostComment = ko.observable();
+         
         var currentComponent = ko.observable("question");
         var hasAnswers = ko.observable(false);
         var curLink = params.link;
    
 
-        var getPost = function (url) {
+        var getPostAnswers = function (url) {
             ds.getPost(url, function (data) {
                 $.getJSON(data.answers, function (answers) {
                     hasAnswers(answers && answers.length > 0);
                     data.answers = answers;
-                    currentPost(data)
+                    console.log(answers);
+                    currentPostAnswer(data);
 
                 });
+                $.getJSON(data.comments, function (comments) {
+                    data.comments = comments;
+                    console.log(comments.items);
+                    currentPostComment(data)
+                    
+                });
+
+                //console.log(currentPostAnswer(data))
+
             });
         }
 
-        getPost(curLink);
+        //var getPostComments = function (url) {
+
+        //    ds.getPost(url, function (data) {
+        //        $.getJSON(data.comments, function (comments) {
+        //            data.comments = comments;
+                   
+        //            currentPostComment(data);
+        //        });
+        //    });
+        //}
+
+        getPostAnswers(curLink);
+        //getPostComments(curLink);
 
         var back = function () {
             //ds.getPosts("api/questions");
@@ -30,8 +54,10 @@
 
 
         return {
-            getPost,
-            currentPost,
+            getPostAnswers,
+            //getPostComments,
+            currentPostAnswer,
+            currentPostComment,
             hasAnswers,
             back,
             currentComponent
