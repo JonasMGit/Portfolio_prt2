@@ -93,7 +93,7 @@ namespace DataServiceTest
         public void CreateNewUserTest()
         {
             var service = new DataService();
-            var userNew = service.createUser("Henning", "Flemming");
+            var userNew = service.CreateUser("Henning", "Flemming");
 
             Assert.Equal("Henning", userNew.UserName);
 
@@ -108,7 +108,7 @@ namespace DataServiceTest
         {
             var service = new DataService();
         
-            var users = service.createUser("MOther", "father").Id;
+            var users = service.CreateUser("MOther", "father").Id;
 
             var deluser = service.DeleteUser(users);
             Assert.True(deluser);
@@ -119,7 +119,7 @@ namespace DataServiceTest
         public void UpdateUser_userName_Password_WithValidId()
         {
             var service = new DataService();
-            var newUser = service.createUser("userUpdateTest", "testertest");
+            var newUser = service.CreateUser("userUpdateTest", "testertest");
             
 
             var user = service.UpdateUser(newUser.Id,"updatedusername","updatedpassword");
@@ -145,7 +145,7 @@ namespace DataServiceTest
         public void SaveUserSearchHistory()
         {
             var service = new DataService();
-            var newUser = service.createUser("History","Saved");
+            var newUser = service.CreateUser("History","Saved");
             var newSearch = service.SaveSearch("Hide",newUser.Id);
             Assert.Equal("Hide", newSearch.Search);
 
@@ -161,7 +161,7 @@ namespace DataServiceTest
         public void CreateAnnotation()
         {
             var service = new DataService();
-            var newUser = service.createUser("Annotationtor","Annobreaker").Id;
+            var newUser = service.CreateUser("Annotationtor","Annobreaker").Id;
             var parentIdentfire = service.GetQuestion(13649012).Id;
             var newAnnotation = service.CreateAnnotation("Annotation_created",newUser,parentIdentfire);
             Assert.Equal("Annotation_created", newAnnotation.Body);
@@ -176,7 +176,7 @@ namespace DataServiceTest
         public void UpdateAnnotations_Body_Userid_Postid()
         {
             var service = new DataService();
-            var newUser = service.createUser("Heran", "heri123").Id;
+            var newUser = service.CreateUser("Heran", "heri123").Id;
             var parentIdentfire = service.GetQuestion(13649012).Id;
             var newAnnotation = service.CreateAnnotation("Annotation_created by Heran", newUser, parentIdentfire);
             var updatedannotation = service.UpdateAnnotation("wasd", newAnnotation.Id);
@@ -215,7 +215,7 @@ namespace DataServiceTest
         public void DeleteAnnotation()
         {
             var service = new DataService();
-            var newuser= service.createUser("Camie", "cami123").Id;
+            var newuser= service.CreateUser("Camie", "cami123").Id;
             var newpost = service.GetAnswer(9854666).Id;
             var newannotation = service.CreateAnnotation("Annotation to be deleted",newuser,newpost);
             var delannotation = service.DeleteAnnotation(newannotation.Id);
@@ -230,7 +230,7 @@ namespace DataServiceTest
         public void CreateMark()
         {
             var service = new DataService();
-            var newuser = service.createUser("marker","mark123").Id;
+            var newuser = service.CreateUser("marker","mark123").Id;
             var parentpostt = service.GetQuestion(13649012).Id;
             var newMarking = service.CreateMarking(parentpostt, newuser);
             Assert.Equal(13649012, newMarking.PostId);
@@ -244,7 +244,7 @@ namespace DataServiceTest
         public void getmark()
         {
             var service = new DataService();
-            var newuser = service.createUser("markerTestGetMark", "mark123").Id;
+            var newuser = service.CreateUser("markerTestGetMark", "mark123").Id;
             var parentpostt = service.GetQuestion(13649012).Id;
             var newMarking = service.CreateMarking(parentpostt, newuser);
             var GetMarker = service.GetMark(newuser, parentpostt);
@@ -266,7 +266,7 @@ namespace DataServiceTest
         public void DeleteMarking()
         {
             var service = new DataService();
-            var newuser = service.createUser("Peter pet", "pet123").Id;
+            var newuser = service.CreateUser("Peter pet", "pet123").Id;
             var postt = service.GetQuestion(13649012).Id;
             var newmark = service.CreateMarking(postt,newuser);
             var delmark = service.DeleteMarking(newmark.UserId, newmark.PostId);

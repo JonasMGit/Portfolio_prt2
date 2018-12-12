@@ -115,7 +115,7 @@ namespace WebService.Controllers
                      Link = Url.Link(
                         nameof(GetQuestion),
                         new { x.Id }),
-                        //x.Title,
+                        x.Title,
                         x.Body
 
                  }); ;

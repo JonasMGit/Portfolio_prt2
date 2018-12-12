@@ -47,7 +47,7 @@ namespace WebService.Controllers
         /*[HttpGet]
         public IActionResult GetAnnotation()
         {
-            var annotate = _dataService.GetAnnotation();
+            var annotate = _dataService.GetAnnotation(userid);
             return Ok(annotate);
         }*/
 

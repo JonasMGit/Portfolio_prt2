@@ -61,6 +61,8 @@ namespace DataLayer
             //search result mapping
             modelBuilder.Query<SearchResult>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Query<SearchResult>().Property(x => x.Body).HasColumnName("body");
+            modelBuilder.Query<SearchResult>().Property(x => x.Title).HasColumnName("title");
+
 
             //word cloud mapping
             modelBuilder.Query<WordCloud>().Property(x => x.Word).HasColumnName("word");

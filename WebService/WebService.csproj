@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\js\components\Search\" />
     <Folder Include="wwwroot\js\lib\" />
   </ItemGroup>
 
