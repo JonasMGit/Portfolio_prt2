@@ -11,7 +11,7 @@ namespace DataLayer
     public interface IDataService
     {
         //------search-----------
-        SearchHistories SearchHistories(int id);
+        List<SearchHistories> SearchHistories(int id);
         SearchHistories SaveSearch(string newSearch, int newUserId);
 
         //--------Answers--------
@@ -299,13 +299,15 @@ namespace DataLayer
             }
         }
 
-        public SearchHistories SearchHistories(int id)
+        public List<SearchHistories> SearchHistories(int id)
         {
             using (var db = new SOVAContext())
             {
                 var question = db.SearchHistory
                     .Where(x => x.UserId == id)
-                    .FirstOrDefault();
+                    .OrderByDescending(x => x.Date)
+                    .ToList();
+                    //.FirstOrDefault();
                 return question;
             }
         }

@@ -39,7 +39,8 @@ namespace WebService.Controllers
                 .Select(x => new
                 {
                     Link = Url.Link(nameof(QuestionsController.GetQuestion), new { id = x.PostId }),
-                        x.UserId
+                        x.UserId,
+                        x.CreationDate
 
 
 

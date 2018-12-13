@@ -23,10 +23,9 @@ namespace WebService.Controllers
                 .Select(x => new
                 {
                     Link = Url.Link(nameof(QuestionsController.GetQuestion), new { id = x.PostId }),
-                    x.UserId
-
-
-
+                    x.UserId,
+                    x.Body,
+                    x.CreationDate
                 });
             var total = _dataService.GetNumberOfMarks();
             var pages = Math.Ceiling(total / (double)pageSize);

@@ -6,7 +6,7 @@
 
     <div>
         <div>
-            <a href="" data-bind="click: $parent.showPost">
+            <a href="" data-bind="click:  $parent.showPost">
                 <span data-bind="text: title"></span>
             </a>
         </div>
@@ -18,7 +18,7 @@
     <button data-bind="click: next, enable: canNext">Next</button>
 
     SearchTemp: <input data-bind="textInput : searchVal"/>
-    <button data-bind="click: searchPost">search</button>
+    <button data-bind="click: {searchPost}">search</button>
 
 
 

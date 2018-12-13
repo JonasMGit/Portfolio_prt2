@@ -22,7 +22,7 @@ require(['knockout'], function (ko) {
     ko.components.register("question-list",
         {
             viewModel: { require: 'components/QuestionList/questionList' },
-            template: { require: 'text!components/QuestionList/questionListView.html'}
+            template: { require: 'text!components/QuestionList/questionListView.html' }
         });
 
     ko.components.register("question",
@@ -33,6 +33,10 @@ require(['knockout'], function (ko) {
     ko.components.register("Cloud", {
         viewModel: { require: 'components/Cloud/wordCloud' },
         template: { require: 'text!components/Cloud/wordCloudView.html' }
+    });
+    ko.components.register("userPage", {
+        viewModel: { require: 'components/User/user' },
+        template: { require: 'text!components/User/userView.html' }
     });
 });
 

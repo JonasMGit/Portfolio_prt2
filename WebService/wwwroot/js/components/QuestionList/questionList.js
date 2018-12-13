@@ -9,6 +9,10 @@
         var nextUrl = "";
         var total = 0;
         var searchVal = ko.observable(params.back);
+        var postData = { search: "hello world", userId: "13" };
+
+        //testvalues
+        var id = "13"
 
 
 
@@ -58,16 +62,26 @@
         };
 
         var searchPost = function () {
+
+            
             getSearch(searchVal())
+            $.ajax({
+                type: 'POST',
+                url: 'api/searchhistory/add/',
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify({ search: searchVal(), userId: "13" }),
+                contentType: 'application/json',
 
-        }
+            });
+        };
 
+     
         var showPost = function (post) {
-
+          
             postman.publish("selectedComponent", { item: "question", params: { link: post.link, back: searchVal() } });
         };
 
-
+       
 
         return {
             posts,
@@ -77,11 +91,16 @@
             next,
             canNext,
             searchVal,
+            
 
 
             // selectComponent,
             showPost,
-            currentComponent
+            currentComponent,
+
+
+            //test
+            id
 
 
         };

@@ -15,13 +15,11 @@
                 $.getJSON(data.answers, function (answers) {
                     hasAnswers(answers && answers.length > 0);
                     data.answers = answers;
-                    console.log(answers);
                     currentPostAnswer(data);
 
                 });
                 $.getJSON(data.comments, function (comments) {
                     data.comments = comments;
-                    console.log(comments.items);
                     currentPostComment(data)
                     
                 });
@@ -32,7 +30,7 @@
 
         getPostAnswers(curLink);
 
-        var back = function (backTerm) {
+        var back = function () {
            // ds.getPosts("api/questions/name/"+ backTerm + "");
             postman.publish("selectedComponent", { item: "question-list", params: {back: params.back} });
 
