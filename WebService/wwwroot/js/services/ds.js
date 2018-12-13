@@ -50,6 +50,10 @@
             contentType: 'application/json'
         }); 
     }
+
+    var createcloud = function (term, callback) {
+        $.getJSON("api/wordCloud/" + term + "", callback)
+    };
     return {
         getPosts,
         getPost,
@@ -60,6 +64,8 @@
         getUser,
         getMarks,
         postSearch
+        searchPosts,
+        createcloud
     };
 
 });

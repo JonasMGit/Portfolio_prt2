@@ -40,6 +40,6 @@ require(['knockout'], function (ko) {
     });
 });
 
-require(['knockout', 'app/questions'], function (ko, questionVm) {
+require(['knockout', 'app/questions', 'jqcloud'], function (ko, questionVm) {
     ko.applyBindings(questionVm);
 });
