@@ -8,7 +8,7 @@
         var canNext = ko.observable(false);
         var nextUrl = "";
         var total = 0;
-        var searchVal = ko.observable("")
+        var searchVal = ko.observable("");
 
 
 
