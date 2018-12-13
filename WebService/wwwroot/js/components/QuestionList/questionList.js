@@ -8,7 +8,7 @@
         var canNext = ko.observable(false);
         var nextUrl = "";
         var total = 0;
-        var searchVal = ko.observable("");
+        var searchVal = ko.observable(params.back);
 
 
 
@@ -44,6 +44,8 @@
             })
 
         }
+        if (searchVal() === undefined) searchVal("")
+        else getSearch(searchVal());
 
         
 
@@ -62,7 +64,7 @@
 
         var showPost = function (post) {
 
-            postman.publish("selectedComponent", { item: "question", params: { link: post.link } });
+            postman.publish("selectedComponent", { item: "question", params: { link: post.link, back: searchVal() } });
         };
 
 
