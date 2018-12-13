@@ -22,11 +22,16 @@
         $.getJSON("api/questions/name/" + terms +"", callback)
 
     };
+
+    var createcloud = function (term, callback) {
+        $.getJSON("api/wordCloud/" + term + "", callback)
+    };
     return {
         getPosts,
         getPost,
         getWords,
-        searchPosts
+        searchPosts,
+        createcloud
     };
 
 });
