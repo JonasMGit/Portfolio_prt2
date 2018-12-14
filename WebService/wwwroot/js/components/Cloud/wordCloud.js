@@ -1,15 +1,24 @@
-﻿define(['jquery', 'knockout', 'dataService', 'jqcloud'], function ($, ko, ds) {
+﻿define(['jquery', 'knockout', 'dataService', 'postman','jqcloud'], function ($, ko, ds,postman) {
+
     return function (params) {
-        //var words = ko.observableArray([]);
+        var words = ko.observableArray([]);
 
         ds.getWords(function (data) {
-            //words(data);
-            $('#Cloud').jQCloud(data);
+            words(data);
+            $('#cloud').jQCloud(words());
+
+
         });
+        var generateCloud = function () {
 
-
-
-        return {
+            
         };
+       
+        return {
+            words,
+            generateCloud
+           
+        };
+
     };
 });

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using DataLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
@@ -19,7 +20,7 @@ namespace WebService.Controllers
 
 
         [HttpGet("{userid}")]
-        public IActionResult GetSearchhistory(int userid)
+        public IActionResult GetSearchhistory(int userid, int postid, int page = 0, int pageSize = 5)
         {
             var searchh = _dataService.SearchHistories(userid);
             if (searchh == null) return NotFound();
@@ -34,12 +35,12 @@ namespace WebService.Controllers
             return Ok(Searchh);
         }
 
-        //[HttpPost("{userid}")]
-        //public IActionResult CreateSearch(int userid, [FromBody] User)
-        //{
-        //    var createSearch = _dataService.SaveSearch(term, userid);
-        //    if (createSearch == null) return NotFound();
-        //    return Ok(createSearch);
-        //}
+        [HttpPost("add")]
+        public IActionResult CreateSearch( [FromBody] SearchHistories searchHistories)
+        {
+            var createSearch = _dataService.SaveSearch(searchHistories.Search, searchHistories.UserId);
+            return Created($"api/searchhistory/{createSearch}", createSearch);
+
+        }
     }
 }
