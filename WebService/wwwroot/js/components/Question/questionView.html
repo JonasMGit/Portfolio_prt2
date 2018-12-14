@@ -1,7 +1,7 @@
 ﻿<div class="question">
 
     <div data-bind="with: currentPostComment">
-        <div><button data-bind="click: $parent.back">Back</button></div>
+        <div><button type="button" class="mt-1 btn btn-info" data-bind="click: $parent.back">Back</button></div>
 
         <h1 data-bind="text: title"></h1>
         <h3>Date: <span data-bind="text: creationDate"></span></h3>
@@ -20,7 +20,7 @@
 
         <div data-bind="if: $parent.hasAnswers">
 
-            <div><button data-bind="click: $parent.back">Back</button></div>
+            <div><button type="button" class="btn btn-info" data-bind="click: $parent.back">Back</button></div>
             <h3>Answers:</h3>
             <div data-bind="foreach: answers">
                 <div style="background: lightgrey; margin: 20px; border: 1px solid black">
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div><button data-bind="click: $parent.back">Back</button></div>
+        <div><button type="button" class="mb-1 btn btn-info" data-bind="click: $parent.back">Back</button></div>
 
 
 

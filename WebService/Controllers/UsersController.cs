@@ -42,12 +42,20 @@ namespace WebService.Controllers
 
             return Ok(user);
         }
-
+        //what is this for???
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var users = await _userService.GetAll();
             return Ok(users);
+        }
+
+        [HttpGet("{id}", Name = nameof(GetUser))]
+        public IActionResult GetUser(int id)
+        {
+            var user = _dataService.GetUser(id);
+            if(user == null) return NotFound();
+            return Ok(user);
         }
 
         [HttpPost]

@@ -56,7 +56,7 @@ require(['knockout'], function (ko) {
     ko.components.register("question-list",
         {
             viewModel: { require: 'components/QuestionList/questionList' },
-            template: { require: 'text!components/QuestionList/questionListView.html'}
+            template: { require: 'text!components/QuestionList/questionListView.html' }
         });
 
     ko.components.register("question",
@@ -67,6 +67,10 @@ require(['knockout'], function (ko) {
     ko.components.register("cloud", {
         viewModel: { require: 'components/cloud/wordCloud' },
         template: { require: 'text!components/cloud/wordCloudView.html' }
+    });
+    ko.components.register("userPage", {
+        viewModel: { require: 'components/User/user' },
+        template: { require: 'text!components/User/userView.html' }
     });
 });
 
