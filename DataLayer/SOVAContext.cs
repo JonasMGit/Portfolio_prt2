@@ -29,7 +29,7 @@ namespace DataLayer
 
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=RucRuc13");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=521313");
 
 
         }
@@ -66,7 +66,8 @@ namespace DataLayer
 
             //word cloud mapping
             modelBuilder.Query<WordCloud>().Property(x => x.Word).HasColumnName("word");
-           
+            modelBuilder.Query<WordCloud>().Property(x => x.Weight).HasColumnName("weight");
+
 
             //Map Class Propert: Author
 

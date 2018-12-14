@@ -9,10 +9,10 @@
         var nextUrl = "";
         var total = 0;
         var searchVal = ko.observable(params.back);
-        var postData = { search: "hello world", userId: "13" };
+       // var postData = { search: "hello world", userId: "13" };
 
         //testvalues
-        var id = "13"
+        var id = "14"
 
 
 
@@ -69,7 +69,7 @@
                 type: 'POST',
                 url: 'api/searchhistory/add/',
                 // The key needs to match your method's input parameter (case-sensitive).
-                data: JSON.stringify({ search: searchVal(), userId: "13" }),
+                data: JSON.stringify({ search: searchVal(), userId: id }),
                 contentType: 'application/json',
 
             });
@@ -100,7 +100,7 @@
 
 
             //test
-            id
+           // id
 
 
         };

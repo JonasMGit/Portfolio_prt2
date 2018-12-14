@@ -6,7 +6,7 @@
     var title = "Stackinator";
     var menuItems = [
         { name: 'Home', component: 'question-list' },
-        { name: 'Cloud', component: 'Cloud' },
+        { name: 'Cloud', component: 'cloud' },
         {name: 'My Page', component: 'userPage'}
     ];
     console.log(menuItems);
