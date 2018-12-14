@@ -7,19 +7,17 @@
         var prevUrl = "";
         var canNext = ko.observable(false);
         var nextUrl = "";
-        var total = 0;
         var searchVal = ko.observable(params.back);
-       // var postData = { search: "hello world", userId: "13" };
+       // var postData = { search: searchVal(), userId: id };
 
-        //testvalues
-        var id = "14"
+        //set this id to database user value.
+        var id = "13"
 
 
 
         var getPosts = function (url) {
 
             ds.getPosts(url, function (data) {
-                total = data.total
                 curUrl = data.cur;
                 prevUrl = data.prev;
                 canPrev(false);
@@ -33,8 +31,8 @@
 
         var getSearch = function (terms) {
             ds.searchPosts(terms, function (data) {
-                //searchVal = data.terms
-                total = data.total
+                postId = data.id;
+                total = data.total;
                 curUrl = data.cur;
                 prevUrl = data.prev;
                 canPrev(false);
@@ -43,8 +41,6 @@
                 canNext(false);
                 data.next !== null && canNext(true);
                 posts(data.items);
-                console.log(data.items);
-
             })
 
         }
@@ -63,8 +59,6 @@
 
         var searchPost = function () {
 
-            
-            getSearch(searchVal())
             $.ajax({
                 type: 'POST',
                 url: 'api/searchhistory/add/',
@@ -73,12 +67,21 @@
                 contentType: 'application/json',
 
             });
+            getSearch(searchVal())
+
         };
 
      
         var showPost = function (post) {
           
-            postman.publish("selectedComponent", { item: "question", params: { link: post.link, back: searchVal() } });
+            postman.publish("selectedComponent", {
+                item: "question", params: {
+                    link: post.link,
+                    back: searchVal(),
+                    userId: id,
+                    postId: post.id
+                }
+            });
         };
 
        
@@ -91,16 +94,10 @@
             next,
             canNext,
             searchVal,
-            
-
-
-            // selectComponent,
             showPost,
             currentComponent,
-
-
-            //test
-           // id
+            id,
+            //postId
 
 
         };
