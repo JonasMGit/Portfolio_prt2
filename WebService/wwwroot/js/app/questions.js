@@ -6,7 +6,7 @@
     var title = "Stackinator";
     var menuItems = [
         { name: 'Home', component: 'question-list' },
-        { name: 'Cloud', component: 'Cloud' }
+        { name: 'Cloud', component: 'cloud' }
     ];
 
     var selectedMenu = ko.observable(menuItems[0]);

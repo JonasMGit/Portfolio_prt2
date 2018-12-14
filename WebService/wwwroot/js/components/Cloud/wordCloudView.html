@@ -1,6 +1,7 @@
-﻿<div>
-<div id="cloud" style="width: 500px;height:200px"></div>
-
-    Word cloud: <input data-bind="textInput : wrdcloud" />
-  <button data-bind="click: getWords">Generate word cloud</button>
+﻿
+<div data-bind="cloud: {words}" style="width: 500px; height: 200px"></div>
+<div>
+    Word cloud: <input/>
+    <button data-bind="click: generateCloud">Generate word cloud</button>
 </div>
+

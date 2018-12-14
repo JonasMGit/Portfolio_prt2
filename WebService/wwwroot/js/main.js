@@ -16,6 +16,40 @@ require.config({
     }
 });
 
+
+ require(['jquery', 'knockout', 'jqcloud'], function ($, ko) {
+    ko.bindingHandlers.cloud = {
+        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+           
+            var cloud = allBindings.get('cloud');
+            var words = cloud.words;
+
+            // if we have words that is observables
+            if (words && ko.isObservable(words)) {
+                // then subscribe and update the cloud on changes
+                words.subscribe(function () {
+                    $(element).jQCloud('update', ko.unwrap(words));
+                });
+            }
+
+        },
+        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+           
+            var cloud = allBindings.get('cloud');
+
+            
+            var words = ko.unwrap(cloud.words) || [];
+            var width = cloud.height || 200;
+            var height = cloud.height || 200;
+
+            // to show the cloud we call the jqcloud function
+            $(element).jQCloud(words, {
+                width: width,
+                height: height
+            });
+        }
+    };
+});
 // register components
 require(['knockout'], function (ko) {
 
@@ -30,9 +64,9 @@ require(['knockout'], function (ko) {
             viewModel: { require: 'components/Question/question' },
             template: { require: 'text!components/Question/questionView.html' }
         });
-    ko.components.register("Cloud", {
-        viewModel: { require: 'components/Cloud/wordCloud' },
-        template: { require: 'text!components/Cloud/wordCloudView.html' }
+    ko.components.register("cloud", {
+        viewModel: { require: 'components/cloud/wordCloud' },
+        template: { require: 'text!components/cloud/wordCloudView.html' }
     });
 });
 

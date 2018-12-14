@@ -12,7 +12,7 @@
     };
 
     var getWords = function (callback) {
-        $.getJSON('api/wordCloud', function (data) {
+        $.getJSON("api/wordCloud", function (data) {
             callback(data);
         });
     };
@@ -23,15 +23,13 @@
 
     };
 
-    var createcloud = function (term, callback) {
-        $.getJSON("api/wordCloud/" + term + "", callback)
-    };
+   
     return {
         getPosts,
         getPost,
         getWords,
-        searchPosts,
-        createcloud
+        searchPosts
+        
     };
 
 });
