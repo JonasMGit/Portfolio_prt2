@@ -58,6 +58,7 @@ namespace WebService.Controllers
                 var result = new
                 {
                     Link = Url.Link(nameof(GetQuestion), new { question.Id }),
+                    question.Id,
                     question.Title,
                     question.CreationDate,
                     question.Score,
@@ -129,6 +130,7 @@ namespace WebService.Controllers
                      Link = Url.Link(
                         nameof(GetQuestion),
                         new { x.Id }),
+                        x.Id,
                         x.Title,
                         x.Body
 

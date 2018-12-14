@@ -8,6 +8,9 @@
         var currentComponent = ko.observable("question");
         var hasAnswers = ko.observable(false);
         var curLink = params.link;
+        var curUser = params.userId;
+        var curPostId = params.postId;
+        var bodyAnnotation = ko.observable("")
    
 
         var getPostAnswers = function (url) {
@@ -26,9 +29,32 @@
             });
         }
 
-       
+        var mark = function () {
+            console.log(curPostId);
+            console.log(curUser);
+            $.ajax({
+                type: 'POST',
+                url: 'api/mark/',
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify({ postId: curPostId , userId: curUser }),
+                contentType: 'application/json',
+
+            });
+        }
+        var annotate = function () {
+            $.ajax({
+                type: 'POST',
+                url: 'api/annotations/',
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify({ body: bodyAnnotation(), userId: curUser, postId: curPostId }),
+                contentType: 'application/json',
+
+            });
+        }
 
         getPostAnswers(curLink);
+        
+
 
         var back = function () {
            // ds.getPosts("api/questions/name/"+ backTerm + "");
@@ -43,9 +69,12 @@
             //getPostComments,
             currentPostAnswer,
             currentPostComment,
+            bodyAnnotation,
             hasAnswers,
             back,
-            currentComponent
+            mark,
+            currentComponent,
+            annotate
 
 
 

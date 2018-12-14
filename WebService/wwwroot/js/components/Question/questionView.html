@@ -6,7 +6,10 @@
         <h1 data-bind="text: title"></h1>
         <h3>Date: <span data-bind="text: creationDate"></span></h3>
         <h3>Score: <span data-bind="text: score"></span></h3>
-        <div data-bind="html: body"></div>
+        <div  data-bind="html: body"></div>
+        <button type="button" class="mt-1 btn btn-info" data-bind="click: $parent.mark">Mark Post</button>
+       <input data-bind="textInput:$parent.bodyAnnotation"/> <button data-bind="click: $parent.annotate">Annotate</button>
+
         <h3>Comments</h3>
         <div data-bind="foreach: comments.items">
             <div style="background: lightgrey; margin: 20px; border: 1px solid black">

@@ -25,22 +25,22 @@
 
     var getUser = function (userId, callback) {
         $.getJSON("api/users/" + userId, callback)
-    }
+    };
 
     var getSearchHistory = function (userId, callback) {
         $.getJSON("api/searchhistory/" + userId, callback);
- 
-    }
+
+    };
     var getAnnotations = function (userId, callback) {
         $.getJSON("api/annotations/" + userId, callback)
 
-    }
+    };
 
     var getMarks = function (userId, callback) {
-        $.getJSON("api/mark/" + userId, callback)  
-    }
+        $.getJSON("api/mark/" + userId, callback)
+    };
 
-    //post functions
+    //post functions maybe delete. would be nice to finish
     var postSearch = function (postData) {
         $.ajax({
             type: 'POST',
@@ -54,18 +54,19 @@
     var createcloud = function (term, callback) {
         $.getJSON("api/wordCloud/" + term + "", callback)
     };
+
+
     return {
         getPosts,
         getPost,
-        getWords,
+        //getWords,
         searchPosts,
         getSearchHistory,
         getAnnotations,
         getUser,
         getMarks,
-        postSearch
         searchPosts,
-        createcloud
+        //createcloud
     };
 
 });
