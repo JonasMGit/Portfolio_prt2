@@ -11,10 +11,18 @@
     var getPost = function (url, callback) {
         $.getJSON(url, callback);
     };
-
+/*
     var getWords = function (callback) {
         $.getJSON('api/wordCloud', function (data) {
             callback(data);
+        });
+    };
+    */
+
+    var getWordCloud = function (word, callback) {
+        $.getJSON("api/wordCloud/" + word, function (data) {
+            callback(data);
+
         });
     };
 

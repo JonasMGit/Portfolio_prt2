@@ -11,7 +11,8 @@
                 words(data);
             });
         };
-       
+        getCloud("database");
+
         return {
             words,
             generateCloud,
