@@ -19,13 +19,6 @@
     };
     */
 
-    var getWordCloud = function (word, callback) {
-        $.getJSON("api/wordCloud/" + word, function (data) {
-            callback(data);
-
-        });
-    };
-
     var searchPosts = function (terms, callback) {
         $.getJSON("api/questions/name/" + terms, callback)
 
@@ -76,6 +69,7 @@
         getAnnotations,
         getUser,
         getMarks,
+        postSearch,
         searchPosts,
         //createcloud
     };
