@@ -72,18 +72,18 @@ namespace WebService.Controllers
             
           
         }
-        /*
+        
         [HttpDelete]
 
-        public IActionResult DeleteAnnotation(string body)
+        public IActionResult DeleteAnnotation(int id)
         {
-            var delannotation = _dataService.DeleteAnnotation(body);
+            var delannotation = _dataService.DeleteAnnotation(id);
             if (delannotation==false)
             {
                 return NotFound();
             }
             return Ok(delannotation);
         }
-        */
+        
     }
 }

@@ -126,26 +126,26 @@ namespace ProjoctPortfolioTests
             var (markk,  statusCode) = PostData(MarkApi,mark);
             Assert.Equal(HttpStatusCode.Created, statusCode);
         }
-//ApiMark_Delete() test is not working this test but works on postman
-/*
-        [Fact]
-        public void ApiMark_DeleteMark()
-        {
+        //ApiMark_Delete() test is not working this test but works on postman
+        /*
+                [Fact]
+                public void ApiMark_DeleteMark()
+                {
 
-            var data = new
-            {
-                
-                UserId = 47,
-                PostId = 2180354
-            };
-             var (mark, _) = PostData($"{MarkApi}", data);
+                    var data = new
+                    {
 
-            var statusCode=DeleteData($"{MarkApi}/{mark["userid"]}");
+                        UserId = 47,
+                        PostId = 2180354
+                    };
+                     var (mark, _) = PostData($"{MarkApi}", data);
 
-            Assert.Equal(HttpStatusCode.OK, statusCode);
-        }
+                    var statusCode=DeleteData($"{MarkApi}/{mark["userid"]}");
 
-    */
+                    Assert.Equal(HttpStatusCode.OK, statusCode);
+                }
+
+            */
 
         //Helpers
         (JArray, HttpStatusCode) GetArray(string url)

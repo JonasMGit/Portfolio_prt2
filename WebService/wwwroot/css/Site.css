@@ -20,3 +20,21 @@ a {
 body {
     background-color: #f7eaec;
 }
+
+.footer {
+    height: 24px;
+    width: 100%;
+    background-color: #dddddd;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-position: 0% 0%;
+    position: fixed;
+    bottom: 0pt;
+    left: 0pt;
+}
+
+.footer_contents {
+    height: 24px;
+    width: 1000px;
+    margin:auto;
+}

@@ -63,7 +63,7 @@
         getAnnotations,
         getUser,
         getMarks,
-        postSearch
+        postSearch,
         searchPosts,
         createcloud
     };
