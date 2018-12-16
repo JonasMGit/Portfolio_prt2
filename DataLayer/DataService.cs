@@ -13,7 +13,7 @@ namespace DataLayer
         //------search-----------
         List<SearchHistories> SearchHistories(int id);
         SearchHistories SaveSearch(string newSearch, int newUserId);
-
+        bool ClearSearch(string search, int id);
         //--------Answers--------
         List<Answer> GetAnswers();
         Answer GetAnswer(int id);
@@ -48,7 +48,7 @@ namespace DataLayer
         //----------Marked------------------
         Mark CreateMarking(int postid, int userid);
         List<Mark> GetMarks(int userid, int page, int pageSize);
-        bool DeleteMarking(int userid, int postid);
+        bool DeleteMarking(int postid, int userid);
         int GetNumberOfMarks();
         Mark GetMark(int userid, int postid);
 
@@ -117,7 +117,7 @@ namespace DataLayer
 
         }
 
-    
+    ///Db functions////////
         public List<SearchResult> GetQuestionsByString(string title, int page, int pageSize)
         {
             using (var db = new SOVAContext())
@@ -131,11 +131,11 @@ namespace DataLayer
             }
         }
         
-        public List<WordCloud> GetWordCloud(string word)
+        public List<WordCloud> GetWordCloud(string text)
         {
             using (var db = new SOVAContext())
             {
-                var cloud = db.WordClouds.FromSql("select * from wrdCloud({0})", word);
+                var cloud = db.WordClouds.FromSql("select * from wrdCloud({0})", text);
                 return cloud.ToList();
             }
         }
@@ -312,6 +312,26 @@ namespace DataLayer
             }
         }
 
+        public bool ClearSearch(string search, int id)
+        {
+            try
+            {
+                using (var db = new SOVAContext())
+                {
+                    var delsearch = db.SearchHistory.Find(search, id);
+
+                    db.SearchHistory.Remove(delsearch);
+                    db.SaveChanges();
+
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public int GetNumberOfSearches()
         {
             using (var db = new SOVAContext())
@@ -372,6 +392,7 @@ namespace DataLayer
                     .Where (x => x.UserId == userid)
                     .Skip(page * pageSize)
                     .Take(pageSize)
+                    .OrderByDescending(x => x.CreationDate)
                     .ToList();
 
                 return annotations;
@@ -403,11 +424,8 @@ namespace DataLayer
             {
                 using (var db = new SOVAContext())
                 {
-                    var delannotation = new Annotations()
-                    {
-                        Id=id
-                      
-                    };
+                    var delannotation = db.Annotations.Find(id);
+                   
                     db.Annotations.Remove(delannotation);
                     db.SaveChanges();
 
@@ -468,28 +486,30 @@ namespace DataLayer
                     .Where (x => x.UserId == userid)
                     .Skip(page * pageSize)
                     .Take(pageSize)
+                    .OrderByDescending(x => x.CreationDate)
                     .ToList();
-                //.Where(x => x.UserId == id)
-                //.ToList(); 
+               
                 return marks;
            
             }
         }
 
-        public bool DeleteMarking(int userid,int postid)
+        public bool DeleteMarking(int postid,int userid)
         {
             try
             {
                 using (var db = new SOVAContext())
                 {
-                    var delmarking = new Mark()
+                    var delmarking = db.Marked.Find(postid, userid);
+                    /*    new Mark()
                     {
-                        UserId=userid,
-                        PostId=postid
-                       
-                    
-                      
-                    };
+                        PostId=postid,
+                        UserId = userid
+
+
+
+
+                    };*/
                     db.Marked.Remove(delmarking);
                     db.SaveChanges();
 

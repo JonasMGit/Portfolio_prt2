@@ -7,12 +7,14 @@ require.config({
         dataService: "services/ds",
         jqcloud: 'lib/jqcloud2/dist/jqcloud',
         text: "lib/text/text",
-        postman: 'services/postman'
+        postman: 'services/postman',
+        bootstrap: "lib/bootstrap/dist/js/bootstrap.bundle"
 
     },
     shim: {
         // set default deps
-        'jqcloud': ['jquery']
+        'jqcloud': ['jquery'],
+        'bootstrap': ['jquery']
     }
 });
 
@@ -65,7 +67,7 @@ require(['knockout'], function (ko) {
             template: { require: 'text!components/Question/questionView.html' }
         });
     ko.components.register("cloud", {
-        viewModel: { require: 'components/cloud/wordCloud' },
+        viewModel: { require: 'components/cloud/cloud' },
         template: { require: 'text!components/cloud/wordCloudView.html' }
     });
     ko.components.register("userPage", {
@@ -74,6 +76,6 @@ require(['knockout'], function (ko) {
     });
 });
 
-require(['knockout', 'app/questions', 'jqcloud'], function (ko, questionVm) {
+require(['knockout', 'app/questions', 'jqcloud', 'bootstrap'], function (ko, questionVm) {
     ko.applyBindings(questionVm);
 });

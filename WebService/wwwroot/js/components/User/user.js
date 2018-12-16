@@ -6,8 +6,9 @@
         var searchInfo = ko.observableArray([]);
         var userName = ko.observable();
         var markInfo = ko.observableArray([]);
+        var annoId = ko.observableArray([params.id])
         //need to transfer this between components. questionList, and question. needs to be used multiple places
-        var staticUser = "14";
+        var staticUser = "13";
 
         var getUser = function (userid) {
             ds.getUser(userid, function (data) {
@@ -16,15 +17,19 @@
 
             })
         }
-
         var getAnnotations = function (userid) {
             ds.getAnnotations(userid, function (data) {
+                console.log(data.items);
                 annotationInfo(data.items);
+               
+
             })
         }
 
         var getSearchHistory = function (userid) {
             ds.getSearchHistory(userid, function (data) {
+                console.log(data);
+
                 searchInfo(data);
 
             })
@@ -32,9 +37,22 @@
 
         var getMarks = function (userid) {
             ds.getMarks(userid, function (data) {
-                console.log(data)
+                console.log(data.items)
                 markInfo(data.items);
             })
+        }
+        
+
+        var deleteAnno = function (id) {
+          /*  console.log(id)
+
+            $.ajax({
+                url: 'api/annotations/'+ id,
+                type: 'DELETE',
+                data: JSON.stringify({id: id}),
+                contentType: 'application/json'
+                
+            });*/
         }
 
 
@@ -58,7 +76,8 @@
             getMarks,
             annotationInfo,
             searchInfo,
-            markInfo
+            markInfo,
+            deleteAnno
 
 
         };
