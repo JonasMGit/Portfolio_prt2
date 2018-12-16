@@ -62,7 +62,7 @@
     return {
         getPosts,
         getPost,
-        getWords,
+       // getWords,
         createcloud,
         searchPosts,
         getSearchHistory,
