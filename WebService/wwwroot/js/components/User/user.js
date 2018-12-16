@@ -7,7 +7,7 @@
         var userName = ko.observable();
         var markInfo = ko.observableArray([]);
         //need to transfer this between components. questionList, and question. needs to be used multiple places
-        var staticUser = "13";
+        var staticUser = "14";
 
         var getUser = function (userid) {
             ds.getUser(userid, function (data) {

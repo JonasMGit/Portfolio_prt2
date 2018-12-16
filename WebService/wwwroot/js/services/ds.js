@@ -11,10 +11,18 @@
     var getPost = function (url, callback) {
         $.getJSON(url, callback);
     };
-
+/*
     var getWords = function (callback) {
         $.getJSON('api/wordCloud', function (data) {
             callback(data);
+        });
+    };
+    */
+
+    var getWordCloud = function (word, callback) {
+        $.getJSON("api/wordCloud/" + word, function (data) {
+            callback(data);
+
         });
     };
 
@@ -51,13 +59,11 @@
         }); 
     }
 
-    var createcloud = function (term, callback) {
-        $.getJSON("api/wordCloud/" + term + "", callback)
-    };
+   
     return {
         getPosts,
         getPost,
-        getWords,
+        //getWords,
         searchPosts,
         getSearchHistory,
         getAnnotations,
@@ -65,7 +71,7 @@
         getMarks,
         postSearch,
         searchPosts,
-        createcloud
+        getWordCloud
     };
 
 });

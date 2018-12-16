@@ -20,7 +20,7 @@ namespace WebService.Controllers
 
 
         [HttpGet("{userid}")]
-        public IActionResult GetSearchhistory(int userid, int postid, int page = 0, int pageSize = 5)
+        public IActionResult GetSearchhistory(int userid, int postid)
         {
             var searchh = _dataService.SearchHistories(userid);
             if (searchh == null) return NotFound();
