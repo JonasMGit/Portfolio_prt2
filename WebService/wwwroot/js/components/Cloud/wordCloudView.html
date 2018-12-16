@@ -1,7 +1,8 @@
 ﻿
-<div data-bind="cloud: {words}" style="width: 500px; height: 200px"></div>
+<div data-bind="cloud: {words}" style="width: 500px; height: 500px"></div>
+
 <div>
-    Word cloud: <input/>
+    Word cloud:  <input data-bind="textInput: searchTerm" />
     <button data-bind="click: generateCloud">Generate word cloud</button>
 </div>
 

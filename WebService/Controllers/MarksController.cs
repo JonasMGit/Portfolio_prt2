@@ -31,7 +31,7 @@ namespace WebService.Controllers
 
 
 
-     
+
         [HttpGet("{userid}", Name = nameof(GetMarks))]
         public IActionResult GetMarks(int userid, int postid, int page = 0, int pageSize = 10)
         {
@@ -39,8 +39,8 @@ namespace WebService.Controllers
                 .Select(x => new
                 {
                     Link = Url.Link(nameof(QuestionsController.GetQuestion), new { id = x.PostId }),
-                        x.UserId,
-                        x.CreationDate
+                    x.UserId,
+                    x.CreationDate
 
 
 
@@ -63,9 +63,9 @@ namespace WebService.Controllers
 
 
         [HttpDelete]
-        public IActionResult DeleteMarks([FromBody]Mark mark)
+        public IActionResult DeleteMarks([FromBody] Mark marks)
         {
-            var del = _dataService.DeleteMarking(mark.UserId, mark.PostId);
+            var del = _dataService.DeleteMarking(marks.PostId, marks.UserId);
 
             if (del==false) return NotFound();
             return Ok(del);

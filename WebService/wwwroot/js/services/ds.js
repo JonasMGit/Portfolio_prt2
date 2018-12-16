@@ -52,14 +52,17 @@
     }
 
     var createcloud = function (term, callback) {
-        $.getJSON("api/wordCloud/" + term + "", callback)
+        $.getJSON("api/wordCloud/" + term + "", function (data) {
+            callback(data)
+        })
     };
 
 
     return {
         getPosts,
         getPost,
-        //getWords,
+        getWords,
+        createcloud,
         searchPosts,
         getSearchHistory,
         getAnnotations,

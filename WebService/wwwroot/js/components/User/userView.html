@@ -11,12 +11,11 @@
             <div>
                 <div>
                     <div>
-                        <!--<a href="" data-bind="click: $parent.showPost">-->
                         <h5>Link:</h5><a data-bind="text: link"></a>
                         <h6>Creation Date:<span data-bind="text: creationDate"></span></h6>
                         <div data-bind="text: body"></div>
-
-                        <!--</a>-->
+                        <div data-bind="text: id"></div>
+                        <button data-bind=" click: $parent.deleteAnno(id)"></button>
                     </div>
                 </div>
             </div>
@@ -31,12 +30,10 @@
             <div>
                 <div>
                     <div>
-                        <!--<a href="" data-bind="click: $parent.showPost">-->
                         <h4>Search History:</h4>
                         <h6>Search Date: <span data-bind="text: date"></span></h6>
                         <div data-bind="text: search"></div>
 
-                        <!--</a>-->
                     </div>
                 </div>
             </div>

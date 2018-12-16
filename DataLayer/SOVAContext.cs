@@ -65,8 +65,10 @@ namespace DataLayer
 
 
             //word cloud mapping
-            modelBuilder.Query<WordCloud>().Property(x => x.Word).HasColumnName("word");
-           
+            modelBuilder.Query<WordCloud>().Property(x => x.Text).HasColumnName("text");
+            modelBuilder.Query<WordCloud>().Property(x => x.Weight).HasColumnName("weighth");
+
+
 
             //Map Class Propert: Author
 
@@ -90,7 +92,7 @@ namespace DataLayer
             //Map Class Propert: Mark
 
             modelBuilder.Entity<Mark>().ToTable("marked");
-            modelBuilder.Entity<Mark>().HasKey(x =>new { x.UserId,x.PostId });
+            modelBuilder.Entity<Mark>().HasKey(x =>new { x.PostId,x.UserId });
             modelBuilder.Entity<Mark>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Mark>().Property(x => x.PostId).HasColumnName("postid");
             modelBuilder.Entity<Mark>().Property(x => x.UserId).HasColumnName("userid");
@@ -144,7 +146,7 @@ namespace DataLayer
             
 
             modelBuilder.Entity<SearchHistories>().ToTable("searchhistory");
-            modelBuilder.Entity<SearchHistories>().HasKey(x => new { x.Search, x.UserId, x.Date });
+            modelBuilder.Entity<SearchHistories>().HasKey(x => new { x.Search, x.UserId});
             modelBuilder.Entity<SearchHistories>().Property(x => x.Search).HasColumnName("search");
             modelBuilder.Entity<SearchHistories>().Property(x => x.UserId).HasColumnName("userid");
             modelBuilder.Entity<SearchHistories>().Property(x => x.Date).HasColumnName("creationdate");

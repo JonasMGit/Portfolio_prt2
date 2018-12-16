@@ -27,11 +27,11 @@ namespace WebService.Controllers
             return Ok(searchh);
         }
 
-        [HttpDelete("{userid}")]
-        public IActionResult DeleteSearchhistory(int userid)
+        [HttpDelete]
+        public IActionResult DeleteSearchhistory([FromBody] SearchHistories searchHistory)
         {
-            var Searchh = _dataService.SearchHistories(userid);
-            if (Searchh == null) return NotFound();
+            var Searchh = _dataService.ClearSearch(searchHistory.Search , searchHistory.UserId);
+            if (Searchh == false) return NotFound();
             return Ok(Searchh);
         }
 

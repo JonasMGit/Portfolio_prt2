@@ -19,10 +19,10 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
-        [HttpGet("{word}")]
-        public IActionResult GetWordCloud(string word)
+        [HttpGet("{text}")]
+        public IActionResult GetWordCloud(string text)
         {
-            var clouds = _dataService.GetWordCloud(word);
+            var clouds = _dataService.GetWordCloud(text);
             return Ok(clouds);
         }
 

@@ -23,6 +23,7 @@ namespace WebService.Controllers
                 .Select(x => new
                 {
                     Link = Url.Link(nameof(QuestionsController.GetQuestion), new { id = x.PostId }),
+                    x.Id,
                     x.UserId,
                     x.Body,
                     x.CreationDate
@@ -60,30 +61,30 @@ namespace WebService.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateAnnotation(string body ,[FromBody]Annotations annotations)
+        public IActionResult UpdateAnnotation(string body, [FromBody]Annotations annotations)
         {
-           
-                var anno = _dataService.UpdateAnnotation(annotations.Body, annotations.Id);
-                if (anno == false)
-                {
-                    return NotFound();
-                }
-                return Ok(anno);
-            
-          
-        }
-        /*
-        [HttpDelete]
 
-        public IActionResult DeleteAnnotation(string body)
+            var anno = _dataService.UpdateAnnotation(annotations.Body, annotations.Id);
+            if (anno == false)
+            {
+                return NotFound();
+            }
+            return Ok(anno);
+
+
+        }
+
+        [HttpDelete("{id}")]
+
+        public IActionResult DeleteAnnotation(int id)
         {
-            var delannotation = _dataService.DeleteAnnotation(body);
+            var delannotation = _dataService.DeleteAnnotation(id);
             if (delannotation==false)
             {
                 return NotFound();
             }
             return Ok(delannotation);
         }
-        */
+        
     }
 }

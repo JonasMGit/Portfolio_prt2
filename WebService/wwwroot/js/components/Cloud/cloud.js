@@ -2,21 +2,20 @@
 
     return function (params) {
         var words = ko.observableArray([]);
+        var searchTerm = ko.observable();
 
-        ds.getWords(function (data) {
-            words(data);
-            $('#cloud').jQCloud(words());
-
-
-        });
+        
         var generateCloud = function () {
-
-            
+           
+            ds.createcloud(searchTerm(), function (data) {
+                words(data);
+            });
         };
        
         return {
             words,
-            generateCloud
+            generateCloud,
+            searchTerm
            
         };
 

@@ -7,7 +7,7 @@ namespace DataLayer.Model
    public class WordCloud
     {
        
-        public string Word { get; set; }
+        public string Text { get; set; }
         public double Weight { get; set; }
     }
 }
