@@ -52,7 +52,7 @@ require.config({
         }
     };
 });
-// register components
+// load components
 require(['knockout'], function (ko) {
 
     ko.components.register("question-list",

@@ -28,7 +28,7 @@
                 });
             });
         }
-
+        //need to fix mark
         var mark = function () {
             console.log(curPostId);
             console.log(curUser);

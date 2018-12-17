@@ -2,7 +2,6 @@
 
     //var currentComponent = ko.observable("post-list")
     var selectedParams = ko.observable("");
-
     var title = "Stackinator";
     var menuItems = [
         { name: 'Home', component: 'question-list' },
@@ -20,15 +19,15 @@
         selectedMenu(menu);
         selectedComponent(menu.component);
     };
-
+    /*
     postman.subscribe("changeMenu", function (menuName) {
         var menu = menuItems.find(function (m) {
+
             return m.name === menuName;
         });
         if (menu) changeMenu(menu);
-    });
+    });*/
 
-    
 
     postman.subscribe("selectedComponent", function (data) {
         selectedParams(data.params);

@@ -44,9 +44,9 @@
         
 
         var deleteAnno = function (id) {
-          /*  console.log(id)
+            console.log(id)
 
-            $.ajax({
+          /*  $.ajax({
                 url: 'api/annotations/'+ id,
                 type: 'DELETE',
                 data: JSON.stringify({id: id}),

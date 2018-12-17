@@ -8,6 +8,7 @@
         var canNext = ko.observable(false);
         var nextUrl = "";
         var searchVal = ko.observable(params.back);
+        
        // var postData = { search: searchVal(), userId: id };
 
         //set this id to database user value.
@@ -67,6 +68,7 @@
                 contentType: 'application/json',
 
             });
+
             getSearch(searchVal())
 
         };
@@ -83,7 +85,7 @@
                 }
             });
         };
-
+        
        
 
         return {
