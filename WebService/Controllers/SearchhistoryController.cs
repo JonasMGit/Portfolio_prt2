@@ -19,12 +19,25 @@ namespace WebService.Controllers
         }
 
 
-        [HttpGet("{userid}")]
-        public IActionResult GetSearchhistory(int userid, int postid)
+        [HttpGet("{userid}", Name = nameof(GetSearchhistory))]
+        public IActionResult GetSearchhistory(int userid, int page = 0, int pageSize = 10)
         {
-            var searchh = _dataService.SearchHistories(userid);
-            if (searchh == null) return NotFound();
-            return Ok(searchh);
+            var searchh = _dataService.SearchHistories(userid, page, pageSize);
+
+            var total = _dataService.GetNumberOfSearches();
+            var pages = Math.Ceiling(total / (double)pageSize);
+            var prev = page > 0 ? Url.Link(nameof(GetSearchhistory), new { page = page - 1, pageSize }) : null;
+            var next = page < pages - 1 ? Url.Link(nameof(GetSearchhistory), new { page = page + 1, pageSize }) : null;
+
+            var result = new
+            {
+                total,
+                pages,
+                prev,
+                next,
+                searchh
+            };
+            return Ok(result);
         }
 
         [HttpDelete]

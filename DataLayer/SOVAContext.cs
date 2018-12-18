@@ -66,7 +66,7 @@ namespace DataLayer
 
             //word cloud mapping
             modelBuilder.Query<WordCloud>().Property(x => x.Text).HasColumnName("text");
-            modelBuilder.Query<WordCloud>().Property(x => x.Weight).HasColumnName("weighth");
+            modelBuilder.Query<WordCloud>().Property(x => x.Weight).HasColumnName("weight");
 
 
 

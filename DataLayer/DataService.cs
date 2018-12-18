@@ -11,9 +11,11 @@ namespace DataLayer
     public interface IDataService
     {
         //------search-----------
-        List<SearchHistories> SearchHistories(int id);
+        List<SearchHistories> SearchHistories(int id, int page, int pageSize);
         SearchHistories SaveSearch(string newSearch, int newUserId);
         bool ClearSearch(string search, int id);
+        int GetNumberOfSearches();
+
         //--------Answers--------
         List<Answer> GetAnswers();
         Answer GetAnswer(int id);
@@ -25,7 +27,6 @@ namespace DataLayer
         List<Comment> GetQuestionComments(int id);
         List<SearchResult> GetQuestionsByString(string title, int page, int pageSize);
         int GetNumberOfQuestions();
-        int GetNumberOfSearches();
          List<PostLink> GetPostLinksByQuestion(int id);
         List<Question> GetQuestions(int page, int pageSize);
         Question GetQuestion(int id);
@@ -299,12 +300,14 @@ namespace DataLayer
             }
         }
 
-        public List<SearchHistories> SearchHistories(int id)
+        public List<SearchHistories> SearchHistories(int id, int page, int pageSize)
         {
             using (var db = new SOVAContext())
             {
                 var question = db.SearchHistory
                     .Where(x => x.UserId == id)
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
                     .OrderByDescending(x => x.Date)
                     .ToList();
                     //.FirstOrDefault();
@@ -336,7 +339,7 @@ namespace DataLayer
         {
             using (var db = new SOVAContext())
             {
-                return db.SearchResults.Count();
+                return db.SearchHistory.Count();
             }
         }
 

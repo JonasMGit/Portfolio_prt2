@@ -28,17 +28,25 @@
         $.getJSON("api/users/" + userId, callback)
     };
 
-    var getSearchHistory = function (userId, callback) {
-        $.getJSON("api/searchhistory/" + userId, callback);
+    //var getSearchHistory = function (userId, callback) {
+    //    $.getJSON("api/searchhistory/" + userId, callback);
+
+    //};
+    var getSearchHistory = function (url, callback) {
+        $.getJSON(url, callback);
 
     };
-    var getAnnotations = function (userId, callback) {
-        $.getJSON("api/annotations/" + userId, callback)
+    //var getAnnotations = function (userId, callback) {
+    //    $.getJSON("api/annotations/" + userId, callback)
+
+    //};
+    var getAnnotations = function (url, callback) {
+        $.getJSON(url, callback)
 
     };
 
-    var getMarks = function (userId, callback) {
-        $.getJSON("api/mark/" + userId, callback)
+    var getMarks = function (url, callback) {
+        $.getJSON(url, callback)
     };
 
     //post functions maybe delete. would be nice to finish

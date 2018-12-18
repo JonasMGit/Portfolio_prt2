@@ -23,12 +23,13 @@ namespace WebService.Controllers
                 .Select(x => new
                 {
                     Link = Url.Link(nameof(QuestionsController.GetQuestion), new { id = x.PostId }),
+                    x.PostId,
                     x.Id,
                     x.UserId,
                     x.Body,
                     x.CreationDate
                 });
-            var total = _dataService.GetNumberOfMarks();
+            var total = _dataService.GetNumberOfAnnotations();
             var pages = Math.Ceiling(total / (double)pageSize);
             var prev = page > 0 ? Url.Link(nameof(GetAnnotations), new { page = page - 1, pageSize }) : null;
             var next = page < pages - 1 ? Url.Link(nameof(GetAnnotations), new { page = page + 1, pageSize }) : null;

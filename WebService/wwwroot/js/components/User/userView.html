@@ -10,18 +10,24 @@
             <div data-bind="foreach : annotationInfo">
                 <div style="background: lightgrey; margin: 20px; border: 1px solid black">
 
-            <div>
-                <div>
                     <div>
-                        <h5>Link:</h5><a data-bind="text: link"></a>
-                        <h6>Creation Date:<span data-bind="text: creationDate"></span></h6>
-                        <div data-bind="text: body"></div>
-                        <button data-bind=" click: $parent.deleteAnno(id)"></button>
+                        <div>
+                            <div>
+                                <a href="" data-bind="click: $parent.showPost">
+                                <span >Show Post</span>
+                                </a>
+                                <h6>Creation Date:<span data-bind="text: creationDate"></span></h6>
+                                <div data-bind="text: body"></div>
+                                <button type="button" class="btn btn-danger" data-bind=" click: function(){ $parent.deleteAnno($data,id)}">Delete</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
                 </div>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-primary" data-bind="click: prevAnnotation, enable: canPrevAnnotation">Prev</button>
+                <button type="button" class="btn btn-primary" data-bind="click: nextAnnotation, enable: canNextAnnotation">Next</button>
             </div>
         </div>
 
@@ -31,18 +37,21 @@
             <div data-bind="foreach : searchInfo">
                 <div style="background: lightgrey; margin: 20px; border: 1px solid black">
 
-            <div>
-                <div>
                     <div>
-                        <h4>Search History:</h4>
-                        <h6>Search Date: <span data-bind="text: date"></span></h6>
-                        <div data-bind="text: search"></div>
+                        <div>
+                            <div>
+                                <h6>Search Date: <span data-bind="text: date"></span></h6>
+                                <div data-bind="text: search"></div>
+                                <button type="button" class="btn btn-danger" data-bind=" click: function(){ $parent.deleteSearch($data,search,userId)}">Delete</button>
 
-                                
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-primary" data-bind="click: prevSearch, enable: canPrevSearch">Prev</button>
+                <button type="button" class="btn btn-primary" data-bind="click: nextSearch, enable: canNextSearch">Next</button>
             </div>
         </div>
 
@@ -54,14 +63,22 @@
                     <div>
                         <div>
                             <div>
-                                <h5>Link:</h5><a data-bind="text: link"></a>
+                                <a href="" data-bind="click: $parent.showPost">
+                                    <span>Show Post</span>
+                                </a>
                                 <h6>Creation Date: <span data-bind="text: creationDate"></span></h6>
+                                <button type="button" class="btn btn-danger" data-bind=" click: function(){ $parent.deleteMark($data,postId,userId)}">Delete</button>
+
                             </div>
                         </div>
                     </div>
 
                 </div>
 
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-primary" data-bind="click: prevMark, enable: canPrevMark">Prev</button>
+                <button type="button" class="btn btn-primary" data-bind="click: nextMark, enable: canNextMark">Next</button>
             </div>
         </div>
 
