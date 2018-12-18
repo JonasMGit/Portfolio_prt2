@@ -36,3 +36,7 @@ body {
     width: 1000px;
     margin:auto;
 }
+#userViewBtn {
+    margin-bottom: 24px;
+    margin-left: 5px;
+}

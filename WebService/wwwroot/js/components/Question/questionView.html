@@ -7,8 +7,69 @@
         <h3>Date: <span data-bind="text: creationDate"></span></h3>
         <h3>Score: <span data-bind="text: score"></span></h3>
         <div data-bind="html: body"></div>
-        <button type="button" class="mt-1 btn btn-info" data-bind="click: $parent.mark">Mark Post</button>
-        <input data-bind="textInput:$parent.bodyAnnotation" /> <button type="button" class="mt-1 btn btn-info" data-bind="click: $parent.annotate">Annotate</button>
+        <button type="button" class="mt-1 btn btn-info" data-toggle="modal" data-target="#markModalCenter" data-bind="click: $parent.mark">Mark Post</button>
+        <!----------------- Mark Modal ---------------->
+        <div class="modal fade" id="markModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Succes</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Mark created.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <input data-bind="textInput:$parent.bodyAnnotation" /> <button type="button" class="mt-1 btn btn-info" data-toggle="modal" data-target="#annotationModalCenter" data-bind="click: $parent.annotate">Annotate</button>
+        <!----------------- Annotation Modal ---------------->
+        <div class="modal fade" id="annotationModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Succes</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Annotation created.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!----------------- Annotation Modal ---------------->
+        <div class="modal fade" id="annotationModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Succes</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Annotation created.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <h3>Comments</h3>
         <div data-bind="foreach: comments.items">
             <div style="background: lightgrey; margin: 20px; border: 1px solid black;">
