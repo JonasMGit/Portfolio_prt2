@@ -4,7 +4,7 @@ a {
 
 }
 
-.btn btn-info {
+#midPageBtn {
     padding: 5px;
     margin: 5px;
 }
@@ -36,7 +36,8 @@ body {
     width: 1000px;
     margin:auto;
 }
-#userViewBtn {
-    margin-bottom: 24px;
+#bottomOfThePageBtn {
+    margin-bottom: 25px;
     margin-left: 5px;
 }
+
