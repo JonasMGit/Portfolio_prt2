@@ -11,10 +11,27 @@
         
        // var postData = { search: searchVal(), userId: id };
 
-        //set this id to database user value.
-        var id = "13"
+        //set this id to database user value. Also set id in user viewModel staticUser()
+        var userName = "Guest"
+        var password = "Guest"
 
+        //set id to the id in database under users here also set id in user.js to the same id.
+        var userid = "54"
 
+        //set up a user with post and then get the info elsewhere
+        //First start of program press button generate user on the first page to make a user
+        //Then write the id in the database for that user in the variable id on line 19
+        var generateUser = function () {
+            $.ajax({
+                type: 'POST',
+                url: 'api/users/',
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify({ userName: userName, password: password }),
+                contentType: 'application/json',
+
+            });
+        }
+       
 
         var getPosts = function (url) {
 
@@ -64,7 +81,7 @@
                 type: 'POST',
                 url: 'api/searchhistory/add/',
                 // The key needs to match your method's input parameter (case-sensitive).
-                data: JSON.stringify({ search: searchVal(), userId: id }),
+                data: JSON.stringify({ search: searchVal(), userId: userid }),
                 contentType: 'application/json',
 
             });
@@ -80,7 +97,7 @@
                 item: "question", params: {
                     link: post.link,
                     back: searchVal(),
-                    userId: id,
+                    userId: userid,
                     postId: post.id
                 }
             });
@@ -98,7 +115,8 @@
             searchVal,
             showPost,
             currentComponent,
-            id,
+            userid,
+            generateUser
             //postId
 
 

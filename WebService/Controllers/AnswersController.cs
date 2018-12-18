@@ -44,13 +44,14 @@ namespace WebService.Controllers
             };
             return Ok(result);
         }
-
         [HttpGet("{id}", Name = nameof(GetAnswersByParent))]
         public IActionResult GetAnswersByParent(int id)
         {
             var answerbyparent = _dataService.GetAnswersByParent(id);
 
             if (answerbyparent.Count == 0) return NotFound();
+            //use dto's here which is unnecissary. Could just do it how we did in other controllers
+
             List<AnswerDto> dtoAnswers = new List<AnswerDto>();
             
             foreach (var item in answerbyparent)

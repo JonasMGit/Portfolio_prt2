@@ -239,6 +239,7 @@ namespace DataLayer
                     CreationDate = creationdate
                 };
                 db.Users.Add(newUser);
+                    
                 db.SaveChanges();
                 return newUser;
 

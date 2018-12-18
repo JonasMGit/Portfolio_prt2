@@ -30,7 +30,7 @@ namespace WebService.Controllers
             _userService = userService;
         }
 
-
+        ///Our attempt at creating athentication. Was not completed
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody]User userParam)
@@ -42,14 +42,13 @@ namespace WebService.Controllers
 
             return Ok(user);
         }
-        //what is this for???
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var users = await _userService.GetAll();
             return Ok(users);
         }
-
+        ///-------------------------------------------------------------
         [HttpGet("{id}", Name = nameof(GetUser))]
         public IActionResult GetUser(int id)
         {

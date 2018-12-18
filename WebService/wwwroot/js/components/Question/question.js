@@ -12,7 +12,7 @@
         var curPostId = params.postId;
         var bodyAnnotation = ko.observable("")
    
-
+        //using dto's for answers made it overly complicated in the forntend to gain access. needed to do comments.item in html foreach
         var getPostAnswers = function (url) {
             ds.getPost(url, function (data) {
                 $.getJSON(data.answers, function (answers) {
@@ -30,8 +30,7 @@
         }
         //need to fix mark
         var mark = function () {
-            console.log(curPostId);
-            console.log(curUser);
+        
             $.ajax({
                 type: 'POST',
                 url: 'api/mark/',

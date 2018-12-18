@@ -6,7 +6,7 @@
         var searchInfo = ko.observableArray([]);
         var userName = ko.observable();
         var markInfo = ko.observableArray([]);
-
+        //these declarations for mark annotate and search history could probably be made in a smarter with less hard coding
         //mark declartion
         var prevUrlMark = "";
         var nextUrlMark = "";
@@ -25,11 +25,13 @@
         var canPrevAnnotation = ko.observable(false);
         var canNextAnnotation = ko.observable(false);
 
-        
-        var staticUser = "13";
-        var markUrl = "api/mark/" + staticUser;
-        var annotationUrl = "api/annotations/" + staticUser;
-        var searchHistoryUrl = "api/searchhistory/" + staticUser;
+        //set userid to value in database. Also set id value in question list to same as here
+        var userid = "54";
+
+
+        var markUrl = "api/mark/" + userid;
+        var annotationUrl = "api/annotations/" + userid;
+        var searchHistoryUrl = "api/searchhistory/" + userid;
 
         var getUser = function (userid) {
             ds.getUser(userid, function (data) {
@@ -159,7 +161,7 @@
 
 
         
-        getUser(staticUser);
+        getUser(userid);
 
         getAnnotations(annotationUrl);
 

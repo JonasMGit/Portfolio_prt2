@@ -19,6 +19,8 @@
         selectedMenu(menu);
         selectedComponent(menu.component);
     };
+
+
     /*
     postman.subscribe("changeMenu", function (menuName) {
         var menu = menuItems.find(function (m) {
